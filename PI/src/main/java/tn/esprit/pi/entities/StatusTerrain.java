@@ -1,4 +1,5 @@
 package tn.esprit.pi.entities;
 
-public class StatusTerrain {
+public enum StatusTerrain {
+    Reserve,Libre
 }
