@@ -1,4 +1,4 @@
 package tn.esprit.pi.entities;
 
-public class Evenement {
+public class User {
 }
