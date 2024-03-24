@@ -19,10 +19,9 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int eventid;
-     String nomevent;
+    String nomevent;
     LocalDate dateDebut;
     LocalDate dateFin;
-    String lieu;
     String image;
     int nbPlace;
 }

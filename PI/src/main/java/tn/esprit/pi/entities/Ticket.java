@@ -19,4 +19,5 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int IdTicket ;
     LocalDate dateTicket;
+
 }

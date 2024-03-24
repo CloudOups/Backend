@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Sport {
+public class CoursSport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int IdSport;

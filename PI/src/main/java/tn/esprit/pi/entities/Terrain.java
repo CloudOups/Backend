@@ -17,4 +17,7 @@ public class Terrain {
     String nomTerrain;
     @Enumerated(EnumType.STRING)
     StatusTerrain statusTerrain;
+    @Enumerated(EnumType.STRING)
+    TypeTerrain typeTerrain;
+
 }

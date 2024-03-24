@@ -18,5 +18,5 @@ public class Tournoi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int IdTournoi;
     String nomTournoi;
-    String Recomponse;
+    String Recompense;
 }
