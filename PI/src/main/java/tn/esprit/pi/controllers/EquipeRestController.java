@@ -23,11 +23,11 @@ public class EquipeRestController {
     public Equipe updateEquipe(@RequestBody Equipe equipe) {
         return equipeServices.updateEquipe(equipe);
     }
-    @GetMapping("/get/{{idEquipe}}")
+    @GetMapping("/get/{idEquipe}")
     public Equipe getEquipe(@PathVariable int idEquipe){
         return equipeServices.getById(idEquipe);
     }
-    @DeleteMapping("/delete/{{idEquipe}}")
+    @DeleteMapping("/delete/{idEquipe}")
     public void removeEquipe(@PathVariable int idEquipe){
          equipeServices.delete(idEquipe);
     }

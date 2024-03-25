@@ -11,24 +11,21 @@ import java.util.List;
 @RestController
 public class TerrainRestController {
 
-
-
     private TerrainServices terrainServices;
 
     @PostMapping("/add")
     public Terrain addTerrain(@RequestBody Terrain terrain) {
         return terrainServices.addTerrain(terrain);
     }
-
     @PutMapping("/update")
     public Terrain updateTerrain(@RequestBody Terrain terrain) {
         return terrainServices.updateTerrain(terrain);
     }
-    @GetMapping("/get/{{idTerrain}}")
+    @GetMapping("/get/{idTerrain}")
     public Terrain getTerrain(@PathVariable int idTerrain){
         return terrainServices.getById(idTerrain);
     }
-    @DeleteMapping("/delete/{{idTerrain}}")
+    @DeleteMapping("/delete/{idTerrain}")
     public void removeTerrain(@PathVariable int idTerrain){
         terrainServices.delete(idTerrain);
     }
