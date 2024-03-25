@@ -21,4 +21,5 @@ public class Publication {
     String sujet ;
     String contenu;
     LocalDate  dateCreation;
+    
 }

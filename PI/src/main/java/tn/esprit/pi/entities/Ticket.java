@@ -1,9 +1,6 @@
 package tn.esprit.pi.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,5 +16,9 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int IdTicket ;
     LocalDate dateTicket;
+    @OneToOne(mappedBy ="ticket")
+    User user;
+    @ManyToOne
+    Event event;
 
 }

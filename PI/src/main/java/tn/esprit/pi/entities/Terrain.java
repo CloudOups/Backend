@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,5 +21,7 @@ public class Terrain {
     StatusTerrain statusTerrain;
     @Enumerated(EnumType.STRING)
     TypeTerrain typeTerrain;
+    @OneToMany(mappedBy = "Terrain", cascade = CascadeType.ALL)
+    Set<ReservationTerrain> reservations;
 
 }

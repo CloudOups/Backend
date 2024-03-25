@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,4 +19,6 @@ public class CoursSport {
     @Enumerated(EnumType.STRING)
     TypeSport typeSport;
     String description;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "coursSport")
+    Set<Abonnement> abonnements;
 }

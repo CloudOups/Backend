@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
     @AllArgsConstructor
     @FieldDefaults(level = AccessLevel.PRIVATE)
     @Entity
-    public class AutreEvent {
+    public class AutreEvent extends Event   {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         int idAutreEv;

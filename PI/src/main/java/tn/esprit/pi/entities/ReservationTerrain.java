@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,4 +22,10 @@ public class ReservationTerrain {
     LocalDate dateFin;
     @Enumerated(EnumType.STRING)
     TypeReservation typeRes;
+    @ManyToMany(mappedBy = "Reservatons",cascade = CascadeType.ALL)
+    Set<User> users;
+    @OneToOne
+    Tournoi tournoi;
+    @ManyToOne
+    Terrain terrain;
 }

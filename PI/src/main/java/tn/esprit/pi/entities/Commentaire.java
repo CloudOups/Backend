@@ -1,9 +1,6 @@
 package tn.esprit.pi.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,4 +18,8 @@ public class Commentaire {
     int id_cm;
     String contenu_cm;
     LocalDate date_cm;
+    @ManyToOne
+    User user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    Publication publication;
 }

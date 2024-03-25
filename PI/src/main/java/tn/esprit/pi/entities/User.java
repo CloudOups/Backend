@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,4 +24,20 @@ public class User {
     Role role;
     String photo;
     String classe;
+    @OneToOne
+     Abonnement abonnement;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy ="user")
+    Set<Commentaire> Commentaires;
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<Publication> publications;
+    @OneToOne
+    Panier panier;
+    @OneToOne
+    Ticket ticket;
+    @OneToOne
+    Equipe equipe;
+    @ManyToMany(cascade = CascadeType.ALL)
+    Set<ReservationTerrain> reservations;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "userCommands")
+    Set<Commande> commands;
 }

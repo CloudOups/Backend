@@ -17,4 +17,6 @@ public class Abonnement {
     String nomAbonn;
     @Enumerated(EnumType.STRING)
      TypeAbonn typeAbonn;
+    @ManyToOne
+    CoursSport coursSport;
 }
