@@ -16,7 +16,8 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numTicket ;
     LocalDate dateTicket;
-    @OneToOne(mappedBy ="ticket")
+
+    @OneToOne
     User user;
     @ManyToOne
     Event event;

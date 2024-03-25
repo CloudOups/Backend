@@ -17,8 +17,8 @@ public class Equipe {
     Long numequipe;
     String nomEquipe;
     int classement;
+    @OneToOne(cascade = CascadeType.PERSIST )
+    User chef;
     @ManyToOne
     Tournoi tournoi;
-    @OneToOne(cascade = CascadeType.PERSIST )
-    Equipe equipe;
 }

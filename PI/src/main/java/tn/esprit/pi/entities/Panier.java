@@ -18,7 +18,7 @@ public class Panier {
     int idPanier;
     int nbItem;
     float totalPrix;
-    @OneToOne(mappedBy = "panier")
+    @OneToOne
     User user;
     @ManyToMany
     Set<Produit> produits;

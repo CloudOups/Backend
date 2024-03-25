@@ -17,29 +17,31 @@ import java.util.Set;
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int userId;
+    Long userId;
     String nom;
     String prenom;
     String email;
-    String motDePasse;
+    String mdp;
     @Enumerated(EnumType.STRING)
     Role role;
     String photo;
     String classe;
-    @OneToOne(cascade = CascadeType.PERSIST )
-    Abonnement abonnement;
+
     @OneToMany(mappedBy = "user")
     Set<ReservationTerrain> reservationTerrains;
-    @OneToOne(cascade = CascadeType.PERSIST )
-    Equipe equipe;
-    @OneToOne
+
+    @OneToOne(mappedBy ="user")
     Ticket ticket;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="user")
     Set<Commentaire> Commentaires;
+
     @OneToMany(cascade = CascadeType.ALL)
     Set<Publication> publications;
-    @OneToOne
+
+    @OneToOne(mappedBy = "user")
     Panier panier;
+
     @OneToMany(cascade = CascadeType.ALL)
     Set<Commande> commandes;
 }

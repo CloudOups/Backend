@@ -16,8 +16,10 @@ public class Abonnement {
     Long numAbonn;
     String nomAbonn;
     @Enumerated(EnumType.STRING)
-     TypeAbonn typeAbonn;
+    TypeAbonn typeAbonn;
     @ManyToOne
     CoursSport coursSport;
+    @OneToOne(cascade = CascadeType.PERSIST )
+    User user;
 
 }
