@@ -21,7 +21,7 @@ public class Terrain {
     StatusTerrain statusTerrain;
     @Enumerated(EnumType.STRING)
     TypeTerrain typeTerrain;
-    @OneToMany(mappedBy = "Terrain", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "terrain", cascade = CascadeType.ALL)
     Set<ReservationTerrain> reservations;
 
 }

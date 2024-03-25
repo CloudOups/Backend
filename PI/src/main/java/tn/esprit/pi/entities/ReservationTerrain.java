@@ -22,7 +22,7 @@ public class ReservationTerrain {
     LocalDate dateFin;
     @Enumerated(EnumType.STRING)
     TypeReservation typeRes;
-    @ManyToMany(mappedBy = "Reservatons",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "reservations",cascade = CascadeType.ALL)
     Set<User> users;
     @OneToOne
     Tournoi tournoi;

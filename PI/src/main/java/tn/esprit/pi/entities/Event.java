@@ -23,6 +23,6 @@ public class Event {
     LocalDate dateFin;
     String image;
     int nbPlace;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Event")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     Set<Ticket> tickets;
 }

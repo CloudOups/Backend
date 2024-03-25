@@ -22,7 +22,7 @@ public class Panier {
     User user;
     @ManyToMany
     Set<Produit> produits;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "PanierCommands")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "panier")
     Set<Commande> commands;
 
 }

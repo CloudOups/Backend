@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Getter
@@ -12,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int userId;
@@ -38,6 +39,6 @@ public class User {
     Equipe equipe;
     @ManyToMany(cascade = CascadeType.ALL)
     Set<ReservationTerrain> reservations;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "userCommands")
+    @OneToMany(cascade = CascadeType.ALL)
     Set<Commande> commands;
 }
