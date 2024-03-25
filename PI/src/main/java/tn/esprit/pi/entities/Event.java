@@ -22,7 +22,10 @@ public class Event {
     LocalDate dateDebut;
     LocalDate dateFin;
     String image;
-    int nbPlace;
+    int nbParticipants;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     Set<Ticket> tickets;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
+    Set<Tournoi> tournois;
 }

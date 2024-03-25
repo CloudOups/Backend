@@ -12,16 +12,17 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Tournoi  {
+public class Tournoi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numTournoi;
     String nomTournoi;
+    TypeTerrain typeTournoi;
     String Recompense;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "tournoi")
     Set<Equipe> equipes;
     @OneToOne(mappedBy = "tournoi")
     ReservationTerrain reservation;
-
-
+    @ManyToOne
+    Event event;
 }
