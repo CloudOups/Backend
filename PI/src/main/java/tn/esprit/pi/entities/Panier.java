@@ -15,8 +15,8 @@ import java.util.Set;
 public class Panier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int IdPanier;
-    int NbItem;
+    int idPanier;
+    int nbItem;
     float totalPrix;
     @OneToOne(mappedBy = "panier")
     User user;

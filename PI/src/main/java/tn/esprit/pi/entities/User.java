@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -25,20 +26,20 @@ public class User implements Serializable {
     Role role;
     String photo;
     String classe;
+    @OneToOne(cascade = CascadeType.PERSIST )
+    Abonnement abonnement;
+    @OneToMany(mappedBy = "user")
+    Set<ReservationTerrain> reservationTerrains;
+    @OneToOne(cascade = CascadeType.PERSIST )
+    Equipe equipe;
     @OneToOne
-     Abonnement abonnement;
+    Ticket ticket;
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="user")
     Set<Commentaire> Commentaires;
     @OneToMany(cascade = CascadeType.ALL)
     Set<Publication> publications;
     @OneToOne
     Panier panier;
-    @OneToOne
-    Ticket ticket;
-    @OneToOne
-    Equipe equipe;
-    @ManyToMany(cascade = CascadeType.ALL)
-    Set<ReservationTerrain> reservations;
     @OneToMany(cascade = CascadeType.ALL)
-    Set<Commande> commands;
+    Set<Commande> commandes;
 }

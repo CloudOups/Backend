@@ -17,15 +17,16 @@ import java.util.Set;
 public class ReservationTerrain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int IdRes;
+    Long numRes;
     LocalDate dateDebut;
     LocalDate dateFin;
     @Enumerated(EnumType.STRING)
     TypeReservation typeRes;
-    @ManyToMany(mappedBy = "reservations",cascade = CascadeType.ALL)
-    Set<User> users;
-    @OneToOne
-    Tournoi tournoi;
+    @ManyToOne
+    User user;
     @ManyToOne
     Terrain terrain;
+    @OneToOne
+    Tournoi tournoi;
+
 }

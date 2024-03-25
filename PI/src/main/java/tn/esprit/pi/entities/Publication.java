@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Publication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int idPub;
+    Long numPub;
     String sujet ;
     String contenu;
     LocalDate  dateCreation;

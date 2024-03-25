@@ -13,8 +13,7 @@ import lombok.experimental.FieldDefaults;
 public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int IdCommande ;
-    int numCommande;
+    Long numCommande ;
     float totalprix;
     @ManyToOne
     User user;

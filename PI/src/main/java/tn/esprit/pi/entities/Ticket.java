@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int IdTicket ;
+    Long numTicket ;
     LocalDate dateTicket;
     @OneToOne(mappedBy ="ticket")
     User user;

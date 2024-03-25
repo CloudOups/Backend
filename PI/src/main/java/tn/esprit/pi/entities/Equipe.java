@@ -14,9 +14,11 @@ import lombok.experimental.FieldDefaults;
 public class Equipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int EquipeID;
+    Long numequipe;
     String nomEquipe;
     int classement;
     @ManyToOne
     Tournoi tournoi;
+    @OneToOne(cascade = CascadeType.PERSIST )
+    Equipe equipe;
 }

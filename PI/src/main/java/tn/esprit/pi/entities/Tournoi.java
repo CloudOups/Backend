@@ -15,11 +15,13 @@ import java.util.Set;
 public class Tournoi  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int IdTournoi;
+    Long numTournoi;
     String nomTournoi;
     String Recompense;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "tournoi")
     Set<Equipe> equipes;
     @OneToOne(mappedBy = "tournoi")
     ReservationTerrain reservation;
+
+
 }

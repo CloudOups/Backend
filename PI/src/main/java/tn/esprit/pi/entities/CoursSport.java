@@ -15,7 +15,7 @@ import java.util.Set;
 public class CoursSport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int IdSport;
+    Long idcours;
     @Enumerated(EnumType.STRING)
     TypeSport typeSport;
     String description;

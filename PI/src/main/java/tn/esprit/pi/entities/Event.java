@@ -17,7 +17,7 @@ import java.util.Set;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int eventid;
+    Long numevent;
     String nomevent;
     LocalDate dateDebut;
     LocalDate dateFin;

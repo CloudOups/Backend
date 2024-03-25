@@ -15,9 +15,9 @@ import java.time.LocalDate;
 public class Commentaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id_cm;
-    String contenu_cm;
-    LocalDate date_cm;
+    int idcmt;
+    String contenucm;
+    LocalDate datecm;
     @ManyToOne
     User user;
     @ManyToOne(cascade = CascadeType.ALL)

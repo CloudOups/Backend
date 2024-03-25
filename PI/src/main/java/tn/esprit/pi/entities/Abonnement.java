@@ -13,10 +13,11 @@ import lombok.experimental.FieldDefaults;
 public class Abonnement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int idAbonn;
+    Long numAbonn;
     String nomAbonn;
     @Enumerated(EnumType.STRING)
      TypeAbonn typeAbonn;
     @ManyToOne
     CoursSport coursSport;
+
 }

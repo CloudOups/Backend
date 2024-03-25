@@ -17,6 +17,6 @@ import lombok.experimental.FieldDefaults;
     public class AutreEvent    {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        int idAutreEv;
+        Long numautrevn;
         String lieu;
     }
