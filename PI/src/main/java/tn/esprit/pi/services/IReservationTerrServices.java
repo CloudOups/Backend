@@ -7,7 +7,7 @@ import java.util.List;
 public interface IReservationTerrServices {
     ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain);
     ReservationTerrain updateReservationTerrain(ReservationTerrain reservationTerrain);
-    void delete(int numRes);
-    ReservationTerrain getById(int numRes);
+    void delete(Long numRes);
+    ReservationTerrain getById(Long numRes);
     List<ReservationTerrain> getAll();
 }

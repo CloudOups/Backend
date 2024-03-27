@@ -44,4 +44,7 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     Set<Commande> commandes;
-}
+    /*@ManyToOne
+    @JoinColumn(name = "equipe_id")
+    private Equipe equipe;*/
+ }

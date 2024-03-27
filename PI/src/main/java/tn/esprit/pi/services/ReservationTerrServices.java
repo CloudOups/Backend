@@ -20,13 +20,13 @@ public class ReservationTerrServices implements IReservationTerrServices{
     }
 
     @Override
-    public void delete(int numRes) {
+    public void delete(Long numRes) {
         reservationTerrRepository.deleteById(numRes);
 
     }
 
     @Override
-    public ReservationTerrain getById(int numRes) {
+    public ReservationTerrain getById(Long numRes) {
         return reservationTerrRepository.findById(numRes).get();
     }
 

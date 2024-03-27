@@ -3,7 +3,10 @@ package tn.esprit.pi.repositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import tn.esprit.pi.entities.Equipe;
-@Repository
+import tn.esprit.pi.entities.MembresEquipe;
 
-public interface IEquipeRepository extends CrudRepository <Equipe,Long>{
+@Repository
+public interface IMembresEquipeRepository extends CrudRepository<MembresEquipe, Equipe> {
+
+   // void deleteByEquipeId(Long equipeID);
 }

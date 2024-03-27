@@ -18,11 +18,11 @@ public class ReservationTerrRestController {
         return reservationTerrServices.updateReservationTerrain(reservationTerrain);
     }
     @GetMapping("/get/{idReservationTerrain}")
-    public ReservationTerrain getReservationTerrain(@PathVariable int idReservationTerrain){
+    public ReservationTerrain getReservationTerrain(@PathVariable Long idReservationTerrain){
         return reservationTerrServices.getById(idReservationTerrain);
     }
     @DeleteMapping("/delete/{idReservationTerrain}")
-    public void removeReservationTerrain(@PathVariable int idReservationTerrain){
+    public void removeReservationTerrain(@PathVariable Long idReservationTerrain){
         reservationTerrServices.delete(idReservationTerrain);
     }
     @GetMapping("/get/all")
