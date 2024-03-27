@@ -24,5 +24,4 @@ public class Terrain implements Serializable {
     TypeTerrain typeTerrain;
     @OneToMany(mappedBy = "terrain", cascade = CascadeType.ALL)
     Set<ReservationTerrain> reservations;
-
 }

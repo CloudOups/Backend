@@ -1,5 +1,6 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,6 +24,7 @@ public class Tournoi {
     Set<Equipe> equipes;
     @OneToOne(mappedBy = "tournoi")
     ReservationTerrain reservation;
+    @JsonIgnore
     @ManyToOne
     Event event;
 }

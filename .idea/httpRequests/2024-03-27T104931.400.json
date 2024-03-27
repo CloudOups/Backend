@@ -1,0 +1,6 @@
+{
+  "timestamp": "2024-03-27T09:49:31.568+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "path": "/pi/ticket/add"
+}

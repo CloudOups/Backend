@@ -29,19 +29,14 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user")
     Set<ReservationTerrain> reservationTerrains;
-
     @OneToOne(mappedBy ="user")
     Ticket ticket;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="user")
     Set<Commentaire> Commentaires;
-
     @OneToMany(cascade = CascadeType.ALL)
     Set<Publication> publications;
-
     @OneToOne(mappedBy = "user")
     Panier panier;
-
     @OneToMany(cascade = CascadeType.ALL)
     Set<Commande> commandes;
 }

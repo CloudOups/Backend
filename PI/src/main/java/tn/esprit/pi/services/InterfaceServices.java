@@ -8,5 +8,6 @@ public interface InterfaceServices <T> {
         void delete(Long id);
         T getById(Long id);
         List<T> getAll();
+        T assignToEvent(Long idevent,Long identity);
 
 }

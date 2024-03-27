@@ -10,4 +10,6 @@ public interface IEventServices {
     void delete(Long id);
     Event getById(Long id);
     List<Event> getAll();
+    Event findByName(String nom);
+
 }

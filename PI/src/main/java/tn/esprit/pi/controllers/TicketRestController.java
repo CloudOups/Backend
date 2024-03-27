@@ -3,6 +3,7 @@ package tn.esprit.pi.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Ticket;
+import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.services.TicketServices;
 
 import java.util.List;
@@ -13,19 +14,19 @@ import java.util.List;
 public class TicketRestController {
     private TicketServices ticketServices;
 
-    @PostMapping("/add")
-    public Ticket addTicket(@RequestBody Ticket ticket){
-        return  ticketServices.add(ticket);
+    @PostMapping("/add/{idevent}")
+    public Ticket addTicket(@RequestBody Ticket ticket,@PathVariable Long idevent){
+        return  ticketServices.addTicket(ticket,idevent);
     }
 
     @PutMapping("/update")
     public Ticket updateTicket(@RequestBody Ticket ticket){
-        return ticketServices.update(ticket);
+        return ticketServices.updateTicket(ticket);
     }
 
     @DeleteMapping("/delete/{idticket}")
     public void deleteTicket(@PathVariable Long idticket){
-        ticketServices.delete(idticket);
+        ticketServices.deleteTicket(idticket);
     }
 
     @GetMapping("/get/{idticket}")
@@ -37,6 +38,11 @@ public class TicketRestController {
     public List<Ticket> getAll(){
         return ticketServices.getAll();
     }
+
+//    @PutMapping("/assign/{idevent}/{idticket}")
+//    public Ticket assignTicketToEvent(@PathVariable Long idevent, @PathVariable Long idticket){
+//        return ticketServices.assignToEvent(idevent, idticket);
+//    }
 }
 
 

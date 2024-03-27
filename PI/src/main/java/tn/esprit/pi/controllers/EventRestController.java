@@ -13,6 +13,7 @@ import java.util.List;
         EventServices eventServices;
         @PostMapping("/add")
         public Event addEvent(@RequestBody Event event){
+            event.setImage("https://example.com/image.jpg");
             return eventServices.add(event);
         }
 

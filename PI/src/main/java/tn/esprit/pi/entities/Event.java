@@ -25,7 +25,6 @@ public class Event {
     int nbParticipants;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     Set<Ticket> tickets;
-
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
     Set<Tournoi> tournois;
 }

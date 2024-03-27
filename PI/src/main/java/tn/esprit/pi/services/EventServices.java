@@ -37,4 +37,15 @@ public class EventServices implements IEventServices {
         return (List<Event>) eventRepository.findAll() ;
     }
 
+    @Override
+    public Event findByName(String nom) {
+        List<Event> allEvents = getAll();
+        for (Event e : allEvents) {
+            if (e.getNomevent().equalsIgnoreCase(nom)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
 }
