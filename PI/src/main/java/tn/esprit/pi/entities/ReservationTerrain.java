@@ -1,9 +1,11 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -14,7 +16,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 
-public class ReservationTerrain {
+public class ReservationTerrain implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numRes;
@@ -22,8 +24,10 @@ public class ReservationTerrain {
     LocalDate dateFin;
     @Enumerated(EnumType.STRING)
     TypeReservation typeRes;
+    //@JsonIgnore
     @ManyToOne
     User user;
+    //@JsonIgnore
     @ManyToOne
     Terrain terrain;
     @OneToOne

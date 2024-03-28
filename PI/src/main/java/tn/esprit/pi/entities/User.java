@@ -1,5 +1,6 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -26,7 +27,7 @@ public class User implements Serializable {
     Role role;
     String photo;
     String classe;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     Set<ReservationTerrain> reservationTerrains;
 

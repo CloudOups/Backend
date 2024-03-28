@@ -5,13 +5,15 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-    @Getter
+import java.io.Serializable;
+
+@Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     @FieldDefaults(level = AccessLevel.PRIVATE)
     @Entity
-    public class MembresEquipe {
+    public class MembresEquipe implements Serializable {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         int id;
