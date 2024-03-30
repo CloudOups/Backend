@@ -10,5 +10,5 @@ public interface IReservationTerrServices {
     void delete(Long numRes);
     ReservationTerrain getById(Long numRes);
     List<ReservationTerrain> getAll();
-    ReservationTerrain assignToUser(Long numRes, Long iduser);
+  //  ReservationTerrain assignToUser(Long numRes, Long iduser);
 }

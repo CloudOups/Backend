@@ -2,9 +2,11 @@ package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.pi.entities.StatusTerrain;
 import tn.esprit.pi.entities.Terrain;
 import tn.esprit.pi.services.TerrainServices;
 
+import java.util.Collection;
 import java.util.List;
 @RequestMapping("/terrain")
 @AllArgsConstructor
@@ -22,7 +24,7 @@ public class TerrainRestController {
         return terrainServices.updateTerrain(terrain);
     }
     @GetMapping("/get/{idTerrain}")
-    public Terrain getTerrain(@PathVariable Long idTerrain){
+    public Terrain getTerrainById(@PathVariable Long idTerrain){
         return terrainServices.getById(idTerrain);
     }
     @DeleteMapping("/delete/{idTerrain}")
@@ -30,7 +32,10 @@ public class TerrainRestController {
         terrainServices.delete(idTerrain);
     }
     @GetMapping("/get/all")
-    public List<Terrain> getAll(){
-        return terrainServices.getAll();
+    public List<Terrain> getAll(){ return terrainServices.getAll();
+    }
+    @GetMapping("/get/status=/{statusTerrain}")
+        public List<Terrain> getTerrainByNom(@PathVariable String statusTerrain){
+        return terrainServices.getByEtat(statusTerrain);
     }
 }

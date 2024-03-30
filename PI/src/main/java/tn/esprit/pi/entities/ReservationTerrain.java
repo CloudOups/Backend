@@ -20,6 +20,7 @@ public class ReservationTerrain implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numRes;
+    Boolean etatReser =true;
     LocalDate dateDebut;
     LocalDate dateFin;
     @Enumerated(EnumType.STRING)

@@ -9,6 +9,8 @@ import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
 import tn.esprit.pi.repositories.IUserRepository;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -29,6 +31,7 @@ public class ReservationTerrServices implements IReservationTerrServices{
 
     @Override
     public ReservationTerrain updateReservationTerrain(ReservationTerrain reservationTerrain) {
+    //    if(reservationTerrain.getEtatReser()==true &&)
         return reservationTerrRepository.save(reservationTerrain);
     }
 
@@ -48,12 +51,13 @@ public class ReservationTerrServices implements IReservationTerrServices{
         return (List<ReservationTerrain>) reservationTerrRepository.findAll();
     }
 
-    @Override
+  /*  @Override
     public ReservationTerrain assignToUser(Long numRes, Long iduser) {
         ReservationTerrain reservationTerrain =reservationTerrRepository.findById(numRes).orElse(null) ;
         User user =userRepository.findById(iduser).orElse(null);
         reservationTerrain.setUser(user);
         return reservationTerrRepository.save(reservationTerrain);
-    }
+    }*/
+
 }
 

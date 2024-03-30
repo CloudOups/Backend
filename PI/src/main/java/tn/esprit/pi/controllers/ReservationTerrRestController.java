@@ -21,7 +21,7 @@ public class ReservationTerrRestController {
         return reservationTerrServices.updateReservationTerrain(reservationTerrain);
     }
     @GetMapping("/get/{idRes}")
-    public ReservationTerrain getReservationTerrain(@PathVariable Long idRes){
+    public ReservationTerrain getReservationTerrainbyId(@PathVariable Long idRes){
         return reservationTerrServices.getById(idRes);
     }
     @DeleteMapping("/delete/{idRes}")
@@ -33,8 +33,4 @@ public class ReservationTerrRestController {
         return reservationTerrServices.getAll();
     }
 
-    @PutMapping("/assignToUser/{numRes}/{iduser}")
-    public  ReservationTerrain assignToUser(@PathVariable Long numRes, @PathVariable Long iduser){
-        return reservationTerrServices.assignToUser(numRes,iduser);
-    }
 }
