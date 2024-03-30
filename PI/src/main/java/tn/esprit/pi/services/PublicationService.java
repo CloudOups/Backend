@@ -33,4 +33,23 @@ public class PublicationService implements IPublicationService {
     public List<Publication> getAll() {
         return publicationRepository.findAll();
     }
+
+    //like publication
+    public Publication likePublication(Long numPub) {
+        Publication publication = getById(numPub);
+        if (publication != null) { //ntestiw publication mawjouda ou non
+            publication.setLikes(publication.getLikes() + 1); //incrementiw nb des likes
+            return publicationRepository.save(publication); //save puvlication
+        }
+        return null;
+    }
+
+    public Publication unlikePublication(Long numPub) {
+        Publication publication = getById(numPub);
+        if (publication != null && publication.getLikes() > 0) { //ntestiw publication mawjouda ou non ou zeda nchouf ken les likes > 0
+            publication.setLikes(publication.getLikes() - 1);//decrementiw nb des likes
+            return publicationRepository.save(publication);//save publication
+        }
+        return null;
+    }
 }
