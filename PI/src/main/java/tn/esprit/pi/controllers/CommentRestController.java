@@ -1,9 +1,9 @@
 package tn.esprit.pi.controllers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Commentaire;
 import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.services.CommentService;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,10 @@ import java.util.Optional;
 @RequestMapping("/commentaire")
 @RestController
 public class CommentRestController {
-    private CommentService  commentaireService;
+
+    private  CommentService commentaireService;
+
+
 
     @PostMapping("/add")
     public Commentaire addCommentaire(@RequestBody Commentaire commentaire) {
