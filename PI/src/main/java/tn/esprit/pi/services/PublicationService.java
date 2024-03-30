@@ -5,30 +5,31 @@ import tn.esprit.pi.repositories.IPublicationRepository;
 
 import java.util.List;
 
-public class PublicationService {
-    private final IPublicationRepository publicationRepository;
+public class PublicationService implements IPublicationService {
+    IPublicationRepository publicationRepository;
 
 
-    public PublicationService(IPublicationRepository publicationRepository) {
-        this.publicationRepository = publicationRepository;
-    }
-
+    @Override
     public Publication addPublication(Publication publication) {
         return publicationRepository.save(publication);
     }
 
+    @Override
     public Publication updatePublication(Publication publication) {
         return publicationRepository.save(publication);
     }
 
+    @Override
     public void deletePublication(Long numPub) {
         publicationRepository.deleteById(numPub);
     }
 
+    @Override
     public Publication getById(Long numPub) {
         return publicationRepository.findById(numPub).orElse(null);
     }
 
+    @Override
     public List<Publication> getAll() {
         return publicationRepository.findAll();
     }
