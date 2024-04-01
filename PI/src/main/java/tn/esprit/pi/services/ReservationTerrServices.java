@@ -47,17 +47,16 @@ public class ReservationTerrServices implements IReservationTerrServices{
     }
 
     @Override
+    public List<ReservationTerrain> findReservationByEtat(boolean etat) {
+        List<ReservationTerrain> result= reservationTerrRepository.findReserByEtatReser(etat);
+        return result;
+    }
+
+
+    @Override
     public List<ReservationTerrain> getAll() {
         return (List<ReservationTerrain>) reservationTerrRepository.findAll();
     }
-
-  /*  @Override
-    public ReservationTerrain assignToUser(Long numRes, Long iduser) {
-        ReservationTerrain reservationTerrain =reservationTerrRepository.findById(numRes).orElse(null) ;
-        User user =userRepository.findById(iduser).orElse(null);
-        reservationTerrain.setUser(user);
-        return reservationTerrRepository.save(reservationTerrain);
-    }*/
 
 }
 

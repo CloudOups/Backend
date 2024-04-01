@@ -88,13 +88,11 @@ IMembresEquipeRepository membresEquipeRepository;
     }
 
     @Override
-    public Equipe reponseAdhesion(Long idequipe,Long userId, String reponse){
+    public Equipe traiterAdhesion(Long idequipe,Long userId, String reponse){
         Equipe equipe = equipeRepository.findById(idequipe).orElse(null);
         Set<User> pendingMembers = equipe.getPendingMembers();
         if (pendingMembers == null ||equipe.getChef() == null ) {
-            System.out.println("errors");
-    }
-
+            System.out.println("errors");}
         for (User user : pendingMembers) {
             User selectedUser = userRepository.findById(user.getUserId()).orElse(null);
             if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {

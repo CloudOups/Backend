@@ -13,6 +13,6 @@ public interface IEquipeServices {
     Equipe getById(Long numequipe);
     List<Equipe> getAll();
     Equipe demandeAdhesion(Long idequipe, Long iduser);
-    Equipe reponseAdhesion(Long idequipe,Long userId,String reponse);
+    Equipe traiterAdhesion(Long idequipe,Long userId,String reponse);
 
 }

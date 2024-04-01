@@ -39,8 +39,8 @@ public class EquipeRestController {
     public  Equipe demandeEquipe(@PathVariable Long idEquipe ,@PathVariable Long idUser){
         return equipeServices.demandeAdhesion(idEquipe,idUser);
     }
-    @PutMapping("/reponseAdhesion/{idequipe}/{idUser}/{reponse}")
-    public  Equipe reponseEquipe(@PathVariable Long idequipe ,@PathVariable Long idUser, @PathVariable String reponse){
-        return equipeServices.reponseAdhesion(idequipe,idUser,reponse);
+    @PutMapping("/reponseAdhesion/idequipe={idequipe}/idUser={idUser}/idreponse={reponse}")
+    public  Equipe traiterEquipe(@PathVariable Long idequipe ,@PathVariable Long idUser, @PathVariable String reponse){
+        return equipeServices.traiterAdhesion(idequipe,idUser,reponse);
     }
 }
