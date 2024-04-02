@@ -5,7 +5,11 @@ import tn.esprit.pi.entities.Commentaire;
 import tn.esprit.pi.entities.Publication;
 
 import java.util.List;
+import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ICommentRepository extends JpaRepository<Commentaire, Long> {
+
+@Repository
+public interface ICommentRepository extends CrudRepository<Commentaire, Long> {
     List<Commentaire> findByPublication(Publication publication);
 }

@@ -6,8 +6,13 @@ import tn.esprit.pi.repositories.IPublicationRepository;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired; // Import the Autowired annotation
+import org.springframework.stereotype.Service;
 
+@Service
 public class PublicationService implements IPublicationService {
+    @Autowired
     IPublicationRepository publicationRepository;
     static long totalPublications = 0;
 
@@ -33,7 +38,7 @@ public class PublicationService implements IPublicationService {
 
     @Override
     public List<Publication> getAll() {
-        return publicationRepository.findAll();
+        return (List<Publication>)publicationRepository.findAll();
     }
 
     //like publication
@@ -57,7 +62,7 @@ public class PublicationService implements IPublicationService {
     public void calculeMonthlyPubForStatics() {
         // Get the current month
         Month currentMonth = LocalDate.now().getMonth();
-        List<Publication> allPublications = publicationRepository.findAll(); //lehne bech nejbdou publicationet lkol
+        List<Publication> allPublications = (List<Publication>) publicationRepository.findAll(); //lehne bech nejbdou publicationet lkol
         long publicationsPostedThisMonth = allPublications.stream()
                 .filter(publication -> publication.getDateCreation().getMonth() == currentMonth) //nfiltriw publicationet li 3andhom meme mois
                 .count(); //ncomptiw kol publication

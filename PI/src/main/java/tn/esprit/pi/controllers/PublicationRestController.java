@@ -5,14 +5,17 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.services.PublicationService;
 
+
 import java.util.List;
 
 @RequestMapping("/publication")
 @RestController
 public class PublicationRestController {
 
-    private  PublicationService publicationService;
 
+
+     @Autowired
+    private  PublicationService publicationService;
 
     @PostMapping("/add")
     public Publication addPublication(@RequestBody Publication publication) {

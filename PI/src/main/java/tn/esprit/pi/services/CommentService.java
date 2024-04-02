@@ -7,8 +7,12 @@ import tn.esprit.pi.repositories.ICommentRepository;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentService implements ICommentService {
+
+     @Autowired
      ICommentRepository commentaireRepository;
 
 
