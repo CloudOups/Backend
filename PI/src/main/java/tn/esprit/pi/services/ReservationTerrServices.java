@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.ReservationTerrain;
 import tn.esprit.pi.entities.Terrain;
+import tn.esprit.pi.entities.TypeReservation;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
@@ -11,6 +12,7 @@ import tn.esprit.pi.repositories.IUserRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -58,5 +60,26 @@ public class ReservationTerrServices implements IReservationTerrServices{
         return (List<ReservationTerrain>) reservationTerrRepository.findAll();
     }
 
+    @Override
+    public List<ReservationTerrain> getResByTypeRes(String typeRes) {
+        try {
+            TypeReservation type = TypeReservation.valueOf(typeRes);
+            List<ReservationTerrain> result = reservationTerrRepository.findByTypeRes(type);
+            return result;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid type of reservation: " + typeRes);
+            return null;
+        }}
+
+    @Override
+
+    public List<ReservationTerrain> getResByTerrain(String nomTerrain) {
+        Terrain terrain = terrainRepository.findByNomTerrain(nomTerrain);
+        if (terrain != null) {
+            List<ReservationTerrain> result = reservationTerrRepository.findByTerrain(terrain);
+            return result;
+        }
+        return Collections.emptyList();
+    }
 }
 

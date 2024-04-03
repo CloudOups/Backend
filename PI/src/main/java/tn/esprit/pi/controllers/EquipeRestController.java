@@ -17,30 +17,40 @@ public class EquipeRestController {
 
     @PostMapping("/add/{iduser}")
     public Equipe addEquipe(@RequestBody Equipe equipe, @PathVariable Long iduser) {
-        return equipeServices.addEquipe(equipe,iduser);
+        return equipeServices.addEquipe(equipe, iduser);
     }
+
     @PutMapping("/update")
     public Equipe updateEquipe(@RequestBody Equipe equipe) {
         return equipeServices.updateEquipe(equipe);
     }
+
     @GetMapping("/get/{idEquipe}")
-    public Equipe getEquipe(@PathVariable Long idEquipe){
+    public Equipe getEquipe(@PathVariable Long idEquipe) {
         return equipeServices.getById(idEquipe);
     }
+
     @DeleteMapping("/delete/{idEquipe}")
-    public void removeEquipe(@PathVariable Long idEquipe){
-         equipeServices.delete(idEquipe);
+    public void removeEquipe(@PathVariable Long idEquipe) {
+        equipeServices.delete(idEquipe);
     }
+
     @GetMapping("/get/all")
-    public List<Equipe>  getAll(){
+    public List<Equipe> getAll() {
         return equipeServices.getAll();
     }
+
     @PutMapping("/demandeAdhesion/{idEquipe}/{idUser}")
-    public  Equipe demandeEquipe(@PathVariable Long idEquipe ,@PathVariable Long idUser){
-        return equipeServices.demandeAdhesion(idEquipe,idUser);
+    public Equipe demandeEquipe(@PathVariable Long idEquipe, @PathVariable Long idUser) {
+        return equipeServices.demandeAdhesion(idEquipe, idUser);
     }
+
     @PutMapping("/reponseAdhesion/idequipe={idequipe}/idUser={idUser}/idreponse={reponse}")
-    public  Equipe traiterEquipe(@PathVariable Long idequipe ,@PathVariable Long idUser, @PathVariable String reponse){
-        return equipeServices.traiterAdhesion(idequipe,idUser,reponse);
+    public Equipe traiterEquipe(@PathVariable Long idequipe, @PathVariable Long idUser, @PathVariable String reponse) {
+        return equipeServices.traiterAdhesion(idequipe, idUser, reponse);
+    }
+    @GetMapping("/get/nom={nomEquipe}")
+    public Equipe getEquipeBynomEquipe(@PathVariable String nomEquipe) {
+        return equipeServices.getByNom(nomEquipe);
     }
 }

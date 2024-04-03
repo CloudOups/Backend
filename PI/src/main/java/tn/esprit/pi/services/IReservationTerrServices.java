@@ -12,4 +12,6 @@ public interface IReservationTerrServices {
     List<ReservationTerrain>findReservationByEtat(boolean etat);
     List<ReservationTerrain> getAll();
   //  ReservationTerrain assignToUser(Long numRes, Long iduser);
+  List< ReservationTerrain> getResByTypeRes(String typeRes);
+  List<ReservationTerrain> getResByTerrain(String nomTerrain);
 }

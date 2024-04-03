@@ -1,7 +1,6 @@
 package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Equipe;
 import tn.esprit.pi.entities.MembresEquipe;
@@ -10,8 +9,8 @@ import tn.esprit.pi.repositories.IEquipeRepository;
 import tn.esprit.pi.repositories.IMembresEquipeRepository;
 import tn.esprit.pi.repositories.IUserRepository;
 
-import java.sql.SQLOutput;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -38,20 +37,23 @@ IMembresEquipeRepository membresEquipeRepository;
 }
     @Override
     public Equipe addEquipe(Equipe equipe,Long idUser) {
-        if (!isUserAlreadyInTeam(idUser)){
-        User user =userRepository.findById(idUser).orElse(null);
-        equipe.setChef(user);
-        equipe = equipeRepository.save(equipe);
-        MembresEquipe newMember = new MembresEquipe();
-        newMember.setEquipe(equipe); // Set the Equipe
-        newMember.setUser(user);
-        MembresEquipe membresEquipe= membresEquipeRepository.save(newMember);
-        equipe.getMembresEquipe().add(membresEquipe);
-        return equipeRepository.save(equipe);
-    }
+        Equipe existingEquipeOptional = equipeRepository.findByNomEquipe(equipe.getNomEquipe());
+        if (existingEquipeOptional!=null) {System.out.println("nom équipe existe!");return  null; }
+        else{
+        if (!isUserAlreadyInTeam(idUser)) {
+            User user = userRepository.findById(idUser).orElse(null);
+            equipe.setChef(user);
+            equipe = equipeRepository.save(equipe);
+            MembresEquipe newMember = new MembresEquipe();
+            newMember.setEquipe(equipe); // Set the Equipe
+            newMember.setUser(user);
+            MembresEquipe membresEquipe = membresEquipeRepository.save(newMember);
+            equipe.getMembresEquipe().add(membresEquipe);
+            return equipeRepository.save(equipe);
+        }
     else System.out.println("User already selected ");
     return null;
-    }
+    }}
 
     @Override
     public Equipe updateEquipe(Equipe equipe) {
@@ -113,8 +115,15 @@ IMembresEquipeRepository membresEquipeRepository;
             }
         }
         return null;
-
-
     }
+   @Override
+    public Equipe getByNom(String nomEquipe) {
+       Equipe equipe= equipeRepository.findByNomEquipe(nomEquipe);
+        if (equipe == null) {
+           System.out.println("Pas d'équipe avec ce nom");
+       }
+       return equipe;
+        }
+
 
 }

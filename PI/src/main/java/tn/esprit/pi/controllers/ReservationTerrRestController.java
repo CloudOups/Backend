@@ -3,6 +3,7 @@ package tn.esprit.pi.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.ReservationTerrain;
+import tn.esprit.pi.entities.Terrain;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.services.ReservationTerrServices;
 
@@ -36,7 +37,16 @@ public class ReservationTerrRestController {
     }
     @GetMapping("/get/Res/etat={etat}")
     public List<ReservationTerrain> getAllTypePrets(@PathVariable boolean etat) {
-        return iReservationTerrRepository.findReserByEtatReser(etat);
+        return reservationTerrServices.findReservationByEtat(etat);
     }
+    @GetMapping("/get/typeRes=/{typeRes}")
+    public List<ReservationTerrain> getReservationbyTypeRes(@PathVariable String typeRes){
+        return reservationTerrServices.getResByTypeRes(typeRes);
+    }
+    @GetMapping("/get/nomTerrain=/{nomTerrain}")
+    public List<ReservationTerrain> getReservationbyNomTerrain(@PathVariable String nomTerrain){
+        return reservationTerrServices.getResByTerrain(nomTerrain);
+    }
+
 
 }

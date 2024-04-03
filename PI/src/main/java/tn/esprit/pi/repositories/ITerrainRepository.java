@@ -12,5 +12,6 @@ import java.util.List;
 
 public interface ITerrainRepository extends CrudRepository<Terrain,Long> {
     List<Terrain> findByStatusTerrain(StatusTerrain statusTerrain);
+    Terrain findByNomTerrain(String nom);
 
 }
