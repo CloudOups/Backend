@@ -16,9 +16,7 @@ import java.util.Map;
 public class SimpleCorsFilter implements Filter {
 
     @Value("${app.client.url}")
-
     private String clientAppUrl = "";
-
     public SimpleCorsFilter() {
     }
 
