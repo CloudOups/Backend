@@ -18,12 +18,12 @@ public class TerrainServices implements ITerrainServices{
     }
 
     @Override
-    public void delete(int numterrain) {
-terrainRepository.deleteById(numterrain);
+    public void delete(Long numterrain) {
+    terrainRepository.deleteById(numterrain);
     }
 
     @Override
-    public Terrain getById(int numterrain) {
+    public Terrain getById(Long numterrain) {
         return terrainRepository.findById(numterrain).get();
     }
 

@@ -25,8 +25,11 @@ public class TicketServices implements ITicketServices {
     }
     @Override
     public Ticket addTicket(Ticket ticket,Long idevent) {
-        if (isEventFull(idevent))
+        if (isEventFull(idevent)){
+            Event event = eventRepository.findById(idevent).orElse(null);
+            ticket.setEvent(event);
             return ticketRepository.save(ticket);
+        }
         return null;
     }
     @Override
@@ -60,7 +63,6 @@ public class TicketServices implements ITicketServices {
         }
         return tickets;
     }
-
 
 
 //    @Override

@@ -42,6 +42,11 @@ public class TournoiRestController {
     public Tournoi assignTournoiToEvent(@PathVariable Long idevent,@PathVariable Long idtournoi){
         return tournoiServices.assignToEvent(idevent, idtournoi);
     }
+
+    @PutMapping("/assignTerrain/{idtournoi}/{idterrain}")
+    public Tournoi assignTerrainToTournoi(@PathVariable Long idtournoi,@PathVariable Long idterrain){
+        return tournoiServices.assignTerrainToTournoi(idtournoi,idterrain);
+    }
 }
 
 

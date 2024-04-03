@@ -18,7 +18,6 @@ public class TicketRestController {
     public Ticket addTicket(@RequestBody Ticket ticket,@PathVariable Long idevent){
         return  ticketServices.addTicket(ticket,idevent);
     }
-
     @PutMapping("/update")
     public Ticket updateTicket(@RequestBody Ticket ticket){
         return ticketServices.updateTicket(ticket);
@@ -32,6 +31,11 @@ public class TicketRestController {
     @GetMapping("/get/{idticket}")
     public Ticket getTicketById(@PathVariable Long idticket){
         return ticketServices.getById(idticket);
+    }
+
+    @GetMapping("/getByEvent/{nomevent}")
+    public List<Ticket> getTicketsByEvent(@PathVariable String nomevent) {
+        return ticketServices.getTicketsByEvent(nomevent);
     }
 
     @GetMapping("/get/all")

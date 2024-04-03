@@ -22,11 +22,11 @@ public class TerrainRestController {
         return terrainServices.updateTerrain(terrain);
     }
     @GetMapping("/get/{idTerrain}")
-    public Terrain getTerrain(@PathVariable int idTerrain){
+    public Terrain getTerrain(@PathVariable Long idTerrain){
         return terrainServices.getById(idTerrain);
     }
     @DeleteMapping("/delete/{idTerrain}")
-    public void removeTerrain(@PathVariable int idTerrain){
+    public void removeTerrain(@PathVariable Long idTerrain){
         terrainServices.delete(idTerrain);
     }
     @GetMapping("/get/all")

@@ -3,19 +3,22 @@ package tn.esprit.pi.services;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Event;
-import tn.esprit.pi.entities.Ticket;
+import tn.esprit.pi.entities.Terrain;
 import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.repositories.IEventRepository;
+import tn.esprit.pi.repositories.ITerrainRepository;
 import tn.esprit.pi.repositories.ITournoiRepository;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class TournoiServices implements InterfaceServices<Tournoi> {
+public class TournoiServices implements ITournoiServices{
 
     ITournoiRepository tournoiRepository;
     IEventRepository eventRepository;
+    ITerrainRepository terrainRepository;
+
 
     @Override
     public Tournoi add(Tournoi entity) {
@@ -47,4 +50,13 @@ public class TournoiServices implements InterfaceServices<Tournoi> {
         tournoi.setEvent(event);
         return tournoiRepository.save(tournoi);
     }
+
+    @Override
+    public Tournoi assignTerrainToTournoi(Long idtournoi, Long idterrain) {
+        Tournoi tournoi = tournoiRepository.findById(idtournoi).orElse(null);
+        Terrain terrain = terrainRepository.findById(idterrain).orElse(null);
+        tournoi.setTerrain(terrain);
+        return tournoiRepository.save(tournoi);
+    }
+
 }

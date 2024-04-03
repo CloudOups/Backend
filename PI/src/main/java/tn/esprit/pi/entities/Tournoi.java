@@ -27,4 +27,6 @@ public class Tournoi {
     @JsonIgnore
     @ManyToOne
     Event event;
+    @ManyToOne
+    Terrain terrain;
 }
