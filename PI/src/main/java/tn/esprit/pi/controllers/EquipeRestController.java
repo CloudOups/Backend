@@ -40,7 +40,7 @@ public class EquipeRestController {
         return equipeServices.getAll();
     }
 
-    @PutMapping("/demandeAdhesion/{idEquipe}/{idUser}")
+    @PutMapping("/demandeAdhesion/idequipe={idEquipe}/idUser={idUser}")
     public Equipe demandeEquipe(@PathVariable Long idEquipe, @PathVariable Long idUser) {
         return equipeServices.demandeAdhesion(idEquipe, idUser);
     }

@@ -13,4 +13,6 @@ public interface ITerrainServices {
     Terrain getById(Long numterrain);
     List<Terrain> getByEtat(String statusTerrain);
     List<Terrain> getAll();
+    void getExpiredRes();
+
 }

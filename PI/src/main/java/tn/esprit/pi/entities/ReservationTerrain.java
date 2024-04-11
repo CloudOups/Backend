@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -21,8 +22,10 @@ public class ReservationTerrain implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numRes;
     Boolean etatReser =true;
-    LocalDate dateDebut;
-    LocalDate dateFin;
+    @Temporal(TemporalType.TIMESTAMP)
+    LocalDateTime dateDebut;
+    @Temporal(TemporalType.TIMESTAMP)
+    LocalDateTime  dateFin;
     @Enumerated(EnumType.STRING)
     TypeReservation typeRes;
     //@JsonIgnore

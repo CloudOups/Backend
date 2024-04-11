@@ -1,9 +1,12 @@
 package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import tn.esprit.pi.entities.ReservationTerrain;
 import tn.esprit.pi.entities.StatusTerrain;
 import tn.esprit.pi.entities.Terrain;
+import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
 
 import java.util.Collection;
@@ -12,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TerrainServices implements ITerrainServices{
     ITerrainRepository terrainRepository;
+    IReservationTerrRepository reservationTerrRepository;
     @Override
     public Terrain addTerrain(Terrain terrain) {
 
@@ -42,5 +46,23 @@ terrainRepository.deleteById(numterrain);
     @Override
     public List<Terrain> getAll() {
         return( List<Terrain>) terrainRepository.findAll();
+    }
+    @Override
+    @Scheduled(cron ="*/60 * * * * *")
+    public void getExpiredRes() {
+        List<ReservationTerrain> expiredReservations = reservationTerrRepository.findByExpired();
+
+        for (ReservationTerrain reservation : expiredReservations) {
+            // Update reservation state to false
+            reservation.setEtatReser(false);
+            reservationTerrRepository.save(reservation);
+
+            // Free up the associated terrain
+            Terrain terrain = reservation.getTerrain();
+            terrain.setStatusTerrain(StatusTerrain.valueOf("Libre"));
+            terrainRepository.save(terrain);
+
+            System.out.println("Reservation expired: " + reservation.getNumRes());
+        }
     }
 }
