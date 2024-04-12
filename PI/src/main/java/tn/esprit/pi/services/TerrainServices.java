@@ -62,7 +62,7 @@ terrainRepository.deleteById(numterrain);
             terrain.setStatusTerrain(StatusTerrain.valueOf("Libre"));
             terrainRepository.save(terrain);
 
-            System.out.println("Reservation expired: " + reservation.getNumRes());
+            System.out.println("Reservation number "+ reservation.getNumRes() +" is expired " );
         }
     }
 }
