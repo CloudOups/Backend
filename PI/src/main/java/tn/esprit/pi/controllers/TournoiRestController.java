@@ -3,8 +3,10 @@ package tn.esprit.pi.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Tournoi;
+import tn.esprit.pi.entities.TypeTerrain;
 import tn.esprit.pi.services.TournoiServices;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping("/tournoi")
@@ -46,6 +48,11 @@ public class TournoiRestController {
     @PutMapping("/assignTerrain/{idtournoi}/{idterrain}")
     public Tournoi assignTerrainToTournoi(@PathVariable Long idtournoi,@PathVariable Long idterrain){
         return tournoiServices.assignTerrainToTournoi(idtournoi,idterrain);
+    }
+
+    @PostMapping("/addtournoireservation")
+    public Tournoi creerTournoiAutomatique(@RequestBody Tournoi tournoi){
+        return tournoiServices.creerTournoiAutomatique(tournoi);
     }
 }
 
