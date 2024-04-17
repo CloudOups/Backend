@@ -84,9 +84,14 @@ IUserRepository userRepository;
     public Equipe demandeAdhesion(Long idequipe, Long iduser) {
         User user = userRepository.findById(iduser).orElse(null);
        Equipe equipe= equipeRepository.findById(idequipe).orElse(null);
-        if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
-            equipe.getMembresEnAttente().add(user);
+            if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
+                if (!isUserAlreadyInTeam(iduser)) {
+                    equipe.getMembresEnAttente().add(user);
         return equipeRepository.save(equipe);}
+            else{
+                    System.out.println("user already in team");
+                }
+            }
         else  {
             System.out.println("L'equipe est complete ");}
 

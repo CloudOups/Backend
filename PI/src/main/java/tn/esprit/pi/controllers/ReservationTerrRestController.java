@@ -1,18 +1,22 @@
 package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.ReservationTerrain;
 import tn.esprit.pi.entities.Terrain;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.services.ReservationTerrServices;
+import tn.esprit.pi.services.TerrainServices;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @RequestMapping("/reservation")
 @AllArgsConstructor
 @RestController
 public class ReservationTerrRestController {
     private ReservationTerrServices reservationTerrServices;
+    private TerrainServices terrainService;
     private final IReservationTerrRepository iReservationTerrRepository;
 
     @PostMapping("/add/idUser=/{iduser}/idTerrain=/{idTerrain}")
@@ -47,6 +51,8 @@ public class ReservationTerrRestController {
     public List<ReservationTerrain> getReservationbyNomTerrain(@PathVariable String nomTerrain){
         return reservationTerrServices.getResByTerrain(nomTerrain);
     }
+
+
 
 
 }
