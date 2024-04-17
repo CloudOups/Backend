@@ -1,11 +1,15 @@
 package tn.esprit.pi.services;
 
 import tn.esprit.pi.entities.Publication;
+import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IPublicationRepository;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired; // Import the Autowired annotation
 import org.springframework.stereotype.Service;
@@ -68,8 +72,33 @@ public class PublicationService implements IPublicationService {
                 .count(); //ncomptiw kol publication
         totalPublications += publicationsPostedThisMonth; //incrementiw nombre total ta3 publication
 
-        // n'affichihom fil console bech na3ref S7a7 ou non
-        System.out.println("Total publications posted this month: " + publicationsPostedThisMonth);
-        System.out.println("Total publications posted overall: " + totalPublications);
+
     }
+
+    public void calculatetimestrePublications() {
+        int trimestre = (LocalDate.now().getMonthValue() - 1) / 3 + 1;
+        long publicationsThisQuarter = getAll().stream()
+                .filter(publication -> publication.getDateCreation().getMonthValue() >= (trimestre * 3) &&
+                        publication.getDateCreation().getMonthValue() <= trimestre * 3)
+                .count();
+    }
+
+    public void calculeParanneePublications() {
+        int currentYear = LocalDate.now().getYear();
+        long publicationsThisYear = getAll().stream()
+                .filter(publication -> publication.getDateCreation().getYear() == currentYear)
+                .count();
+        System.out.println("les publication favois posté cette annee: " + publicationsThisYear);
+    }
+
+    public void calculateMostActiveAuthors() {
+        Map<User, Long> authorPublicationCount = getAll().stream()
+                .collect(Collectors.groupingBy(Publication::getUser, Collectors.counting()));
+        String mostActiveAuthor = String.valueOf(authorPublicationCount.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null));
+        System.out.println("le user qui est tres active : " + mostActiveAuthor);
+    }
+
 }

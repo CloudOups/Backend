@@ -51,4 +51,5 @@ public class PublicationRestController {
     public Publication unlikePublication(@PathVariable Long numPub) {
         return publicationService.unlikePublication(numPub);
     }
+
 }
