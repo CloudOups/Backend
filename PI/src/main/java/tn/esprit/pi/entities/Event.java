@@ -18,6 +18,8 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numevent;
     String nomevent;
+    String categorie;
+    String location;
     LocalDate dateDebut;
     LocalDate dateFin;
     String image;

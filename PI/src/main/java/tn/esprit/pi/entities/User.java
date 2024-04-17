@@ -22,6 +22,7 @@ public class User implements Serializable {
     String prenom;
     String email;
     String mdp;
+    String adresse;
     @Enumerated(EnumType.STRING)
     Role role;
     String photo;
