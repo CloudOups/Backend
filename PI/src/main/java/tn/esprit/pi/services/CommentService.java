@@ -48,7 +48,7 @@ public class CommentService implements ICommentService {
         commentaire.setDatecm(c.getDatecm());
         commentaire.setSentiment(c.getSentiment());
         return commentaireRepository.save(commentaire);
-        
+
     }
 
 
