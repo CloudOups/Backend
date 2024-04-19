@@ -17,6 +17,7 @@ public class Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idcmt;
     String contenucm;
+    String Sentiment;
     LocalDate datecm;
     @ManyToOne
     User user;

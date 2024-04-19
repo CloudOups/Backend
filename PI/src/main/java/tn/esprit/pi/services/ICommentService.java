@@ -12,4 +12,5 @@ public interface ICommentService {
     void deleteCommentaire(long idcmt);
     Optional<Commentaire> getCommentaireById(long idcmt);
     List<Commentaire> getAllCommentairesForPublication(Publication publication);
+    String analyzeSentiment(String text);
 }
