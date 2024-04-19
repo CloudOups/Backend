@@ -41,9 +41,16 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public Commentaire updateCommentaire(Commentaire commentaire) {
+    public Commentaire updateCommentaire(Commentaire c, long id) {
+        Commentaire commentaire=null;
+        c=commentaireRepository.findById(id).orElse(null);
+        commentaire.setContenucm(c.getContenucm());
+        commentaire.setDatecm(c.getDatecm());
+        commentaire.setSentiment(c.getSentiment());
         return commentaireRepository.save(commentaire);
+        
     }
+
 
     @Override
     public void deleteCommentaire(long idcmt) {

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ICommentService {
     Commentaire addCommentaire(Commentaire commentaire);
-    Commentaire updateCommentaire(Commentaire commentaire);
+    Commentaire updateCommentaire(Commentaire commentaire,long id);
     void deleteCommentaire(long idcmt);
     Optional<Commentaire> getCommentaireById(long idcmt);
     List<Commentaire> getAllCommentairesForPublication(Publication publication);

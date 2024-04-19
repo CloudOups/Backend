@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class Commentaire {
     int idcmt;
     String contenucm;
     String Sentiment;
-    LocalDate datecm;
+    Date datecm;
     @ManyToOne
     User user;
     @ManyToOne(cascade = CascadeType.ALL)

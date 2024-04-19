@@ -1,10 +1,12 @@
 package tn.esprit.pi.controllers;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Commentaire;
 import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.services.CommentService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,14 +18,16 @@ public class CommentRestController {
 
 
 
-    @PostMapping("/add")
+    @PostMapping("/addcommentaire")
     public Commentaire addCommentaire(@RequestBody Commentaire commentaire) {
+
+        commentaire.setDatecm(new Date());
         return commentaireService.addCommentaire(commentaire);
     }
 
-    @PutMapping("/update")
-    public Commentaire updateCommentaire(@RequestBody Commentaire commentaire) {
-        return commentaireService.updateCommentaire(commentaire);
+    @PutMapping("/updatecommentaire/{id}")
+    public Commentaire updateCommentaire(@RequestBody Commentaire commentaire, @PathVariable long id) {
+        return commentaireService.updateCommentaire(commentaire,id);
     }
 
     @DeleteMapping("/delete/{idcmt}")

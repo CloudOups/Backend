@@ -49,13 +49,13 @@ public class PublicationRestController {
     public List<Publication> getAllUnApprovedPublications(){ return publicationService.getAllUnapprovedPublications();}
 
     @PostMapping("/like/{numPub}")
-    public Publication likePublication(@PathVariable Long numPub) {
-        return publicationService.likePublication(numPub);
+    public void likePublication(@PathVariable Long numPub) {
+         publicationService.likePublication(numPub);
     }
 
     @PostMapping("/unlike/{numPub}")
-    public Publication unlikePublication(@PathVariable Long numPub) {
-        return publicationService.unlikePublication(numPub);
+    public void unlikePublication(@PathVariable Long numPub) {
+         publicationService.unlikePublication(numPub);
     }
 
 }
