@@ -18,6 +18,8 @@ public class Publication {
     String sujet ;
     String contenu;
     LocalDate  dateCreation;
+    String photo;
+    boolean status;
     int likes;
     @ManyToOne
     User user;

@@ -1,5 +1,6 @@
 package tn.esprit.pi.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IPublicationRepository;
@@ -16,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PublicationService implements IPublicationService {
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
     @Autowired
     IPublicationRepository publicationRepository;
     static long totalPublications = 0;
@@ -26,8 +30,13 @@ public class PublicationService implements IPublicationService {
     }
 
     @Override
-    public Publication updatePublication(Publication publication) {
-        return publicationRepository.save(publication);
+    public Publication updatePublication(Publication publication ,long id) {
+        Publication newPublication = publicationRepository.findById(id).orElse(null);
+        newPublication.setSujet(newPublication.getSujet());
+        newPublication.setContenu(newPublication.getContenu());
+        newPublication.setPhoto(publication.getPhoto());
+        return publicationRepository.save(newPublication);
+
     }
 
     @Override
@@ -43,6 +52,20 @@ public class PublicationService implements IPublicationService {
     @Override
     public List<Publication> getAll() {
         return (List<Publication>)publicationRepository.findAll();
+    }
+
+    @Override
+    public List<Publication> getAllApprovedPublications() {
+        Boolean status = true;
+        List<Publication> approvedBlog = publicationRepository.findBlogByStatusIs(status);
+        return approvedBlog;
+    }
+
+    @Override
+    public List<Publication> getAllUnapprovedPublications() {
+        Boolean status = false;
+        List<Publication> approvedBlog = publicationRepository.findBlogByStatusIs(status);
+        return approvedBlog;
     }
 
     //like publication

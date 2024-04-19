@@ -22,9 +22,9 @@ public class PublicationRestController {
         return publicationService.addPublication(publication);
     }
 
-    @PutMapping("/update")
-    public Publication updatePublication(@RequestBody Publication publication) {
-        return publicationService.updatePublication(publication);
+    @PutMapping("/update/{id}")
+    public Publication updatePublication(@RequestBody Publication publication,@PathVariable long id) {
+        return publicationService.updatePublication(publication,id);
     }
 
     @DeleteMapping("/delete/{numPub}")
@@ -32,7 +32,7 @@ public class PublicationRestController {
         publicationService.deletePublication(numPub);
     }
 
-    @GetMapping("/get/{numPub}")
+    @GetMapping("/getpublication/{numPub}")
     public Publication getPublication(@PathVariable Long numPub) {
         return publicationService.getById(numPub);
     }
@@ -41,6 +41,12 @@ public class PublicationRestController {
     public List<Publication> getAllPublications() {
         return publicationService.getAll();
     }
+    @GetMapping("/get/allapproved")
+    public List<Publication> getAllApprovedPublications(){ return publicationService.getAllApprovedPublications();}
+
+
+    @GetMapping("/get/allunapproved")
+    public List<Publication> getAllUnApprovedPublications(){ return publicationService.getAllUnapprovedPublications();}
 
     @PostMapping("/like/{numPub}")
     public Publication likePublication(@PathVariable Long numPub) {
