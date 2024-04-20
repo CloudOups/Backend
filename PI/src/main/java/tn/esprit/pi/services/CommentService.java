@@ -11,6 +11,14 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.trees.Tree;
+import opennlp.tools.cmdline.PerformanceMonitor;
+import opennlp.tools.cmdline.postag.POSModelLoader;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSSample;
+import opennlp.tools.postag.POSTaggerME;
+import opennlp.tools.tokenize.WhitespaceTokenizer;
+import opennlp.tools.util.ObjectStream;
+import opennlp.tools.util.PlainTextByLineStream;
 
 import java.util.Properties;
 
@@ -24,13 +32,9 @@ public class CommentService implements ICommentService {
      @Autowired
      ICommentRepository commentaireRepository;
 
-    private final StanfordCoreNLP pipeline;
+  //  private final StanfordCoreNLP pipeline;
 
-    public CommentService() {
-        Properties props = new Properties();
-        props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
-        this.pipeline = new StanfordCoreNLP(props);
-    }
+
 
 
     @Override
@@ -70,7 +74,7 @@ public class CommentService implements ICommentService {
 
     @Override
     public String analyzeSentiment(String text) {
-        Annotation annotation = new Annotation(text);
+        /*Annotation annotation = new Annotation(text);
         pipeline.annotate(annotation);
         for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
             Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
@@ -82,7 +86,8 @@ public class CommentService implements ICommentService {
                 sentiment = "Angry"; // Negative, Very Negative, or Neutral
             }
             return sentiment;
-        }
+        }*/
         return "Neutral"; // Default to Neutral if sentiment cannot be determined
     }
+
 }
