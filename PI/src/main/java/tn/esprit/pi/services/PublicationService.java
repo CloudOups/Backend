@@ -115,13 +115,13 @@ public class PublicationService implements IPublicationService {
     }
 
     public void calculateMostActiveAuthors() {
-        Map<User, Long> authorPublicationCount = getAll().stream()
+       /* Map<User, Long> authorPublicationCount = getAll().stream()
                 .collect(Collectors.groupingBy(Publication::getUser, Collectors.counting()));
         String mostActiveAuthor = String.valueOf(authorPublicationCount.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElse(null));
-        System.out.println("le user qui est tres active : " + mostActiveAuthor);
+        System.out.println("le user qui est tres active : " + mostActiveAuthor);*/
     }
 
 }

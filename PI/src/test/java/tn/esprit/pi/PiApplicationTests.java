@@ -1,4 +1,4 @@
-/*package tn.esprit.pi;
+package tn.esprit.pi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,4 +11,3 @@ class PiApplicationTests {
     }
 
 }
-*/

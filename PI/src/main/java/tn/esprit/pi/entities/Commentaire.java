@@ -19,10 +19,10 @@ public class Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idcmt;
     String contenucm;
-    String Sentiment;
     Date datecm;
     @ManyToOne
     User user;
     @ManyToOne(cascade = CascadeType.ALL)
     Publication publication;
+    String Sentiment;
 }

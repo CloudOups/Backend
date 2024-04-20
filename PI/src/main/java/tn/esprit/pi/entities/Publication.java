@@ -1,6 +1,9 @@
 package tn.esprit.pi.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,7 +24,5 @@ public class Publication {
     String photo;
     boolean status;
     int likes;
-    @ManyToOne
-    User user;
     
 }
