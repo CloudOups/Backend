@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICommentService {
-    Commentaire addCommentaire(Commentaire commentaire);
+    Commentaire addCommentaire(Commentaire commentaire,long publicationId);
     Commentaire updateCommentaire(Commentaire commentaire,long id);
     void deleteCommentaire(long idcmt);
     Optional<Commentaire> getCommentaireById(long idcmt);

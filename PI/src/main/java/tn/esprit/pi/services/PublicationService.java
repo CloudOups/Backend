@@ -86,6 +86,34 @@ public class PublicationService implements IPublicationService {
         }
 
     }
+
+    public Publication ApproveBlog(long id) {
+        Publication blogToApprove =publicationRepository.findById(id).orElse(null);
+
+        blogToApprove.setStatus(true);
+        //sendApprovedEmail(user);
+        return publicationRepository.save(blogToApprove);
+    }
+
+    public List<Publication> ApproveAllBlogs() {
+        List<Publication> blogsToApprove = (List<Publication>) publicationRepository.findAll();
+
+        for (Publication blog : blogsToApprove) {
+            if (!blog.isStatus()) {
+                blog.setStatus(true);
+                publicationRepository.save(blog);
+                //sendApprovedEmail(user);
+            }
+        }
+
+        return blogsToApprove;
+    }
+
+
+
+
+
+
     public void calculeMonthlyPubForStatics() {
         // Get the current month
         Month currentMonth = LocalDate.now().getMonth();

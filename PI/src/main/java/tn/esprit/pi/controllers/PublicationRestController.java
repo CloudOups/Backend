@@ -37,15 +37,15 @@ public class PublicationRestController {
         return publicationService.getById(numPub);
     }
 
-    @GetMapping("/get/all")
+    @GetMapping("/getall")
     public List<Publication> getAllPublications() {
         return publicationService.getAll();
     }
-    @GetMapping("/get/allapproved")
+    @GetMapping("/getallapproved")
     public List<Publication> getAllApprovedPublications(){ return publicationService.getAllApprovedPublications();}
 
 
-    @GetMapping("/get/allunapproved")
+    @GetMapping("/getallunapproved")
     public List<Publication> getAllUnApprovedPublications(){ return publicationService.getAllUnapprovedPublications();}
 
     @PostMapping("/like/{numPub}")
@@ -58,4 +58,17 @@ public class PublicationRestController {
          publicationService.unlikePublication(numPub);
     }
 
+    @GetMapping("/get/{numPub}")
+    public Publication getPublicationById(@PathVariable Long numPub) {
+        return publicationService.getById(numPub);
+    }
+    @PutMapping("/approve/{id}")
+    public Publication approveBlog(@PathVariable long id) {
+        return publicationService.ApproveBlog(id);
+    }
+
+    @PutMapping("/approveAll")
+    public List<Publication> approveAllBlogs() {
+        return publicationService.ApproveAllBlogs();
+    }
 }

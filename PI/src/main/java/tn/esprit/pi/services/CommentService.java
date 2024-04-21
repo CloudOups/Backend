@@ -25,22 +25,33 @@ import java.util.Properties;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import tn.esprit.pi.repositories.IPublicationRepository;
 
 @Service
 public class CommentService implements ICommentService {
 
      @Autowired
      ICommentRepository commentaireRepository;
-
+     IPublicationRepository publicationRepository;
   //  private final StanfordCoreNLP pipeline;
 
 
 
 
     @Override
-    public Commentaire addCommentaire(Commentaire commentaire) {
+    public Commentaire addCommentaire(Commentaire commentaire, long publicationId) {
         String sentiment = analyzeSentiment(commentaire.getContenucm());
         commentaire.setSentiment(sentiment);
+
+        // Fetch the publication from the database using its ID
+        Publication publication = publicationRepository.findById(publicationId).orElse(null);
+        if (publication != null) {
+            commentaire.setPublication(publication);
+        } else {
+            // Handle case where publication is not found
+            // You can throw an exception, return null, or handle it in another way based on your requirement
+        }
+
         return commentaireRepository.save(commentaire);
     }
 
