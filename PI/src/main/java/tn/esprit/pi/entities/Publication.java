@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
 @Getter
@@ -22,7 +23,7 @@ public class Publication {
     String contenu;
     LocalDate  dateCreation;
     String photo;
-    boolean status;
+    boolean status = false;
     int likes;
     
 }

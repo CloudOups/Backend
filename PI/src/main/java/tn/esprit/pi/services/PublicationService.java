@@ -1,10 +1,18 @@
 package tn.esprit.pi.services;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.UrlResource;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IPublicationRepository;
 
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -26,6 +34,7 @@ public class PublicationService implements IPublicationService {
 
     @Override
     public Publication addPublication(Publication publication) {
+        publication.setStatus(false);
         return publicationRepository.save(publication);
     }
 
@@ -151,5 +160,63 @@ public class PublicationService implements IPublicationService {
                 .orElse(null));
         System.out.println("le user qui est tres active : " + mostActiveAuthor);*/
     }
+/*
 
-}
+    public Publication storeFile(MultipartFile file, long id) {
+        String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String newFileName = generateNewFileName(originalFileName);
+
+        Path uploadPath = Paths.get(uploadDir);
+
+        try {
+            if (Files.notExists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            Path filePath = uploadPath.resolve(newFileName);
+            Files.copy(file.getInputStream(), filePath);
+
+            Publication publication = publicationRepository.findById(id);
+            publicationRepository.;
+            return blogRepository.save(blog);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store file: " + newFileName, e);
+        }
+    }
+
+
+    private String generateNewFileName(String originalFileName) {
+        // You can customize this method to generate a unique file name.
+        // For example, appending a timestamp or using a UUID.
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        return timestamp + "_" + originalFileName;
+    }
+
+
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new RuntimeException("File not found: " + fileName);
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("File not found: " + fileName, e);
+        }
+        */
+
+    }
+
+
+
+
+
+
+
+
+
+
+

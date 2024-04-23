@@ -25,6 +25,8 @@ public class SecurityConfig implements WebMvcConfigurer {
     private final AuthenticationProvider authenticationProvider ;
 
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -58,6 +60,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:4200");
+        configuration.addAllowedOrigin("http://localhost:8083");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);

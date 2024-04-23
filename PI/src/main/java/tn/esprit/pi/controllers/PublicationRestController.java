@@ -7,14 +7,13 @@ import tn.esprit.pi.services.PublicationService;
 
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/publication")
 @RestController
 public class PublicationRestController {
 
 
-
-     @Autowired
+@Autowired
     private  PublicationService publicationService;
 
     @PostMapping("/add")
