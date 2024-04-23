@@ -39,9 +39,9 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     Set<Publication> publications;
 
-    @OneToOne(mappedBy = "user")
-    Panier panier;
+  /* @OneToOne(mappedBy = "user")
+    Panier panier; */
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     Set<Commande> commandes;
 }

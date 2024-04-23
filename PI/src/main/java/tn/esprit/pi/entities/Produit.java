@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Getter
@@ -13,7 +14,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 
-public class Produit {
+public class Produit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numProd;
@@ -21,7 +22,9 @@ public class Produit {
     float Prix;
     int quantite;
     String image;
-    @ManyToMany(mappedBy = "produits",cascade = CascadeType.ALL)
-    Set<Panier> paniers;
+    String description;
+    boolean actif;
+   // @ManyToMany(mappedBy = "produit",cascade = CascadeType.ALL)
+   // Set<PanierElement> paniers;
 
 }

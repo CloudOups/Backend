@@ -4,15 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class PanierItem {
+public class PanierElement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -22,9 +20,11 @@ public class PanierItem {
      /* @OneToOne
     User user; */
     int quantite;
+    @JoinColumn(name = "Produit_id")
     Long numProd;
 
     @ManyToOne
+    @JoinColumn(name = "Commande_id")
     private Commande commande;
 
 }

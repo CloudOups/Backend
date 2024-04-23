@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="683cd451-7ec5-4d0c-9347-06ce94b56af4" name="Changes" comment="" />
+    <list default="true" id="683cd451-7ec5-4d0c-9347-06ce94b56af4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/repositories/IProduitRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IProduitService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Commande.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Commande.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Panier.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/PanierElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Produit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPublicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPublicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,8 +30,14 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="com.haulmont.jpb.JpaEntity" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
@@ -39,30 +61,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.PI [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.PI [test].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.PiApplication.executor&quot;: &quot;Run&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rania/Documents/GitHub/Backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.PI [compile].executor": "Run",
+    "Maven.PI [test].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.PiApplication.executor": "Run",
+    "git-widget-placeholder": "michel",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rania/Documents/GitHub/Backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="tn.esprit.pi.services" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn compile" />
@@ -99,6 +128,8 @@
       <workItem from="1711400818729" duration="957000" />
       <workItem from="1711401786315" duration="507000" />
       <workItem from="1711402300459" duration="1782000" />
+      <workItem from="1713778233544" duration="4782000" />
+      <workItem from="1713845363027" duration="9870000" />
     </task>
     <servers />
   </component>
