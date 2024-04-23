@@ -12,17 +12,19 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Panier {
+public class PanierItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int idPanier;
-    int nbItem;
-    float totalPrix;
-    @OneToOne
-    User user;
-    @ManyToMany
-    Set<Produit> produits;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "panier")
-    Set<Commande> commands;
+    Long id;
+
+    String imageUrl ;
+    float PrixUnitaire;
+     /* @OneToOne
+    User user; */
+    int quantite;
+    Long numProd;
+
+    @ManyToOne
+    private Commande commande;
 
 }
