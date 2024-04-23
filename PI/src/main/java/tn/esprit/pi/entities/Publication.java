@@ -1,9 +1,6 @@
 package tn.esprit.pi.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.boot.context.properties.bind.DefaultValue;
@@ -25,5 +22,7 @@ public class Publication {
     String photo;
     boolean status = false;
     int likes;
+    @ManyToOne
+    private User user;
     
 }

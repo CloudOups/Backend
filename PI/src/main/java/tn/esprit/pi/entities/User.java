@@ -42,22 +42,22 @@ public class User implements UserDetails {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date registrationDate = new Date() ;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<ReservationTerrain> reservationTerrains;
 
     @OneToOne(mappedBy ="user")
     private Ticket ticket;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy ="user")
     private Set<Commentaire> Commentaires;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Publication> publications;
 
     @OneToOne(mappedBy = "user")
     private Panier panier;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private  Set<Commande> commandes;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
