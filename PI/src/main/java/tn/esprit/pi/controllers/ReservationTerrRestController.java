@@ -3,6 +3,7 @@ package tn.esprit.pi.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.pi.entities.EmailRequest;
 import tn.esprit.pi.entities.ReservationTerrain;
 import tn.esprit.pi.entities.Terrain;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
@@ -14,15 +15,38 @@ import java.util.List;
 @RequestMapping("/reservation")
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
+
 public class ReservationTerrRestController {
     private ReservationTerrServices reservationTerrServices;
+    private EmailController emailController;
     private TerrainServices terrainService;
     private final IReservationTerrRepository iReservationTerrRepository;
 
-    @PostMapping("/add/idUser=/{iduser}/idTerrain=/{idTerrain}")
-    public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain reservationTerrain,@PathVariable Long iduser,@PathVariable Long idTerrain) {
-        return reservationTerrServices.addReservationTerrain(reservationTerrain,iduser,idTerrain);
-    }
+//    @PostMapping("/add/idUser=/{iduser}/idTerrain=/{idTerrain}")
+//    public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain reservationTerrain,@PathVariable Long iduser,@PathVariable Long idTerrain) {
+//        return reservationTerrServices.addReservationTerrain(reservationTerrain,iduser,idTerrain);
+//    }
+@PostMapping("/add/idUser=/{iduser}/idTerrain=/{idTerrain}")
+public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain reservationTerrain,@PathVariable Long iduser,@PathVariable Long idTerrain) {
+    ReservationTerrain addedReservation = reservationTerrServices.addReservationTerrain(reservationTerrain,iduser,idTerrain);
+
+    // Get user's email address from the reservation or any other source
+    String userEmail = addedReservation.getUser().getEmail(); // Assuming user has an email field
+
+    // Compose email content
+    String subject = "Reservation Confirmation";
+    String message = "Your reservation has been successfully added.";
+
+    // Send email
+    EmailRequest emailRequest = new EmailRequest(userEmail, subject, message);
+    ResponseEntity<?> emailResponse = emailController.sendEmail(emailRequest);
+
+    // Handle email sending response if needed
+
+    return addedReservation;
+}
+
     @PutMapping("/update")
     public ReservationTerrain updateReservationTerrain(@RequestBody ReservationTerrain reservationTerrain) {
         return reservationTerrServices.updateReservationTerrain(reservationTerrain);
