@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/tournoi")
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
 public class TournoiRestController {
 
     private TournoiServices tournoiServices;

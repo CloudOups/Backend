@@ -27,6 +27,7 @@ public class  Tournoi implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "tournoi")
     Set<Equipe> equipes;
+    Long nbEquipes;
     @OneToOne(mappedBy = "tournoi")
     ReservationTerrain reservation;
     @JsonIgnore
