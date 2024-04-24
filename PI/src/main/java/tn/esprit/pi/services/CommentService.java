@@ -92,9 +92,9 @@ public class CommentService implements ICommentService {
             int sentimentValue = RNNCoreAnnotations.getPredictedClass(tree);
             String sentiment;
             if (sentimentValue == 2 || sentimentValue == 3) {
-                sentiment = "Happy"; // Positive or Very Positive
+                sentiment = "Happy";
             } else {
-                sentiment = "Angry"; // Negative, Very Negative, or Neutral
+                sentiment = "Angry";
             }
             return sentiment;
         }*/
