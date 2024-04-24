@@ -20,6 +20,8 @@ public class Terrain implements Serializable {
     Long numTerrain;
     String nomTerrain;
     @Enumerated(EnumType.STRING)
+    StatusTerrain statusTerrain;
+    @Enumerated(EnumType.STRING)
     TypeTerrain typeTerrain;
     @JsonIgnore
     @OneToMany(mappedBy = "terrain", cascade = CascadeType.ALL)
