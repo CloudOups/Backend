@@ -6,6 +6,7 @@ import tn.esprit.pi.entities.Commande;
 import tn.esprit.pi.entities.PanierElement;
 import tn.esprit.pi.entities.User;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -13,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Achat {
-    private User user;
+    private User utilisateur;
     private Commande commande;
-    private Set<PanierElement> panierElements;
+    private Set<PanierElement> commandeElements = new HashSet<>();
 }

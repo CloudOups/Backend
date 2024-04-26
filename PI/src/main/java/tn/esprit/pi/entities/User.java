@@ -1,10 +1,12 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,5 +45,19 @@ public class User implements Serializable {
     Panier panier; */
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    Set<Commande> commandes;
+            @JsonIgnore
+    Set<Commande> commandes = new HashSet<>();
+
+    public void addCommande(Commande commande) {
+
+        if (commande != null) {
+
+            if (commandes == null) {
+                commandes = new HashSet<>();
+            }
+
+            commandes.add(commande);
+            commande.setUser(this);
+        }
+    }
 }

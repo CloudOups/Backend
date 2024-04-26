@@ -1,5 +1,6 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -7,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,23 +22,32 @@ public class Commande implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "Commande_id")
-    Long CommandeId ;
+    Long id ;
     String numeroSuiviCommande;
-    double totalprix;
+
+    @Column(nullable = true)
+    double prixTotal = 0;
+
+    @Column(nullable = true)
+    int quantiteTotale =0;
     String status;
+
     @CreationTimestamp
     LocalDate dateCreation;
     @UpdateTimestamp
     LocalDate dateDernierModification;
 
-    String modePaiement = "Cash";
-    String adresseLivraison;
-    String numeroCarte = "0000 0000 0000 0000";
+   // String email;
 
+  //  String modePaiement = "Cash";
+  //  String adresseLivraison;
+  //  String numeroCarte = "0000 0000 0000 0000";
     @ManyToOne
-    @JoinColumn(name = "client_id")
     User user;
+
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "commande")
+    @JsonIgnore
     Set<PanierElement> panierItems = new HashSet<>();
 
     // add a item to the panierItems customized method

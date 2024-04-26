@@ -16,7 +16,7 @@ public class PanierElement {
     Long id;
 
     String imageUrl ;
-    float PrixUnitaire;
+    float prixUnitaire;
      /* @OneToOne
     User user; */
     int quantite;

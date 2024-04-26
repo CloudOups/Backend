@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="683cd451-7ec5-4d0c-9347-06ce94b56af4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Backend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/repositories/IProduitRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IProduitService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/controllers/PanierAchatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/controllers/PanierAchatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/dto/Achat.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/dto/Achat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/dto/AchatResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/dto/AchatResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Commande.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Commande.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Panier.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/PanierElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Produit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/PanierElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/PanierElement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPublicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPublicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/repositories/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/repositories/IUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPanierAchatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPanierAchatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/PanierAchatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/PanierAchatService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,32 +57,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.PI [compile].executor": "Run",
-    "Maven.PI [test].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.PiApplication.executor": "Run",
-    "git-widget-placeholder": "michel",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/rania/Documents/GitHub/Backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.PI [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.PI [test].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.PiApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;michel&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/rania/Documents/GitHub/Backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="tn.esprit.pi.services" />
@@ -129,7 +125,18 @@
       <workItem from="1711401786315" duration="507000" />
       <workItem from="1711402300459" duration="1782000" />
       <workItem from="1713778233544" duration="4782000" />
-      <workItem from="1713845363027" duration="9870000" />
+      <workItem from="1713845363027" duration="10600000" />
+      <workItem from="1713860227300" duration="58000" />
+      <workItem from="1713872959445" duration="1231000" />
+      <workItem from="1713887968082" duration="8787000" />
+      <workItem from="1713929105681" duration="13348000" />
+      <workItem from="1713947099249" duration="2164000" />
+      <workItem from="1713965970082" duration="8148000" />
+      <workItem from="1713991676695" duration="5745000" />
+      <workItem from="1714049266064" duration="424000" />
+      <workItem from="1714058998493" duration="238000" />
+      <workItem from="1714068203901" duration="4755000" />
+      <workItem from="1714151357559" duration="3084000" />
     </task>
     <servers />
   </component>
