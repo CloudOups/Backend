@@ -19,25 +19,20 @@ import java.util.List;
 @RequestMapping("/terrain")
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
 public class TerrainRestController {
 
     private TerrainServices terrainServices;
-  //  public static String uploadDirectory= System.getProperty("user.dir")+"/src/main/webapp/images";
+    public static String uploadDirectory= System.getProperty("user.dir")+"/src/main/webapp/images";
    // public static String uploadDirectory = System.getProperty("user.dir") + "C:" + File.separator +"xampp" + File.separator + "htdocs" + File.separator + "img" + File.separator + "imgPI";
 
-//    @PostMapping("/add")
-//    public Terrain addTerrain(@ModelAttribute Terrain terrain, @RequestParam("image") MultipartFile file) throws IOException
-//    {String OriginalFilename= file.getOriginalFilename();
-//        Path fileNameAndPath= Paths.get(uploadDirectory,OriginalFilename);
-//        Files.write(fileNameAndPath,file.getBytes());
-//        terrain.setImageTerrain(OriginalFilename);
-//        return terrainServices.addTerrain(terrain);
-//    }
-@PostMapping("/add")
-public Terrain addTerrain(@RequestBody Terrain terrain){
-    return terrainServices.addTerrain(terrain);
-}
+    @PostMapping("/add")
+    public Terrain addTerrain(@ModelAttribute Terrain terrain, @RequestParam("image") MultipartFile file) throws IOException
+    {String OriginalFilename= file.getOriginalFilename();
+        Path fileNameAndPath= Paths.get(uploadDirectory,OriginalFilename);
+        Files.write(fileNameAndPath,file.getBytes());
+        terrain.setImageTerrain(OriginalFilename);
+        return terrainServices.addTerrain(terrain);
+    }
     @PutMapping("/update")
     public Terrain updateTerrain(@RequestBody Terrain terrain) {
         return terrainServices.updateTerrain(terrain);

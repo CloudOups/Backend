@@ -21,7 +21,14 @@ IUserRepository userRepository;
     @Override
     public boolean isUserAlreadyInTeam(Long userId) {
         List<Equipe> allTeams =  (List<Equipe>)equipeRepository.findAll();
+/*
+        for (Equipe equipe : allTeams) {
+            Set<MembresEquipe> members = equipe.getMembresEquipe();
 
+            for (MembresEquipe member : members) {
+                if (member.getUser().getUserId().equals(userId)) {
+                    return true;
+                }*/
         for (Equipe equipe : allTeams) {
             Set<User> members = equipe.getMembresEquipe();
 
