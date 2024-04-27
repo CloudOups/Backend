@@ -1,6 +1,5 @@
 package tn.esprit.pi.services;
 
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
@@ -9,6 +8,7 @@ import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IPublicationRepository;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +18,19 @@ import java.time.Month;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import tn.esprit.pi.entities.Publication;
+import tn.esprit.pi.repositories.IPublicationRepository;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired; // Import the Autowired annotation
@@ -25,10 +38,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PublicationService implements IPublicationService {
-    @Value("${file.upload-dir}")
-    private String uploadDir;
 
-    @Autowired
+    private final String uploadDir ="C:/xampp/htdocs/img";
+
+            @Autowired
     IPublicationRepository publicationRepository;
     static long totalPublications = 0;
 
@@ -160,30 +173,25 @@ public class PublicationService implements IPublicationService {
                 .orElse(null));
         System.out.println("le user qui est tres active : " + mostActiveAuthor);*/
     }
-/*
-
-    public Publication storeFile(MultipartFile file, long id) {
+    public Publication storeFile(MultipartFile file, Long id) {
         String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
         String newFileName = generateNewFileName(originalFileName);
 
-        Path uploadPath = Paths.get(uploadDir);
-
         try {
-            if (Files.notExists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            Path filePath = uploadPath.resolve(newFileName);
+            Path filePath = Paths.get(uploadDir).resolve(newFileName);
             Files.copy(file.getInputStream(), filePath);
 
-            Publication publication = publicationRepository.findById(id);
-            publicationRepository.;
-            return blogRepository.save(blog);
+            Publication publication = publicationRepository.findById(id).orElse(null);
+            if (publication != null) {
+                publication.setPhoto(filePath.toString());
+                return publicationRepository.save(publication);
+            } else {
+                throw new RuntimeException("Publication not found with id: " + id);
+            }
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file: " + newFileName, e);
         }
     }
-
 
     private String generateNewFileName(String originalFileName) {
         // You can customize this method to generate a unique file name.
@@ -192,11 +200,10 @@ public class PublicationService implements IPublicationService {
         return timestamp + "_" + originalFileName;
     }
 
-
     public Resource loadFileAsResource(String fileName) {
         try {
             Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
+            Resource resource = (Resource) new UrlResource(filePath.toUri());
 
             if (resource.exists()) {
                 return resource;
@@ -206,7 +213,7 @@ public class PublicationService implements IPublicationService {
         } catch (MalformedURLException e) {
             throw new RuntimeException("File not found: " + fileName, e);
         }
-        */
+    }
 
     }
 

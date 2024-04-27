@@ -1,7 +1,11 @@
 package tn.esprit.pi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.services.PublicationService;
 
@@ -69,5 +73,21 @@ public class PublicationRestController {
     @PutMapping("/approveAll")
     public List<Publication> approveAllBlogs() {
         return publicationService.ApproveAllBlogs();
+    }
+
+
+    //upload image
+    @PostMapping("/upload/{id}")
+    public Publication handleFileUpload(@RequestParam("photo") MultipartFile file, @PathVariable("id") long publicationcode) {
+
+        return publicationService.storeFile(file,publicationcode);
+    }
+    //affichage image
+    @GetMapping("/download/{fileName}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName) {
+        Resource resource = publicationService.loadFileAsResource(fileName);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
     }
 }
