@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="683cd451-7ec5-4d0c-9347-06ce94b56af4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PI/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/controllers/PanierAchatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/controllers/PanierAchatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/dto/Achat.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/dto/Achat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/dto/AchatResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/dto/AchatResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Commande.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Commande.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/PanierElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/PanierElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/repositories/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/repositories/IUserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPanierAchatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPanierAchatService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/PanierAchatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/PanierAchatService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/resources/application.properties" afterDir="false" />
@@ -45,7 +40,6 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="mavenHome" value="Use Maven wrapper" />
-        <option name="workOffline" value="true" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -80,6 +74,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -136,7 +131,10 @@
       <workItem from="1714049266064" duration="424000" />
       <workItem from="1714058998493" duration="238000" />
       <workItem from="1714068203901" duration="4755000" />
-      <workItem from="1714151357559" duration="3084000" />
+      <workItem from="1714151357559" duration="3700000" />
+      <workItem from="1714192859105" duration="2546000" />
+      <workItem from="1714212148674" duration="3412000" />
+      <workItem from="1714224350990" duration="15370000" />
     </task>
     <servers />
   </component>

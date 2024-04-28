@@ -1,24 +1,32 @@
 package tn.esprit.pi.controllers;
 
 
-import lombok.RequiredArgsConstructor;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.dto.Achat;
 import tn.esprit.pi.dto.AchatResponse;
+import tn.esprit.pi.dto.PaymentInfo;
 import tn.esprit.pi.entities.Commande;
-import tn.esprit.pi.repositories.ICommandeRepository;
 import tn.esprit.pi.services.ICommandeService;
 import tn.esprit.pi.services.IPanierAchatService;
+
+import java.util.logging.Logger;
 
 
 @RestController
 @RequestMapping("/commande")
-@RequiredArgsConstructor
+@AllArgsConstructor
+
 public class PanierAchatController {
 
-    final private IPanierAchatService panierAchatService;
-    final ICommandeService commandeService;
+    // private Logger logger = Logger.getLogger(getClass().getName());
+     private IPanierAchatService panierAchatService;
+     private ICommandeService commandeService;
 
 
     @PostMapping("/add")
@@ -33,6 +41,13 @@ public class PanierAchatController {
         return commandeService.getCommandesByEmail(email);
     }
 
+    @PostMapping("/payment-intent")
+    public ResponseEntity<String> createPaymentIntent(@RequestBody PaymentInfo paymentInfo) throws StripeException {
+    //    logger.info("PaymentInfo.amount: " + paymentInfo.getAmount());
+        PaymentIntent paymentIntent = panierAchatService.createPaymentIntent(paymentInfo);
 
+        String paymentStr = paymentIntent.toJson();
 
+        return new ResponseEntity<>(paymentStr, HttpStatus.OK);
+    }
 }
