@@ -77,17 +77,5 @@ public class PublicationRestController {
 
 
     //upload image
-    @PostMapping("/upload/{id}")
-    public Publication handleFileUpload(@RequestParam("photo") MultipartFile file, @PathVariable("id") long publicationcode) {
 
-        return publicationService.storeFile(file,publicationcode);
-    }
-    //affichage image
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName) {
-        Resource resource = publicationService.loadFileAsResource(fileName);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-    }
 }

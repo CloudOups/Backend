@@ -173,47 +173,7 @@ public class PublicationService implements IPublicationService {
                 .orElse(null));
         System.out.println("le user qui est tres active : " + mostActiveAuthor);*/
     }
-    public Publication storeFile(MultipartFile file, Long id) {
-        String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String newFileName = generateNewFileName(originalFileName);
 
-        try {
-            Path filePath = Paths.get(uploadDir).resolve(newFileName);
-            Files.copy(file.getInputStream(), filePath);
-
-            Publication publication = publicationRepository.findById(id).orElse(null);
-            if (publication != null) {
-                publication.setPhoto(filePath.toString());
-                return publicationRepository.save(publication);
-            } else {
-                throw new RuntimeException("Publication not found with id: " + id);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to store file: " + newFileName, e);
-        }
-    }
-
-    private String generateNewFileName(String originalFileName) {
-        // You can customize this method to generate a unique file name.
-        // For example, appending a timestamp or using a UUID.
-        String timestamp = String.valueOf(System.currentTimeMillis());
-        return timestamp + "_" + originalFileName;
-    }
-
-    public Resource loadFileAsResource(String fileName) {
-        try {
-            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
-            Resource resource = (Resource) new UrlResource(filePath.toUri());
-
-            if (resource.exists()) {
-                return resource;
-            } else {
-                throw new RuntimeException("File not found: " + fileName);
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("File not found: " + fileName, e);
-        }
-    }
 
     }
 
