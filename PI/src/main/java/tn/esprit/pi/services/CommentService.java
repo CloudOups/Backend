@@ -2,6 +2,7 @@ package tn.esprit.pi.services;
 
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import tn.esprit.pi.entities.Commentaire;
 import tn.esprit.pi.entities.Publication;
@@ -20,15 +21,18 @@ import opennlp.tools.tokenize.WhitespaceTokenizer;
 import opennlp.tools.util.ObjectStream;
 import opennlp.tools.util.PlainTextByLineStream;
 
+import java.io.Console;
 import java.util.Properties;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.repositories.IPublicationRepository;
+@Slf4j
 
 @Service
 public class CommentService implements ICommentService {
+
 
      @Autowired
      ICommentRepository commentaireRepository;
@@ -48,8 +52,7 @@ public class CommentService implements ICommentService {
         if (publication != null) {
             commentaire.setPublication(publication);
         } else {
-            // Handle case where publication is not found
-            // You can throw an exception, return null, or handle it in another way based on your requirement
+
         }
 
         return commentaireRepository.save(commentaire);
