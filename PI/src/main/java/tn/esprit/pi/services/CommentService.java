@@ -36,7 +36,8 @@ public class CommentService implements ICommentService {
 
      @Autowired
      ICommentRepository commentaireRepository;
-     IPublicationRepository publicationRepository;
+    @Autowired
+    IPublicationRepository publicationRepository;
   //  private final StanfordCoreNLP pipeline;
 
 

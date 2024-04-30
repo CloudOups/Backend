@@ -23,6 +23,7 @@ public class Commentaire {
     @ManyToOne
     User user;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "num_pub")
     Publication publication;
     String Sentiment;
 }
