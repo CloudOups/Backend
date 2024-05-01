@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IEquipeServices {
-    boolean isUserAlreadyInTeam(Integer id);
-    Equipe addEquipe(Equipe equipe,Integer id);
+    boolean isUserAlreadyInTeam(Integer userId);
+    Equipe addEquipe(Equipe equipe,Integer idUser);
     Equipe updateEquipe(Equipe equipe);
     void delete(Long numequipe);
     Equipe getById(Long numequipe);
     List<Equipe> getAll();
     Equipe getByNom(String nomEquipe);
-    Equipe demandeAdhesion(Long idequipe, Integer id);
-    Equipe traiterAdhesion(Long idequipe,Integer id,String reponse);
+    Equipe demandeAdhesion(Long idequipe, Integer iduser);
+    Equipe traiterAdhesion(Long idequipe,Integer userId,String reponse);
 
 }

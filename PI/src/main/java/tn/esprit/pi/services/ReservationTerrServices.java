@@ -39,9 +39,9 @@ public class ReservationTerrServices implements IReservationTerrServices {
          }
      }*/
     @Override
-    public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain, Integer id, Long idTerrain) {
+    public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain, Integer idUser, Long idTerrain) {
         Terrain terrain = terrainRepository.findById(idTerrain).orElse(null);
-        User user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(idUser).orElse(null);
 
         if (user == null) {
             log.warn("User not found");
@@ -55,7 +55,7 @@ public class ReservationTerrServices implements IReservationTerrServices {
                 log.warn("Terrain is already reserved at that time");
                 return null;
             }
-            double totalPrice = calculateReservationPrice(reservationTerrain.getDateDebut().atStartOfDay(), reservationTerrain.getDateFin().atStartOfDay());
+            double totalPrice = calculateReservationPrice(reservationTerrain.getDateDebut(), reservationTerrain.getDateFin());
             reservationTerrain.setPrixReser(totalPrice);
             terrain.setStatusTerrain(StatusTerrain.valueOf("Reserve"));
             reservationTerrain.setTerrain(terrain);
@@ -142,8 +142,8 @@ public class ReservationTerrServices implements IReservationTerrServices {
         }
         return Collections.emptyList();
     }
-    public List<ReservationTerrain> getResByUser(Integer id) {
-        List<ReservationTerrain> reservationsByUser = reservationTerrRepository.findByUser_UserId(id);
+    public List<ReservationTerrain> getResByUser(Integer userId) {
+        List<ReservationTerrain> reservationsByUser = reservationTerrRepository.findByUser_Id(userId);
         if (reservationsByUser != null) {
             return reservationsByUser;
         }

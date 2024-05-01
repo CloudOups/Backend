@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
+import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IEventRepository;
 import tn.esprit.pi.repositories.ITicketRepository;
 

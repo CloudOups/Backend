@@ -28,9 +28,9 @@ public class ReservationTerrRestController {
 //    public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain reservationTerrain,@PathVariable Long iduser,@PathVariable Long idTerrain) {
 //        return reservationTerrServices.addReservationTerrain(reservationTerrain,iduser,idTerrain);
 //    }
-@PostMapping("/add/id=/{id}/idTerrain=/{idTerrain}")
-public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain reservationTerrain,@PathVariable Integer id,@PathVariable Long idTerrain) {
-    ReservationTerrain addedReservation = reservationTerrServices.addReservationTerrain(reservationTerrain,id,idTerrain);
+@PostMapping("/add/idUser=/{iduser}/idTerrain=/{idTerrain}")
+public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain reservationTerrain,@PathVariable Integer iduser,@PathVariable Long idTerrain) {
+    ReservationTerrain addedReservation = reservationTerrServices.addReservationTerrain(reservationTerrain,iduser,idTerrain);
 
     // Get user's email address from the reservation or any other source
     String userEmail = addedReservation.getUser().getEmail(); // Assuming user has an email field
@@ -91,8 +91,8 @@ public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain 
         return reservationTerrServices.getMostReservedTerrainByType(typeTerrain);
     }
 
-    @GetMapping("/get/ReservationbyUserId/{id}")
-    public List<ReservationTerrain> getReservationsByUser(@PathVariable Integer id) {
-        return reservationTerrServices.getResByUser(id);
+    @GetMapping("/get/ReservationbyUserId/{userId}")
+    public List<ReservationTerrain> getReservationsByUser(@PathVariable Integer userId) {
+        return reservationTerrServices.getResByUser(userId);
     }
 }

@@ -13,8 +13,6 @@ public interface ITerrainServices {
     void deleteTerrain(Long numterrain);
     Terrain getById(Long numterrain);
     List<Terrain> getByEtat(String statusTerrain);
-    void delete(int numterrain);
-    Terrain getById(int numterrain);
     List<Terrain> getAll();
     void getExpiredRes();
 

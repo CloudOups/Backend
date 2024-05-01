@@ -8,8 +8,7 @@ import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IEventRepository;
-
-
+import tn.esprit.pi.repositories.ITerrainRepository;
 import tn.esprit.pi.repositories.ITicketRepository;
 import tn.esprit.pi.repositories.UserRepository;
 
@@ -54,54 +53,52 @@ public class EventServices implements IEventServices {
     @Override
     public Event findByName(String nom) { return eventRepository.findByNomevent(nom); }
 
-
-
-//    public List<Event> getParticipationHistory(Integer id) {
-//        List<Ticket> userTickets = ticketRepository.findByUser(userRepository.findById(id));
-//        List<Event> participationHistory = new ArrayList<>();
-//        for (Ticket ticket : userTickets) {
-//            participationHistory.add(ticket.getEvent());
-//        }
-//        return participationHistory;
-//    }
-
-
-   @Override
-   public List<Event> recommanderEvenements(Integer id) {
-//        User user = userRepository.findById(id).orElse(null);
-//        if (user == null) {
-//            return new ArrayList<>();
-//        }
-//        String userLocation = user.getAdresse();
-//
-//        List<Event> participationHistory = getParticipationHistory(id);
-//        String mostParticipCategory = getMostParticipatedCategory(participationHistory);
-//
-//        List<Event> recommandations = new ArrayList<>();
-//        for (Event event : getAll()) {
-//            if (event.getLocation().equals(userLocation) || event.getCategorie().equals(mostParticipCategory)) {
-//                recommandations.add(event);
-//            }
-//        }
-        return null;
+    public List<Event> getParticipationHistory(Integer userId) {
+        List<Ticket> userTickets = ticketRepository.findByUser(userRepository.findById(userId));
+        List<Event> participationHistory = new ArrayList<>();
+        for (Ticket ticket : userTickets) {
+            participationHistory.add(ticket.getEvent());
+        }
+        return participationHistory;
     }
-//
-//    private String getMostParticipatedCategory(List<Event> participationHistory) {
-//        Map<String, Integer> categoryCount = new HashMap<>();
-//        for (Event event : participationHistory) {
-//            String category = event.getCategorie();
-//            categoryCount.put(category, categoryCount.getOrDefault(category, 0) + 1);
-//        }
-//        String mostParticipatedCategory = null;
-//        int maxCount = 0;
-//        for (Map.Entry<String, Integer> entry : categoryCount.entrySet()) {
-//            if (entry.getValue() > maxCount) {
-//                maxCount = entry.getValue();
-//                mostParticipatedCategory = entry.getKey();
-//            }
-//        }
-//        return mostParticipatedCategory;
-//    }
+
+
+    @Override
+    public List<Event> recommanderEvenements(Integer userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            return new ArrayList<>();
+        }
+        String userLocation = user.getAdresse();
+
+        List<Event> participationHistory = getParticipationHistory(userId);
+        String mostParticipCategory = getMostParticipatedCategory(participationHistory);
+
+        List<Event> recommandations = new ArrayList<>();
+        for (Event event : getAll()) {
+            if (event.getLocation().equals(userLocation) || event.getCategorie().equals(mostParticipCategory)) {
+                recommandations.add(event);
+            }
+        }
+        return recommandations;
+    }
+
+    private String getMostParticipatedCategory(List<Event> participationHistory) {
+        Map<String, Integer> categoryCount = new HashMap<>();
+        for (Event event : participationHistory) {
+            String category = event.getCategorie();
+            categoryCount.put(category, categoryCount.getOrDefault(category, 0) + 1);
+        }
+        String mostParticipatedCategory = null;
+        int maxCount = 0;
+        for (Map.Entry<String, Integer> entry : categoryCount.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                mostParticipatedCategory = entry.getKey();
+            }
+        }
+        return mostParticipatedCategory;
+    }
 
     //stat
     @Override

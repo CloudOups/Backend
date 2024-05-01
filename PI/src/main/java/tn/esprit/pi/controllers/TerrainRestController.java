@@ -60,12 +60,6 @@ public class TerrainRestController {
     @DeleteMapping("/delete/{idTerrain}")
     public void removeTerrain(@PathVariable Long idTerrain){
         terrainServices.deleteTerrain(idTerrain);
-    public Terrain getTerrain(@PathVariable int idTerrain){
-        return terrainServices.getById(idTerrain);
-    }
-    @DeleteMapping("/delete/{idTerrain}")
-    public void removeTerrain(@PathVariable int idTerrain){
-        terrainServices.delete(idTerrain);
     }
     @GetMapping("/get/all")
     public List<Terrain> getAll(){ return terrainServices.getAll();

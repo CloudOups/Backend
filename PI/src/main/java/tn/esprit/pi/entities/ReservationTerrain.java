@@ -1,5 +1,6 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -16,12 +17,15 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 
-public class ReservationTerrain {
+public class ReservationTerrain implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numRes;
-    LocalDate dateDebut;
-    LocalDate dateFin;
+    Boolean etatReser =true;
+    @Temporal(TemporalType.TIMESTAMP)
+    LocalDateTime dateDebut;
+    @Temporal(TemporalType.TIMESTAMP)
+    LocalDateTime  dateFin;
     @Enumerated(EnumType.STRING)
     TypeReservation typeRes;
     Double PrixReser;

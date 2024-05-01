@@ -79,7 +79,7 @@ public class TerrainServices implements ITerrainServices{
         else terrainRepository.delete(terrain);
     }
     @Override
-    public Terrain getById(int numterrain) {
+    public Terrain getById(Long numterrain) {
         return terrainRepository.findById(numterrain).get();
     }
     @Override

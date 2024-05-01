@@ -11,7 +11,7 @@ public interface IEventServices {
     Event getById(Long id);
     List<Event> getAll();
     Event findByName(String nom);
-    List<Event> recommanderEvenements(Integer id);
+    List<Event> recommanderEvenements(Integer userId);
     List<Event> evenementsAvecPlusParticipations();
 
 }
