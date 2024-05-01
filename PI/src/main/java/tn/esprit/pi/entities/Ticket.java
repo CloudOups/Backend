@@ -1,5 +1,6 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -16,10 +17,9 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numTicket ;
     LocalDate dateTicket;
-
     @OneToOne
     User user;
+    @JsonIgnore
     @ManyToOne
     Event event;
-
 }

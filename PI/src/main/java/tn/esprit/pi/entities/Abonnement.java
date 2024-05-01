@@ -21,5 +21,4 @@ public class Abonnement {
     CoursSport coursSport;
     @OneToOne(cascade = CascadeType.PERSIST )
     User user;
-
 }

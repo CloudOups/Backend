@@ -11,23 +11,19 @@ import java.util.List;
 public class TerrainServices implements ITerrainServices{
     ITerrainRepository terrainRepository;
     @Override
-    public Terrain addTerrain(Terrain terrain) {
-
-        return terrainRepository.save(terrain);
-    }
-
+    public Terrain addTerrain(Terrain terrain) {return terrainRepository.save(terrain);}
     @Override
     public Terrain updateTerrain(Terrain terrain) {
         return terrainRepository.save(terrain);
     }
 
     @Override
-    public void delete(int numterrain) {
-terrainRepository.deleteById(numterrain);
+    public void delete(Long numterrain) {
+    terrainRepository.deleteById(numterrain);
     }
 
     @Override
-    public Terrain getById(int numterrain) {
+    public Terrain getById(Long numterrain) {
         return terrainRepository.findById(numterrain).get();
     }
 
