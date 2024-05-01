@@ -2,37 +2,82 @@ package tn.esprit.pi.services;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import tn.esprit.pi.entities.ReservationTerrain;
-import tn.esprit.pi.entities.StatusTerrain;
-import tn.esprit.pi.entities.Terrain;
-import tn.esprit.pi.entities.User;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import tn.esprit.pi.entities.*;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
+@Slf4j
 @Service
 @AllArgsConstructor
 public class TerrainServices implements ITerrainServices{
     ITerrainRepository terrainRepository;
     IReservationTerrRepository reservationTerrRepository;
+
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images";
+
     @Override
-    public Terrain addTerrain(Terrain terrain) {return terrainRepository.save(terrain);
+    public Terrain addTerrain(Terrain terrain, MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+
+        try {
+            // Construct the file path
+            String originalFilename = file.getOriginalFilename();
+            String filePath = Paths.get(uploadDirectory, originalFilename).toString();
+
+            // Save the file to the upload directory
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(filePath);
+            Files.write(path, bytes);
+
+            // Set the image file name in terrain
+            terrain.setImageTerrain(originalFilename);
+
+            // Save terrain to the repository
+            return terrainRepository.save(terrain);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store file " + file.getOriginalFilename(), e);
+        }
     }
-    @Override
+
+
+
+@Override
     public Terrain updateTerrain(Terrain terrain) {
         return terrainRepository.save(terrain);
     }
 
-    @Override
-    public void delete(Long numterrain) {
-terrainRepository.deleteById(numterrain);
-    }
+    public void deleteTerrain(Long numTerrain) {
+        Terrain terrain = terrainRepository.findById(numTerrain)
+                .orElseThrow(() -> new EntityNotFoundException("Terrain not found with id: " + numTerrain));
 
+        boolean hasActiveReservations2=false;
+        if (reservationTerrRepository.existsActiveReservationsForTerrain(numTerrain)) {
+            hasActiveReservations2=true;
+        }
+        if (hasActiveReservations2) {
+            log.warn("Cannot delete terrain with active reservationssss");
+            throw new IllegalStateException("Cannot delete terrain with active reservations");
+        }
+        else terrainRepository.delete(terrain);
+    }
     @Override
     public Terrain getById(Long numterrain) {
         return terrainRepository.findById(numterrain).get();
@@ -45,11 +90,12 @@ terrainRepository.deleteById(numterrain);
     };
 
     @Override
-    public List<Terrain> getAll() {return( List<Terrain>) terrainRepository.findAll();
+    public List<Terrain> getAll() {
+        return( List<Terrain>) terrainRepository.findAll();
     }
 
     @Override
-    @Scheduled(cron ="*/30 * * * * *")
+    @Scheduled(cron ="* */30 * * * *")
     public void getExpiredRes() {
         List<ReservationTerrain> expiredReservations = reservationTerrRepository.findByExpired();
 
@@ -64,10 +110,10 @@ terrainRepository.deleteById(numterrain);
             terrain.setStatusTerrain(StatusTerrain.Libre);
             terrainRepository.save(terrain);
 
-            System.out.println("Reservation number "+ reservation.getNumRes() +" is expired " );
+            log.info("Reservation number "+ reservation.getNumRes() +" is expired " );
         }
             else
-                System.out.println("Reservation number "+ reservation.getNumRes() +" is already Expired and treated " );
+                log.info("Reservation number "+ reservation.getNumRes() +" is already Expired and treated " );
 
         }}
 
@@ -112,4 +158,14 @@ terrainRepository.deleteById(numterrain);
         // Enregistrer la réservation
         reservationTerrRepository.save(reservation);
     }
+    public List<Terrain> findAvailableTerrainsByType(LocalDateTime startTime, LocalDateTime endTime,TypeTerrain typeTerrain) {
+        List<Terrain> availableTerrains = findAvailableTerrains(startTime, endTime);
+        // Filter the available terrains by type
+        List<Terrain> availableTerrainsByType = availableTerrains.stream()
+                .filter(terrain -> terrain.getTypeTerrain().equals(typeTerrain))
+                .collect(Collectors.toList());
+
+        return availableTerrainsByType;
+    }
+
 }

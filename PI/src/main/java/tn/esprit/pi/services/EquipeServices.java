@@ -1,6 +1,7 @@
 package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Equipe;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class EquipeServices implements IEquipeServices{
 IEquipeRepository equipeRepository;
@@ -37,7 +39,7 @@ IUserRepository userRepository;
     @Override
     public Equipe addEquipe(Equipe equipe,Long idUser) {
         Equipe existingEquipeOptional = equipeRepository.findByNomEquipe(equipe.getNomEquipe());
-        if (existingEquipeOptional!=null) {System.out.println("nom équipe existe!");return  null; }
+        if (existingEquipeOptional!=null) {log.warn("nom équipe existe!");return  null; }
         else{
         if (!isUserAlreadyInTeam(idUser)) {
             User user = userRepository.findById(idUser).orElse(null);
@@ -48,7 +50,7 @@ IUserRepository userRepository;
 
             return equipeRepository.save(equipe);
         }
-    else System.out.println("User already selected ");
+    else log.warn("User already selected ");
     return null;
     }}
 
@@ -82,11 +84,11 @@ IUserRepository userRepository;
                     equipe.getMembresEnAttente().add(user);
         return equipeRepository.save(equipe);}
             else{
-                    System.out.println("user already in team");
+                    log.warn("user already in team");
                 }
             }
         else  {
-            System.out.println("L'equipe est complete ");}
+            log.warn("L'equipe est complete ");}
 
         return null;
     }
@@ -96,7 +98,7 @@ IUserRepository userRepository;
         Equipe equipe = equipeRepository.findById(idequipe).orElse(null);
         Set<User> pendingMembers = equipe.getMembresEnAttente();
         if (pendingMembers == null ||equipe.getChefEquipe() == null ) {
-            System.out.println("errors");}
+            log.warn("errors");}
         for (User user : pendingMembers) {
             User selectedUser = userRepository.findById(user.getUserId()).orElse(null);
             if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
@@ -109,7 +111,7 @@ IUserRepository userRepository;
                     return equipeRepository.save(equipe);
                 }
             } else {
-                System.out.println("L'equipe est complete ");
+                log.warn("L'equipe est complete ");
             }
         }
         return null;
@@ -118,7 +120,7 @@ IUserRepository userRepository;
     public Equipe getByNom(String nomEquipe) {
        Equipe equipe= equipeRepository.findByNomEquipe(nomEquipe);
         if (equipe == null) {
-           System.out.println("Pas d'équipe avec ce nom");
+           log.warn("Pas d'équipe avec ce nom");
        }
        return equipe;
         }

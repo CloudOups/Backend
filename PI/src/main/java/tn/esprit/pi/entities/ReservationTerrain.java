@@ -28,6 +28,7 @@ public class ReservationTerrain implements Serializable {
     LocalDateTime  dateFin;
     @Enumerated(EnumType.STRING)
     TypeReservation typeRes;
+    Double PrixReser;
     //@JsonIgnore
     @ManyToOne
     User user;

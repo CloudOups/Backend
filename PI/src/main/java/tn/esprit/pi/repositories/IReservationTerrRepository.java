@@ -18,6 +18,14 @@ public interface IReservationTerrRepository extends CrudRepository<ReservationTe
     List<ReservationTerrain> findReserByEtatReser(boolean etatReser);
     List<ReservationTerrain> findByTypeRes(TypeReservation typeRes);
     List<ReservationTerrain> findByTerrain(Terrain terrain);
+
+    List<ReservationTerrain> findByUser_UserId(Long userId);
+
+    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN TRUE ELSE FALSE END FROM ReservationTerrain r WHERE r.terrain.numTerrain = :numTerrain AND r.etatReser = true")
+    Boolean existsActiveReservationsForTerrain(Long numTerrain);
+
+
+
     @Query("SELECT r FROM ReservationTerrain r WHERE r.dateFin < CURRENT_TIME ")
     List<ReservationTerrain> findByExpired();
 

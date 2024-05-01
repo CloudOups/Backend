@@ -1,61 +1,78 @@
 package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import tn.esprit.pi.entities.*;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
 import tn.esprit.pi.repositories.IUserRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 
-public class ReservationTerrServices implements IReservationTerrServices{
+public class ReservationTerrServices implements IReservationTerrServices {
     IReservationTerrRepository reservationTerrRepository;
     ITerrainRepository terrainRepository;
     IUserRepository userRepository;
-   /* @Override
-    public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain,Long idUser,Long idTerrain) {
-        Terrain terrain =terrainRepository.findById(idTerrain).orElse(null);
-        User user =userRepository.findById(idUser).orElse(null);
-        if(user== null){
-            System.out.println("user not found");return null;}
-        else if(terrain== null){
-            System.out.println("terrain not found");return null;}
-else {
-            reservationTerrain.setTerrain(terrain);
-            reservationTerrain.setUser(user);
-            return reservationTerrRepository.save(reservationTerrain);
-        }
-    }*/
+
+    /* @Override
+     public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain,Long idUser,Long idTerrain) {
+         Terrain terrain =terrainRepository.findById(idTerrain).orElse(null);
+         User user =userRepository.findById(idUser).orElse(null);
+         if(user== null){
+             log.info("user not found");return null;}
+         else if(terrain== null){
+             log.info("terrain not found");return null;}
+ else {
+             reservationTerrain.setTerrain(terrain);
+             reservationTerrain.setUser(user);
+             return reservationTerrRepository.save(reservationTerrain);
+         }
+     }*/
     @Override
     public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain, Long idUser, Long idTerrain) {
         Terrain terrain = terrainRepository.findById(idTerrain).orElse(null);
         User user = userRepository.findById(idUser).orElse(null);
 
         if (user == null) {
-            System.out.println("User not found");
+            log.warn("User not found");
             return null;
         } else if (terrain == null) {
-            System.out.println("Terrain not found");
+            log.warn("Terrain not found");
             return null;
         } else {
             // Check if the terrain is available at the time of the new reservation
             if (!isTerrainAvailable(terrain, reservationTerrain)) {
-                System.out.println("Terrain is already reserved at that time");
+                log.warn("Terrain is already reserved at that time");
                 return null;
             }
+            double totalPrice = calculateReservationPrice(reservationTerrain.getDateDebut(), reservationTerrain.getDateFin());
+            reservationTerrain.setPrixReser(totalPrice);
             terrain.setStatusTerrain(StatusTerrain.valueOf("Reserve"));
             reservationTerrain.setTerrain(terrain);
             reservationTerrain.setUser(user);
             return reservationTerrRepository.save(reservationTerrain);
         }
+    }
+
+    public double calculateReservationPrice(LocalDateTime datedebut, LocalDateTime datefin) {
+        // Obtenez la durée de la réservation en minutes
+        long durationInMinutes = Duration.between(datedebut, datefin).toMinutes();
+
+        // Calculer le prix en fonction de la durée de la réservation
+        double pricePerMinute = 0.5; // Prix par minute (à titre d'exemple)
+        double totalPrice = durationInMinutes * pricePerMinute;
+
+        return totalPrice;
     }
 
     private boolean isTerrainAvailable(Terrain terrain, ReservationTerrain newReservation) {
@@ -73,9 +90,10 @@ else {
         }
         return true; // Terrain is available
     }
+
     @Override
     public ReservationTerrain updateReservationTerrain(ReservationTerrain reservationTerrain) {
-    //    if(reservationTerrain.getEtatReser()==true &&)
+        //    if(reservationTerrain.getEtatReser()==true &&)
         return reservationTerrRepository.save(reservationTerrain);
     }
 
@@ -92,7 +110,7 @@ else {
 
     @Override
     public List<ReservationTerrain> findReservationByEtat(boolean etat) {
-        List<ReservationTerrain> result= reservationTerrRepository.findReserByEtatReser(etat);
+        List<ReservationTerrain> result = reservationTerrRepository.findReserByEtatReser(etat);
         return result;
     }
 
@@ -109,9 +127,10 @@ else {
             List<ReservationTerrain> result = reservationTerrRepository.findByTypeRes(type);
             return result;
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid type of reservation: " + typeRes);
+            log.warn("Invalid type of reservation: " + typeRes);
             return null;
-        }}
+        }
+    }
 
     @Override
 
@@ -123,7 +142,26 @@ else {
         }
         return Collections.emptyList();
     }
+    public List<ReservationTerrain> getResByUser(Long userId) {
+        List<ReservationTerrain> reservationsByUser = reservationTerrRepository.findByUser_UserId(userId);
+        if (reservationsByUser != null) {
+            return reservationsByUser;
+        }
+        return Collections.emptyList();
+    }
 
+    @Override
+    public Terrain getMostReservedTerrainByType(TypeTerrain typeTerrain) {
+        List<Terrain> terrainsOfType = terrainRepository.findByTypeTerrain(typeTerrain);
+        if (terrainsOfType.isEmpty()) {
+            log.warn("No terrains of type {} found", typeTerrain);
+            return null;
+        }
 
+        Optional<Terrain> mostReservedTerrain = terrainsOfType.stream()
+                .max(Comparator.comparingInt(terrain -> reservationTerrRepository.findByTerrain(terrain).size()));
+        return mostReservedTerrain.orElse(null);
+    }
 }
+
 

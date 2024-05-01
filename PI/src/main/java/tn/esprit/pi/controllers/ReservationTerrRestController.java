@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.EmailRequest;
 import tn.esprit.pi.entities.ReservationTerrain;
 import tn.esprit.pi.entities.Terrain;
+import tn.esprit.pi.entities.TypeTerrain;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.services.ReservationTerrServices;
 import tn.esprit.pi.services.TerrainServices;
@@ -35,8 +36,9 @@ public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain 
     String userEmail = addedReservation.getUser().getEmail(); // Assuming user has an email field
 
     // Compose email content
-    String subject = "Reservation Confirmation";
-    String message = "Your reservation has been successfully added.";
+    String subject = "Reservation Confirmation "+reservationTerrain.getNumRes() ;
+    String message = "Your reservation has been successfully added !" +
+            "You have"+reservationTerrain.getPrixReser()+" to pay";
 
     // Send email
     EmailRequest emailRequest = new EmailRequest(userEmail, subject, message);
@@ -76,7 +78,21 @@ public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain 
         return reservationTerrServices.getResByTerrain(nomTerrain);
     }
 
+    @GetMapping("/calculateReservationPrice/datedebut={datedebut}/datefin={datefin}")
+    public Double calculateReservationPrice(@PathVariable("datedebut") LocalDateTime datedebut, @PathVariable("datefin") LocalDateTime datefin) {
 
+        double totalPrice = reservationTerrServices.calculateReservationPrice(datedebut,datefin);
 
+        return totalPrice;
+    }
 
+    @GetMapping("/most-reserved-terrain/{typeTerrain}")
+    public Terrain getMostReservedTerrain(@PathVariable TypeTerrain typeTerrain) {
+        return reservationTerrServices.getMostReservedTerrainByType(typeTerrain);
+    }
+
+    @GetMapping("/get/ReservationbyUserId/{userId}")
+    public List<ReservationTerrain> getReservationsByUser(@PathVariable Long userId) {
+        return reservationTerrServices.getResByUser(userId);
+    }
 }

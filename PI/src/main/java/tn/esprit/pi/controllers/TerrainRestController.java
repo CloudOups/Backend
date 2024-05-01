@@ -1,11 +1,14 @@
 package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.StatusTerrain;
 import tn.esprit.pi.entities.Terrain;
+import tn.esprit.pi.entities.TypeTerrain;
+import tn.esprit.pi.services.ITerrainServices;
 import tn.esprit.pi.services.TerrainServices;
 
 import java.io.File;
@@ -23,21 +26,29 @@ import java.util.List;
 public class TerrainRestController {
 
     private TerrainServices terrainServices;
-  //  public static String uploadDirectory= System.getProperty("user.dir")+"/src/main/webapp/images";
-   // public static String uploadDirectory = System.getProperty("user.dir") + "C:" + File.separator +"xampp" + File.separator + "htdocs" + File.separator + "img" + File.separator + "imgPI";
+   // public static String uploadDirectory= System.getProperty("user.dir")+"/src/main/webapp/images";
+    // public static String uploadDirectory = System.getProperty("user.dir") + "C:" + File.separator +"xampp" + File.separator + "htdocs" + File.separator + "img" + File.separator + "imgPI";
 
-//    @PostMapping("/add")
-//    public Terrain addTerrain(@ModelAttribute Terrain terrain, @RequestParam("image") MultipartFile file) throws IOException
-//    {String OriginalFilename= file.getOriginalFilename();
-//        Path fileNameAndPath= Paths.get(uploadDirectory,OriginalFilename);
-//        Files.write(fileNameAndPath,file.getBytes());
-//        terrain.setImageTerrain(OriginalFilename);
-//        return terrainServices.addTerrain(terrain);
-//    }
-@PostMapping("/add")
-public Terrain addTerrain(@RequestBody Terrain terrain){
-    return terrainServices.addTerrain(terrain);
-}
+    @PostMapping(value ="/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Terrain addTerrain(
+            @RequestParam("nomTerrain") String name,
+            @RequestParam("typeTerrain") TypeTerrain type,
+            @RequestParam("statusTerrain") StatusTerrain status,
+            @RequestParam("imageTerrain") MultipartFile file) {
+
+        Terrain terrain = new Terrain();
+        terrain.setNomTerrain(name);
+        terrain.setTypeTerrain(type);
+        terrain.setStatusTerrain(status);
+
+        return terrainServices.addTerrain(terrain, file);
+    }
+
+
+    //@PostMapping("/add")
+//public Terrain addTerrain(@RequestBody Terrain terrain){
+  //  return terrainServices.addTerrain(terrain);
+//}
     @PutMapping("/update")
     public Terrain updateTerrain(@RequestBody Terrain terrain) {
         return terrainServices.updateTerrain(terrain);
@@ -48,7 +59,7 @@ public Terrain addTerrain(@RequestBody Terrain terrain){
     }
     @DeleteMapping("/delete/{idTerrain}")
     public void removeTerrain(@PathVariable Long idTerrain){
-        terrainServices.delete(idTerrain);
+        terrainServices.deleteTerrain(idTerrain);
     }
     @GetMapping("/get/all")
     public List<Terrain> getAll(){ return terrainServices.getAll();
@@ -62,4 +73,11 @@ public Terrain addTerrain(@RequestBody Terrain terrain){
         List<Terrain> availableTerrains = terrainServices.findAvailableTerrains(datedebut,datefin);
         return ResponseEntity.ok(availableTerrains);
     }
-}
+    @GetMapping("/checkAvailabilityBySport/datedebut={datedebut}/datefin={datefin}/{typeTerrain}")
+    public ResponseEntity<List<Terrain>> checkAvailabilitybySport(@PathVariable LocalDateTime datedebut, @PathVariable LocalDateTime datefin ,@PathVariable TypeTerrain typeTerrain) {
+        List<Terrain> availableTerrainsByType = terrainServices.findAvailableTerrainsByType(datedebut, datefin, typeTerrain);
+        return ResponseEntity.ok(availableTerrainsByType);
+    }
+
+    }
+
