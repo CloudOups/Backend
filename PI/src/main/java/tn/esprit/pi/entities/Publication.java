@@ -17,6 +17,8 @@ public class Publication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numPub;
     String sujet ;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     String contenu;
     LocalDate  dateCreation;
     String photo;
