@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import tn.esprit.pi.entities.ReservationTerrain;
-<<<<<<< HEAD
 import tn.esprit.pi.entities.StatusTerrain;
 import tn.esprit.pi.entities.Terrain;
 import tn.esprit.pi.entities.TypeReservation;
@@ -30,8 +29,8 @@ public interface IReservationTerrRepository extends CrudRepository<ReservationTe
     @Query("SELECT r FROM ReservationTerrain r WHERE r.dateFin < CURRENT_TIME ")
     List<ReservationTerrain> findByExpired();
 
-=======
+    boolean existsByDateFinBetween(LocalDateTime dateDebut, LocalDateTime dateFin);
+    boolean existsByTerrainTypeTerrainAndDateFinBetween(TypeTerrain typeTerrain, LocalDateTime dateDebut, LocalDateTime dateFin);
 
-public interface IReservationTerrRepository extends CrudRepository<ReservationTerrain,Integer> {
->>>>>>> parent of e92394e (Merge branch 'Rania')
+
 }

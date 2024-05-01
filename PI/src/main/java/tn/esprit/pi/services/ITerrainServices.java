@@ -10,14 +10,11 @@ import java.util.List;
 public interface ITerrainServices {
     Terrain addTerrain(Terrain terrain, MultipartFile file);
     Terrain updateTerrain(Terrain terrain);
-<<<<<<< HEAD
     void deleteTerrain(Long numterrain);
     Terrain getById(Long numterrain);
     List<Terrain> getByEtat(String statusTerrain);
-=======
     void delete(int numterrain);
     Terrain getById(int numterrain);
->>>>>>> parent of e92394e (Merge branch 'Rania')
     List<Terrain> getAll();
     void getExpiredRes();
 

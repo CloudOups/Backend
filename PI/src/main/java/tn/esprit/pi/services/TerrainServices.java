@@ -32,7 +32,6 @@ public class TerrainServices implements ITerrainServices{
     public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images";
 
     @Override
-<<<<<<< HEAD
     public Terrain addTerrain(Terrain terrain, MultipartFile file) {
         if (file.isEmpty()) {
             throw new IllegalArgumentException("File is empty");
@@ -61,28 +60,13 @@ public class TerrainServices implements ITerrainServices{
 
 
 @Override
-=======
-    public Terrain addTerrain(Terrain terrain) {
-
-        return terrainRepository.save(terrain);
-    }
-
-    @Override
->>>>>>> parent of e92394e (Merge branch 'Rania')
     public Terrain updateTerrain(Terrain terrain) {
         return terrainRepository.save(terrain);
     }
 
-<<<<<<< HEAD
     public void deleteTerrain(Long numTerrain) {
         Terrain terrain = terrainRepository.findById(numTerrain)
                 .orElseThrow(() -> new EntityNotFoundException("Terrain not found with id: " + numTerrain));
-=======
-    @Override
-    public void delete(int numterrain) {
-terrainRepository.deleteById(numterrain);
-    }
->>>>>>> parent of e92394e (Merge branch 'Rania')
 
         boolean hasActiveReservations2=false;
         if (reservationTerrRepository.existsActiveReservationsForTerrain(numTerrain)) {
