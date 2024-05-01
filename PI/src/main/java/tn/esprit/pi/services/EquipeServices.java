@@ -1,35 +1,58 @@
 package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Equipe;
-import tn.esprit.pi.entities.MembresEquipe;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IEquipeRepository;
-import tn.esprit.pi.repositories.IMembresEquipeRepository;
 import tn.esprit.pi.repositories.IUserRepository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class EquipeServices implements IEquipeServices{
 IEquipeRepository equipeRepository;
 IUserRepository userRepository;
-IMembresEquipeRepository membresEquipeRepository;
+    @Override
+    public boolean isUserAlreadyInTeam(Long userId) {
+        List<Equipe> allTeams =  (List<Equipe>)equipeRepository.findAll();
+
+        for (Equipe equipe : allTeams) {
+            Set<User> members = equipe.getMembresEquipe();
+
+            for (User member : members) {
+                if (member.getUserId().equals(userId)) {
+                    return true;
+
+                }
+            }}
+            return false;}
+
+
     @Override
     public Equipe addEquipe(Equipe equipe,Long idUser) {
-        User user =userRepository.findById(idUser).orElse(null);
-        equipe.setChef(user);
-        equipe = equipeRepository.save(equipe);
-        MembresEquipe newMember = new MembresEquipe();
-        newMember.setEquipe(equipe); // Set the Equipe
-        newMember.setUser(user);
-        MembresEquipe membresEquipe= membresEquipeRepository.save(newMember);
-        equipe.getMembresEquipe().add(membresEquipe);
-        return equipeRepository.save(equipe);
-    }
+        Equipe existingEquipeOptional = equipeRepository.findByNomEquipe(equipe.getNomEquipe());
+        if (existingEquipeOptional!=null) {log.warn("nom équipe existe!");return  null; }
+        else{
+        if (!isUserAlreadyInTeam(idUser)) {
+            User user = userRepository.findById(idUser).orElse(null);
+            equipe.setChefEquipe(user);
+            Set<User> membresEquipe = new HashSet<>();
+            membresEquipe.add(user);
+            equipe.setMembresEquipe(membresEquipe);
+
+            return equipeRepository.save(equipe);
+        }
+    else log.warn("User already selected ");
+    return null;
+    }}
 
     @Override
     public Equipe updateEquipe(Equipe equipe) {
@@ -40,8 +63,6 @@ IMembresEquipeRepository membresEquipeRepository;
     public void delete(Long equipeID) {
 
         equipeRepository.deleteById(equipeID);
-
-    //    membresEquipeRepository.deleteByEquipeId(equipeID);
     }
 
     @Override
@@ -57,48 +78,52 @@ IMembresEquipeRepository membresEquipeRepository;
     @Override
     public Equipe demandeAdhesion(Long idequipe, Long iduser) {
         User user = userRepository.findById(iduser).orElse(null);
-        // Add the user to the equipe's list of pending members
        Equipe equipe= equipeRepository.findById(idequipe).orElse(null);
-        if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
-            equipe.getPendingMembers().add(user);
-        // Save the updated equipe
+            if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
+                if (!isUserAlreadyInTeam(iduser)) {
+                    equipe.getMembresEnAttente().add(user);
         return equipeRepository.save(equipe);}
-        else  {               System.out.println("L'equipe est complete ");}
+            else{
+                    log.warn("user already in team");
+                }
+            }
+        else  {
+            log.warn("L'equipe est complete ");}
 
         return null;
     }
 
     @Override
-    public Equipe reponseAdhesion(Long idequipe,Long userId, String reponse){
+    public Equipe traiterAdhesion(Long idequipe,Long userId, String reponse){
         Equipe equipe = equipeRepository.findById(idequipe).orElse(null);
-        Set<User> pendingMembers = equipe.getPendingMembers();
-        if (pendingMembers == null ||equipe.getChef() == null ) {
-            System.out.println("errors");
-    }
-
+        Set<User> pendingMembers = equipe.getMembresEnAttente();
+        if (pendingMembers == null ||equipe.getChefEquipe() == null ) {
+            log.warn("errors");}
         for (User user : pendingMembers) {
             User selectedUser = userRepository.findById(user.getUserId()).orElse(null);
             if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
                 if (selectedUser.getUserId() == userId && reponse.equals("accepted")) {
-                    MembresEquipe newMember = new MembresEquipe();
-                    newMember.setEquipe(equipe);
-                    newMember.setUser(selectedUser);
-                    MembresEquipe membresEquipe = membresEquipeRepository.save(newMember);
-                    equipe.getMembresEquipe().add(membresEquipe);
-                    // equipe.setMembresEquipe((Set<MembresEquipe>) selectedUser) ;
-                    equipe.getPendingMembers().remove(selectedUser);
+                    equipe.getMembresEquipe().add(user);
+                    equipe.getMembresEnAttente().remove(selectedUser);
                     return equipeRepository.save(equipe);
                 } else if (selectedUser.getUserId() == userId && reponse.equals("refused")) {
-                    equipe.getPendingMembers().remove(selectedUser);
+                    equipe.getMembresEnAttente().remove(selectedUser);
                     return equipeRepository.save(equipe);
                 }
             } else {
-                System.out.println("L'equipe est complete ");
+                log.warn("L'equipe est complete ");
             }
         }
         return null;
-
-
     }
+   @Override
+    public Equipe getByNom(String nomEquipe) {
+       Equipe equipe= equipeRepository.findByNomEquipe(nomEquipe);
+        if (equipe == null) {
+           log.warn("Pas d'équipe avec ce nom");
+       }
+       return equipe;
+        }
+
 
 }

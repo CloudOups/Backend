@@ -1,10 +1,12 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,14 +28,14 @@ public class User implements Serializable {
     Role role;
     String photo;
     String classe;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     Set<ReservationTerrain> reservationTerrains;
 
-    @OneToOne(mappedBy ="user")
+    @OneToOne(mappedBy = "user")
     Ticket ticket;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     Set<Commentaire> Commentaires;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -44,7 +46,18 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     Set<Commande> commandes;
-    /*@ManyToOne
-    @JoinColumn(name = "equipe_id")
-    private Equipe equipe;*/
- }
+    @JsonIgnore
+
+    @OneToOne(mappedBy = "chefEquipe")
+    private Equipe equipeChef;
+    @JsonIgnore
+
+    // Relation Many-to-Many inverse avec les équipes dont l'utilisateur est membre
+    @ManyToMany(mappedBy = "membresEquipe")
+    private Set<Equipe> equipes;
+    @JsonIgnore
+
+    // Relation Many-to-Many inverse avec les équipes dont l'utilisateur est en attente
+    @ManyToMany(mappedBy = "membresEnAttente")
+    private Set<Equipe> equipesEnAttente;
+}
