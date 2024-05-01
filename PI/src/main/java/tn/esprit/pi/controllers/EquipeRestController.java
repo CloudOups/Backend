@@ -11,6 +11,8 @@ import java.util.List;
 @RequestMapping("/equipe")
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
+
 public class EquipeRestController {
 
     private EquipeServices equipeServices;

@@ -13,6 +13,7 @@ import tn.esprit.pi.repositories.ITicketRepository;
 import tn.esprit.pi.repositories.IUserRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -62,6 +63,7 @@ public class EventServices implements IEventServices {
     }
 
 
+    @Override
     public List<Event> recommanderEvenements(Long userId) {
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
@@ -98,15 +100,45 @@ public class EventServices implements IEventServices {
         return mostParticipatedCategory;
     }
 
-//    private String getLastParticipatedCategory(List<Event> participationHistory) {
-//        if (!participationHistory.isEmpty()) {
-//            Event lastParticipatedEvent = participationHistory.get(participationHistory.size() - 1);
-//            return lastParticipatedEvent.getCategorie();
+    //stat
+    @Override
+    public List<Event> evenementsAvecPlusParticipations() {
+        List<Event> tousEvenements = eventRepository.findAll();
+        // Créer une copie de la liste des événements pour ne pas modifier l'original
+
+        // Trier les événements par le nombre de participations décroissant
+        List<Event> evenementsTries = tousEvenements.stream()
+                .map(event -> (Event) event) // Cast pour spécifier le type d'objet
+                .sorted(Comparator.comparingInt(event -> ((Event) event).getTickets().size()).reversed())
+                .collect(Collectors.toList());
+
+        // Retourner les premiers n événements avec le plus grand nombre de participations
+        return evenementsTries.subList(0, Math.min(5, evenementsTries.size()));
+    }
+
+
+
+//    @Scheduled(cron = "*/60 * * * * *")
+//
+//    @Override
+//    public void ExpiredEvent() {
+//
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//        Date now = new Date();
+//        String msgDate = sdf.format(now.getMonth());
+//       /* String finalMessage = "";
+//        String newLine = System.getProperty("line.separator");*/
+//        String s = sdf.format(now);
+//
+//        List<Event> eventExpiree = this.retrieveAllEvents();
+//
+//        for (int i = 0; i < eventExpiree.size(); i++) {
+//            String a = eventExpiree.get(i).getDateFin().toString();
+//
+//            if(a == s ) {
+//                eventExpiree.get(i).setEtat(1);
+//            }
 //        }
-//        return null;
+//
 //    }
-
-
-
-
 }

@@ -1,10 +1,16 @@
 package tn.esprit.pi.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.ReservationTerrain;
 import tn.esprit.pi.services.ReservationTerrServices;
 
 import java.util.List;
+
+@RequestMapping("/reservation")
+@AllArgsConstructor
+@RestController
+@CrossOrigin(origins = "*")
 
 public class ReservationTerrRestController {
     private ReservationTerrServices reservationTerrServices;

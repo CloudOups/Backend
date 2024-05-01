@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/tournoi")
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
 public class TournoiRestController {
 
     private TournoiServices tournoiServices;
@@ -50,10 +51,11 @@ public class TournoiRestController {
         return tournoiServices.assignTerrainToTournoi(idtournoi,idterrain);
     }
 
-    @PostMapping("/addtournoireservation")
-    public Tournoi creerTournoiAutomatique(@RequestBody Tournoi tournoi){
-        return tournoiServices.creerTournoiAutomatique(tournoi);
+    @PostMapping("/addtournoireservation/{idevent}")
+    public Tournoi creerTournoiAutomatique(@RequestBody Tournoi tournoi, @PathVariable Long idevent) {
+        return tournoiServices.creerTournoiAutomatique(tournoi, idevent);
     }
+
 }
 
 

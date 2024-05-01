@@ -14,5 +14,5 @@ public interface ITournoiServices {
     List<Tournoi> getAll();
     Tournoi assignToEvent(Long idevent,Long idtournoi);
     Tournoi assignTerrainToTournoi(Long tournoiId, Long terrainId);
-    Tournoi creerTournoiAutomatique(Tournoi tournoi);
+    Tournoi creerTournoiAutomatique(Tournoi tournoi,Long idevent);
 }

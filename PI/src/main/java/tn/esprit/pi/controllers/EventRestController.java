@@ -14,6 +14,8 @@ import java.util.List;
  @AllArgsConstructor
  @RestController
  @RequestMapping("/event")
+ @CrossOrigin(origins = "*")
+
  public class EventRestController {
         EventServices eventServices;
 
@@ -48,6 +50,12 @@ import java.util.List;
         public List<Event> getAll(){
             return eventServices.getAll();
         }
+
+        @GetMapping("/get/mostparticipation")
+        public List<Event> evenementsAvecPlusParticipations(){
+            return eventServices.evenementsAvecPlusParticipations();
+        }
+
 
 
 }

@@ -2,8 +2,11 @@ package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
 import tn.esprit.pi.entities.Tournoi;
+import tn.esprit.pi.entities.User;
+import tn.esprit.pi.services.EventServices;
 import tn.esprit.pi.services.TicketServices;
 
 import java.util.List;
@@ -11,8 +14,24 @@ import java.util.List;
 @RequestMapping("/ticket")
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
+
 public class TicketRestController {
     private TicketServices ticketServices;
+    private EventServices eventService;
+
+//    @PostMapping("/participate/{eventId}/{userId}")
+//    public Ticket participateEvent(@PathVariable Long eventId, @PathVariable Long userId) {
+//        Event event = eventService.getById(eventId);
+//        User user = userService.getById(userId);
+//        return ticketService.createTicket(event, user);
+//    }
+
+    @PostMapping("/participate/{eventId}")
+    public Ticket participateEvent(@PathVariable Long eventId) {
+        Event event = eventService.getById(eventId);
+        return ticketServices.createTicket(event);
+    }
 
     @PostMapping("/add/{idevent}")
     public Ticket addTicket(@RequestBody Ticket ticket,@PathVariable Long idevent){
@@ -33,9 +52,9 @@ public class TicketRestController {
         return ticketServices.getById(idticket);
     }
 
-    @GetMapping("/getByEvent/{nomevent}")
-    public List<Ticket> getTicketsByEvent(@PathVariable String nomevent) {
-        return ticketServices.getTicketsByEvent(nomevent);
+    @GetMapping("/getByEvent/{idevent}")
+    public List<Ticket> getTicketsByEvent(@PathVariable Long idevent) {
+        return ticketServices.getTicketsByEvent(idevent);
     }
 
     @GetMapping("/get/all")

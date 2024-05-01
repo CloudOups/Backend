@@ -9,6 +9,8 @@ import java.util.List;
 @RequestMapping("/terrain")
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
+
 public class TerrainRestController {
 
     private TerrainServices terrainServices;

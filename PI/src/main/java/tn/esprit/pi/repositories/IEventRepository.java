@@ -8,4 +8,5 @@ import java.util.List;
 public interface IEventRepository extends JpaRepository<Event,Long> {
 
     Event findByNomevent(String nom);
+
 }
