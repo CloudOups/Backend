@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,34 +14,26 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-
-public class Equipe implements Serializable {
+public class Equipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numequipe;
     String nomEquipe;
     int classement;
     int nbMemEquipe;
-    @OneToOne
-    private User chefEquipe;
+    @OneToOne(cascade = CascadeType.PERSIST )
+    User chef;
     @ManyToOne
     Tournoi tournoi;
-
-    // Relation Many-to-Many avec les membres de l'équipe
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL)
+    private Set<MembresEquipe> members;
+    @JsonIgnore
+    @OneToMany(mappedBy = "equipe")
+    private Set<MembresEquipe> membresEquipe= new HashSet<>();
     @ManyToMany
     @JoinTable(
-            name = "membres_equipe",
+            name = "equipe_pending_members",
             joinColumns = @JoinColumn(name = "equipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-     Set<User> membresEquipe;
-
-    // Relation Many-to-Many avec les membres en attente
-    @ManyToMany
-    @JoinTable(
-            name = "pending_members_equipe",
-            joinColumns = @JoinColumn(name = "equipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-     Set<User> membresEnAttente;
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> pendingMembers ;
 }

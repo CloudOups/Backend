@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Equipe;
 import tn.esprit.pi.services.EquipeServices;
-import tn.esprit.pi.services.IEquipeServices;
 
 
 import java.util.List;
@@ -12,48 +11,36 @@ import java.util.List;
 @RequestMapping("/equipe")
 @AllArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
-
 public class EquipeRestController {
 
-    private IEquipeServices iequipeServices;
+    private EquipeServices equipeServices;
 
     @PostMapping("/add/{iduser}")
     public Equipe addEquipe(@RequestBody Equipe equipe, @PathVariable Long iduser) {
-        return iequipeServices.addEquipe(equipe, iduser);
+        return equipeServices.addEquipe(equipe,iduser);
     }
-
     @PutMapping("/update")
     public Equipe updateEquipe(@RequestBody Equipe equipe) {
-        return iequipeServices.updateEquipe(equipe);
+        return equipeServices.updateEquipe(equipe);
     }
-
     @GetMapping("/get/{idEquipe}")
-    public Equipe getEquipe(@PathVariable Long idEquipe) {
-        return iequipeServices.getById(idEquipe);
+    public Equipe getEquipe(@PathVariable Long idEquipe){
+        return equipeServices.getById(idEquipe);
     }
-
     @DeleteMapping("/delete/{idEquipe}")
-    public void removeEquipe(@PathVariable Long idEquipe) {
-        iequipeServices.delete(idEquipe);
+    public void removeEquipe(@PathVariable Long idEquipe){
+         equipeServices.delete(idEquipe);
     }
-
     @GetMapping("/get/all")
-    public List<Equipe> getAll() {
-        return iequipeServices.getAll();
+    public List<Equipe>  getAll(){
+        return equipeServices.getAll();
     }
-
-    @PutMapping("/demandeAdhesion/idequipe={idEquipe}/idUser={idUser}")
-    public Equipe demandeEquipe(@PathVariable Long idEquipe, @PathVariable Long idUser) {
-        return iequipeServices.demandeAdhesion(idEquipe, idUser);
+    @PutMapping("/demandeAdhesion/{idEquipe}/{idUser}")
+    public  Equipe demandeEquipe(@PathVariable Long idEquipe ,@PathVariable Long idUser){
+        return equipeServices.demandeAdhesion(idEquipe,idUser);
     }
-
-    @PutMapping("/reponseAdhesion/idequipe={idequipe}/idUser={idUser}/idreponse={reponse}")
-    public Equipe traiterEquipe(@PathVariable Long idequipe, @PathVariable Long idUser, @PathVariable String reponse) {
-        return iequipeServices.traiterAdhesion(idequipe, idUser, reponse);
-    }
-    @GetMapping("/get/nom={nomEquipe}")
-    public Equipe getEquipeBynomEquipe(@PathVariable String nomEquipe) {
-        return iequipeServices.getByNom(nomEquipe);
+    @PutMapping("/reponseAdhesion/{idequipe}/{idUser}/{reponse}")
+    public  Equipe reponseEquipe(@PathVariable Long idequipe ,@PathVariable Long idUser, @PathVariable String reponse){
+        return equipeServices.reponseAdhesion(idequipe,idUser,reponse);
     }
 }

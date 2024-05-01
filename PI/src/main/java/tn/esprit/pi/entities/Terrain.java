@@ -19,7 +19,6 @@ public class Terrain implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numTerrain;
     String nomTerrain;
-    String imageTerrain;
     @Enumerated(EnumType.STRING)
     StatusTerrain statusTerrain;
     @Enumerated(EnumType.STRING)
