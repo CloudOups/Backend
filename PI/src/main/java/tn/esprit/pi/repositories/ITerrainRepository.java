@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import tn.esprit.pi.entities.StatusTerrain;
 import tn.esprit.pi.entities.Terrain;
+import tn.esprit.pi.entities.TypeTerrain;
 
 import java.util.Collection;
 import java.util.List;

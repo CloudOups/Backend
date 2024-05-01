@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Equipe;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IEquipeRepository;
-import tn.esprit.pi.repositories.IUserRepository;
+import tn.esprit.pi.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,16 +19,16 @@ import java.util.Set;
 @AllArgsConstructor
 public class EquipeServices implements IEquipeServices{
 IEquipeRepository equipeRepository;
-IUserRepository userRepository;
+UserRepository userRepository;
     @Override
-    public boolean isUserAlreadyInTeam(Long userId) {
+    public boolean isUserAlreadyInTeam(Integer id) {
         List<Equipe> allTeams =  (List<Equipe>)equipeRepository.findAll();
 
         for (Equipe equipe : allTeams) {
             Set<User> members = equipe.getMembresEquipe();
 
             for (User member : members) {
-                if (member.getUserId().equals(userId)) {
+                if (member.getId().equals(id)) {
                     return true;
 
                 }
@@ -37,12 +37,12 @@ IUserRepository userRepository;
 
 
     @Override
-    public Equipe addEquipe(Equipe equipe,Long idUser) {
+    public Equipe addEquipe(Equipe equipe,Integer id) {
         Equipe existingEquipeOptional = equipeRepository.findByNomEquipe(equipe.getNomEquipe());
         if (existingEquipeOptional!=null) {log.warn("nom équipe existe!");return  null; }
         else{
-        if (!isUserAlreadyInTeam(idUser)) {
-            User user = userRepository.findById(idUser).orElse(null);
+        if (!isUserAlreadyInTeam(id)) {
+            User user = userRepository.findById(id).orElse(null);
             equipe.setChefEquipe(user);
             Set<User> membresEquipe = new HashSet<>();
             membresEquipe.add(user);
@@ -76,11 +76,11 @@ IUserRepository userRepository;
     }
 
     @Override
-    public Equipe demandeAdhesion(Long idequipe, Long iduser) {
-        User user = userRepository.findById(iduser).orElse(null);
+    public Equipe demandeAdhesion(Long idequipe, Integer id) {
+        User user = userRepository.findById(id).orElse(null);
        Equipe equipe= equipeRepository.findById(idequipe).orElse(null);
             if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
-                if (!isUserAlreadyInTeam(iduser)) {
+                if (!isUserAlreadyInTeam(id)) {
                     equipe.getMembresEnAttente().add(user);
         return equipeRepository.save(equipe);}
             else{
@@ -94,19 +94,19 @@ IUserRepository userRepository;
     }
 
     @Override
-    public Equipe traiterAdhesion(Long idequipe,Long userId, String reponse){
+    public Equipe traiterAdhesion(Long idequipe,Integer id, String reponse){
         Equipe equipe = equipeRepository.findById(idequipe).orElse(null);
         Set<User> pendingMembers = equipe.getMembresEnAttente();
         if (pendingMembers == null ||equipe.getChefEquipe() == null ) {
             log.warn("errors");}
         for (User user : pendingMembers) {
-            User selectedUser = userRepository.findById(user.getUserId()).orElse(null);
+            User selectedUser = userRepository.findById(user.getId()).orElse(null);
             if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
-                if (selectedUser.getUserId() == userId && reponse.equals("accepted")) {
+                if (selectedUser.getId() == id && reponse.equals("accepted")) {
                     equipe.getMembresEquipe().add(user);
                     equipe.getMembresEnAttente().remove(selectedUser);
                     return equipeRepository.save(equipe);
-                } else if (selectedUser.getUserId() == userId && reponse.equals("refused")) {
+                } else if (selectedUser.getId() == id && reponse.equals("refused")) {
                     equipe.getMembresEnAttente().remove(selectedUser);
                     return equipeRepository.save(equipe);
                 }

@@ -1,25 +1,12 @@
 package tn.esprit.pi.services;
 
-import edu.stanford.nlp.trees.TreeCoreAnnotations;
-import edu.stanford.nlp.util.CoreMap;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import tn.esprit.pi.entities.Commentaire;
 import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.repositories.ICommentRepository;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.trees.Tree;
-import opennlp.tools.cmdline.PerformanceMonitor;
-import opennlp.tools.cmdline.postag.POSModelLoader;
-import opennlp.tools.postag.POSModel;
-import opennlp.tools.postag.POSSample;
-import opennlp.tools.postag.POSTaggerME;
-import opennlp.tools.tokenize.WhitespaceTokenizer;
-import opennlp.tools.util.ObjectStream;
-import opennlp.tools.util.PlainTextByLineStream;
+
 
 import java.io.Console;
 import java.util.Properties;

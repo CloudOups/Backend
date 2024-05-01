@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import tn.esprit.pi.entities.*;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
-import tn.esprit.pi.repositories.IUserRepository;
+import tn.esprit.pi.repositories.UserRepository;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -22,7 +22,7 @@ import java.util.*;
 public class ReservationTerrServices implements IReservationTerrServices {
     IReservationTerrRepository reservationTerrRepository;
     ITerrainRepository terrainRepository;
-    IUserRepository userRepository;
+    UserRepository userRepository;
 
     /* @Override
      public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain,Long idUser,Long idTerrain) {
@@ -39,9 +39,9 @@ public class ReservationTerrServices implements IReservationTerrServices {
          }
      }*/
     @Override
-    public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain, Long idUser, Long idTerrain) {
+    public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain, Integer id, Long idTerrain) {
         Terrain terrain = terrainRepository.findById(idTerrain).orElse(null);
-        User user = userRepository.findById(idUser).orElse(null);
+        User user = userRepository.findById(id).orElse(null);
 
         if (user == null) {
             log.warn("User not found");
@@ -55,7 +55,7 @@ public class ReservationTerrServices implements IReservationTerrServices {
                 log.warn("Terrain is already reserved at that time");
                 return null;
             }
-            double totalPrice = calculateReservationPrice(reservationTerrain.getDateDebut(), reservationTerrain.getDateFin());
+            double totalPrice = calculateReservationPrice(reservationTerrain.getDateDebut().atStartOfDay(), reservationTerrain.getDateFin().atStartOfDay());
             reservationTerrain.setPrixReser(totalPrice);
             terrain.setStatusTerrain(StatusTerrain.valueOf("Reserve"));
             reservationTerrain.setTerrain(terrain);
@@ -142,8 +142,8 @@ public class ReservationTerrServices implements IReservationTerrServices {
         }
         return Collections.emptyList();
     }
-    public List<ReservationTerrain> getResByUser(Long userId) {
-        List<ReservationTerrain> reservationsByUser = reservationTerrRepository.findByUser_UserId(userId);
+    public List<ReservationTerrain> getResByUser(Integer id) {
+        List<ReservationTerrain> reservationsByUser = reservationTerrRepository.findByUser_UserId(id);
         if (reservationsByUser != null) {
             return reservationsByUser;
         }

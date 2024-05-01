@@ -7,7 +7,7 @@ import tn.esprit.pi.entities.TypeTerrain;
 import java.util.List;
 
 public interface IReservationTerrServices {
-    ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain,Long idUser,Long idTerrain);
+    ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain,Integer id,Long idTerrain);
     ReservationTerrain updateReservationTerrain(ReservationTerrain reservationTerrain);
     void delete(Long numRes);
     ReservationTerrain getById(Long numRes);
