@@ -1,6 +1,5 @@
 package tn.esprit.pi.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -24,7 +23,7 @@ public class Terrain implements Serializable {
     StatusTerrain statusTerrain;
     @Enumerated(EnumType.STRING)
     TypeTerrain typeTerrain;
-    @JsonIgnore
     @OneToMany(mappedBy = "terrain", cascade = CascadeType.ALL)
     Set<ReservationTerrain> reservations;
+
 }

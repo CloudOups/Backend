@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import tn.esprit.pi.entities.ReservationTerrain;
+<<<<<<< HEAD
 import tn.esprit.pi.entities.StatusTerrain;
 import tn.esprit.pi.entities.Terrain;
 import tn.esprit.pi.entities.TypeReservation;
@@ -29,4 +30,8 @@ public interface IReservationTerrRepository extends CrudRepository<ReservationTe
     @Query("SELECT r FROM ReservationTerrain r WHERE r.dateFin < CURRENT_TIME ")
     List<ReservationTerrain> findByExpired();
 
+=======
+
+public interface IReservationTerrRepository extends CrudRepository<ReservationTerrain,Integer> {
+>>>>>>> parent of e92394e (Merge branch 'Rania')
 }

@@ -16,7 +16,11 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 
+<<<<<<< HEAD
 public class Equipe implements Serializable {
+=======
+public class Equipe {
+>>>>>>> parent of e92394e (Merge branch 'Rania')
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numequipe;

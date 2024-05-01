@@ -1,4 +1,4 @@
 package tn.esprit.pi.repositories;
 
-public interface IEventRepository {
+public class PublicationRepository {
 }
