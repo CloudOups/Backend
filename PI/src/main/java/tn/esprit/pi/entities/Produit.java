@@ -23,4 +23,5 @@ public class Produit {
     String image;
     @ManyToMany(mappedBy = "produits",cascade = CascadeType.ALL)
     Set<Panier> paniers;
+
 }

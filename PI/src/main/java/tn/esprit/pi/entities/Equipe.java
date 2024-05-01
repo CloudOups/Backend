@@ -14,6 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
+
 public class Equipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

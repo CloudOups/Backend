@@ -24,4 +24,5 @@ public class Panier {
     Set<Produit> produits;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "panier")
     Set<Commande> commands;
+
 }

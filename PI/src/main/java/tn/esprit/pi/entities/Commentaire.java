@@ -5,8 +5,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,11 +17,9 @@ public class Commentaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idcmt;
     String contenucm;
-    Date datecm;
+    LocalDate datecm;
     @ManyToOne
     User user;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "num_pub")
     Publication publication;
-    String Sentiment;
 }
