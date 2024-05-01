@@ -20,7 +20,7 @@ public class Ticket implements Serializable {
     LocalDate dateTicket;
     @OneToOne
     User user;
-    @JsonIgnore
+
     @ManyToOne
     Event event;
 }

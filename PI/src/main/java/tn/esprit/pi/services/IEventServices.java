@@ -14,4 +14,9 @@ public interface IEventServices {
     List<Event> recommanderEvenements(Long userId);
     List<Event> evenementsAvecPlusParticipations();
 
+    List<Event> getCompleteEvents();
+    List<Event> getIncompleteEvents();
+    List<Event> getExpiredEvents();
+    List<Event> getUpcomingEvents();
+
 }

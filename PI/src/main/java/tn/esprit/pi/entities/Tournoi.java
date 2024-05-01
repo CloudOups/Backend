@@ -1,5 +1,6 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,7 +22,8 @@ public class  Tournoi implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numTournoi;
     String nomTournoi;
-    LocalDateTime dateDebut,dateFin;
+    LocalDateTime dateDebut;
+    LocalDateTime dateFin;
     TypeTerrain typeTournoi;
     String Recompense;
     @JsonIgnore

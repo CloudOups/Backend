@@ -2,6 +2,8 @@ package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.*;
 import tn.esprit.pi.repositories.IEventRepository;
@@ -41,6 +43,11 @@ public class TournoiServices implements ITournoiServices{
     @Override
     public Tournoi getById(Long id) {
         return tournoiRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Tournoi> getByEvent(Event event) {
+        return (List<Tournoi>) tournoiRepository.findByEvent(event);
     }
 
     @Override
@@ -133,6 +140,10 @@ public class TournoiServices implements ITournoiServices{
         return tournoiRepository.save(tournoi);
     }
 
+    @Override
+    public Page<Tournoi> getAllPagination(Pageable pageable) {
+        return  tournoiRepository.findAll(pageable);
+    }
+
+
 }
-
-

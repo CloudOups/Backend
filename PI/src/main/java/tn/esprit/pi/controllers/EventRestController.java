@@ -56,6 +56,26 @@ import java.util.List;
             return eventServices.evenementsAvecPlusParticipations();
         }
 
+     @GetMapping("/get/complete")
+     public List<Event> getCompleteEvents() {
+         return eventServices.getCompleteEvents();
+     }
+
+     @GetMapping("/get/incomplete")
+     public List<Event> getIncompleteEvents() {
+         return eventServices.getIncompleteEvents();
+     }
+
+     @GetMapping("/get/expired")
+     public List<Event> getExpiredEvents() {
+         return eventServices.getExpiredEvents();
+     }
+
+     @GetMapping("/get/upcoming")
+     public List<Event> getUpcomingEvents() {
+         return eventServices.getUpcomingEvents();
+     }
+
 
 
 }

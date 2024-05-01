@@ -1,10 +1,12 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -20,10 +22,13 @@ public class Event {
     String nomevent;
     String categorie;
     String location;
-    LocalDate dateDebut;
-    LocalDate dateFin;
+
+    LocalDateTime dateDebut;
+    LocalDateTime dateFin;
     String image;
     int nbParticipants;
+
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     Set<Ticket> tickets;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")

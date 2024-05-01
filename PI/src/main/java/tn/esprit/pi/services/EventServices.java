@@ -12,6 +12,8 @@ import tn.esprit.pi.repositories.ITerrainRepository;
 import tn.esprit.pi.repositories.ITicketRepository;
 import tn.esprit.pi.repositories.IUserRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -116,6 +118,56 @@ public class EventServices implements IEventServices {
         return evenementsTries.subList(0, Math.min(5, evenementsTries.size()));
     }
 
+    @Override
+    public List<Event> getCompleteEvents() {
+        List<Event> completeEvents = new ArrayList<>();
+        List<Event> allEvents = eventRepository.findAll();
+        for (Event event : allEvents) {
+            if(event.getTickets().size()> event.getNbParticipants())
+                completeEvents.add(event);
+        }
+        return completeEvents;
+
+    }
+
+    @Override
+    public List<Event> getIncompleteEvents() {
+            List<Event> incompleteEvents = new ArrayList<>();
+            List<Event> allEvents = eventRepository.findAll();
+            for (Event event : allEvents) {
+                if (event.getTickets().size() < event.getNbParticipants())
+                    incompleteEvents.add(event);
+            }
+        return incompleteEvents;
+    }
+
+    @Override
+    public List<Event> getExpiredEvents() {
+        List<Event> expiredEvents = new ArrayList<>();
+        List<Event> allEvents = eventRepository.findAll();
+        LocalDateTime currentDate = LocalDateTime.now();
+        for (Event event : allEvents) {
+            // Add null check for getDateDebut()
+            if (event.getDateDebut() != null && event.getDateDebut().isBefore(currentDate)) {
+                expiredEvents.add(event);
+            }
+        }
+        return expiredEvents;
+    }
+
+    @Override
+    public List<Event> getUpcomingEvents() {
+        List<Event> upcomingEvents = new ArrayList<>();
+        List<Event> allEvents = eventRepository.findAll();
+        LocalDateTime currentDate = LocalDateTime.now();
+        for (Event event : allEvents) {
+            // Add null check for getDateDebut()
+            if (event.getDateDebut() != null && event.getDateDebut().isAfter(currentDate)) {
+                upcomingEvents.add(event);
+            }
+        }
+        return upcomingEvents;
+    }
 
 
 //    @Scheduled(cron = "*/60 * * * * *")
