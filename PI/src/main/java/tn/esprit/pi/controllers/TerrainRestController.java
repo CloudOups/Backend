@@ -54,21 +54,18 @@ public class TerrainRestController {
         return terrainServices.updateTerrain(terrain);
     }
     @GetMapping("/get/{idTerrain}")
-<<<<<<< HEAD
     public Terrain getTerrainById(@PathVariable Long idTerrain){
         return terrainServices.getById(idTerrain);
     }
     @DeleteMapping("/delete/{idTerrain}")
     public void removeTerrain(@PathVariable Long idTerrain){
         terrainServices.deleteTerrain(idTerrain);
-=======
     public Terrain getTerrain(@PathVariable int idTerrain){
         return terrainServices.getById(idTerrain);
     }
     @DeleteMapping("/delete/{idTerrain}")
     public void removeTerrain(@PathVariable int idTerrain){
         terrainServices.delete(idTerrain);
->>>>>>> parent of e92394e (Merge branch 'Rania')
     }
     @GetMapping("/get/all")
     public List<Terrain> getAll(){ return terrainServices.getAll();
