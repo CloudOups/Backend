@@ -2,15 +2,16 @@ package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import tn.esprit.pi.entities.*;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
 import tn.esprit.pi.repositories.IUserRepository;
 
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -66,7 +67,7 @@ public class ReservationTerrServices implements IReservationTerrServices {
 
     public double calculateReservationPrice(LocalDateTime datedebut, LocalDateTime datefin) {
         // Obtenez la durée de la réservation en minutes
-        long durationInMinutes = Duration.between(datedebut, datefin).toMinutes();
+        long durationInMinutes = Duration.between(datefin, datedebut).toMinutes();
 
         // Calculer le prix en fonction de la durée de la réservation
         double pricePerMinute = 0.5; // Prix par minute (à titre d'exemple)
@@ -162,6 +163,40 @@ public class ReservationTerrServices implements IReservationTerrServices {
                 .max(Comparator.comparingInt(terrain -> reservationTerrRepository.findByTerrain(terrain).size()));
         return mostReservedTerrain.orElse(null);
     }
+    @Override
+    public Page<ReservationTerrain> getAllPagination(Pageable pageable){
+        return  reservationTerrRepository.findAll(pageable);
+    }
+    @Override
+    public Page<ReservationTerrain> testerBYUser(int page, int size) {
+        Sort sort=Sort.by("user").ascending();
+        PageRequest pageable = PageRequest.of(page, size,sort); // Page 1 avec 10 éléments par page, ajustez selon vos besoins
+        return reservationTerrRepository.findAll( pageable);    }
+    @Override
+    public Page<ReservationTerrain> testerByDateDebut(int page, int size) {
+        Sort sort=Sort.by("dateDebut").ascending();
+        PageRequest pageable = PageRequest.of(page, size,sort); // Page 1 avec 10 éléments par page, ajustez selon vos besoins
+        return reservationTerrRepository.findAll( pageable);    }
+    @Override
+    public Page<ReservationTerrain> testerByDateFin(int page, int size) {
+        Sort sort=Sort.by("dateFin").ascending();
+        PageRequest pageable = PageRequest.of(page, size,sort); // Page 1 avec 10 éléments par page, ajustez selon vos besoins
+        return reservationTerrRepository.findAll( pageable);    }
+    @Override
+    public Page<ReservationTerrain> testerByType(int page, int size) {
+        Sort sort=Sort.by("typeRes").ascending();
+        PageRequest pageable = PageRequest.of(page, size,sort); // Page 1 avec 10 éléments par page, ajustez selon vos besoins
+        return reservationTerrRepository.findAll( pageable);    }
+    @Override
+    public Page<ReservationTerrain> testerByNomTerrain(int page, int size) {
+        Sort sort=Sort.by("terrain").ascending();
+        PageRequest pageable = PageRequest.of(page, size,sort); // Page 1 avec 10 éléments par page, ajustez selon vos besoins
+        return reservationTerrRepository.findAll( pageable);    }
+    @Override
+    public Page<ReservationTerrain> testerByStatus(int page, int size) {
+        Sort sort=Sort.by("etatReser").ascending();
+        PageRequest pageable = PageRequest.of(page, size,sort); // Page 1 avec 10 éléments par page, ajustez selon vos besoins
+        return reservationTerrRepository.findAll( pageable);    }
 }
 
 

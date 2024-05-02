@@ -2,7 +2,8 @@ package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.repository.cdi.Eager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Equipe;
 import tn.esprit.pi.entities.User;
@@ -11,7 +12,6 @@ import tn.esprit.pi.repositories.IUserRepository;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -125,5 +125,9 @@ IUserRepository userRepository;
        return equipe;
         }
 
+    @Override
+    public Page<Equipe> getAllPagination(Pageable pageable){
+        return  equipeRepository.findAll(pageable);
 
+    }
 }
