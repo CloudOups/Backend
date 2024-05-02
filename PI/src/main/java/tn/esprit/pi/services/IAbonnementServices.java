@@ -10,4 +10,7 @@ public interface IAbonnementServices{
      void delete(Long numAbonn);
      List<Abonnement> getAll();
      Abonnement getById(Long numAbonn);
+     void payerAbonnement(Long numAbonn);
+      Abonnement assignToSub (Long numAbonn , Long idcours);
+     Abonnement getAbonnementUtilisateur(Long userId);
 }

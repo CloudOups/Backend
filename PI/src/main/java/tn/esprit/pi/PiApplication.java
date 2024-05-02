@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class PiApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(PiApplication.class, args);
+    public static void main(String[] args) {SpringApplication.run(PiApplication.class, args);
     }
 
 }

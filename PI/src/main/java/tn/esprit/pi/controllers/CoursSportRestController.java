@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/coursSport")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class CoursSportRestController {
     private ICoursServices coursServices;
 

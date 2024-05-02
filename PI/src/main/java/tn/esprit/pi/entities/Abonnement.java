@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,14 +19,17 @@ public class Abonnement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numAbonn;
     String nomAbonn;
-    Date dateDebut;
-    Date dateFin;
+    LocalDate dateDebut;
+    LocalDate dateFin;
+    Double prixAbonn;
     @Enumerated(EnumType.STRING)
     TypeAbonn typeAbonn;
     @ManyToOne
     CoursSport coursSport;
-    //@OneToOne(cascade = CascadeType.PERSIST )
-    //User user;
+    @OneToOne(cascade = CascadeType.PERSIST )
+    User user;
+    boolean paye;
+
 
 }
 

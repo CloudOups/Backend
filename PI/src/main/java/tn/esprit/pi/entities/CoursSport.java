@@ -1,5 +1,6 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,6 +20,7 @@ public class CoursSport {
     @Enumerated(EnumType.STRING)
     TypeSport typeSport;
     String description;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "coursSport")
     Set<Abonnement> abonnements;
 }
