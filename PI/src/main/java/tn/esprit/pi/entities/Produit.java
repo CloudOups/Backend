@@ -19,7 +19,7 @@ public class Produit implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numProd;
     String nomProd;
-    float Prix;
+    float prix;
     int quantite;
     String image;
     String description;

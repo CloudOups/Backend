@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="683cd451-7ec5-4d0c-9347-06ce94b56af4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/config/LoggingProduitAspect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PI/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/controllers/PanierAchatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/controllers/PanierAchatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPanierAchatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/IPanierAchatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/PanierAchatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/services/PanierAchatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/PiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/PiApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/controllers/ProduitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/controllers/ProduitController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/java/tn/esprit/pi/entities/Produit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PI/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -135,6 +135,13 @@
       <workItem from="1714192859105" duration="2546000" />
       <workItem from="1714212148674" duration="3412000" />
       <workItem from="1714224350990" duration="15370000" />
+      <workItem from="1714372301477" duration="456000" />
+      <workItem from="1714412352926" duration="4917000" />
+      <workItem from="1714446453898" duration="2449000" />
+      <workItem from="1714468659117" duration="7239000" />
+      <workItem from="1714577321470" duration="1376000" />
+      <workItem from="1714590344276" duration="4574000" />
+      <workItem from="1714624246903" duration="2704000" />
     </task>
     <servers />
   </component>
