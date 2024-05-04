@@ -16,11 +16,6 @@ public class ProduitController {
 
     private final IProduitService produitService;
 
-   /* @GetMapping("")
-    Page<Produit> getAll() {
-        return produitService.getAll();
-    }*/
-
     @GetMapping("")
     public Page<Produit> getAll(Pageable pageable) {
         return produitService.getAllPaggination(pageable);
