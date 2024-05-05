@@ -2,6 +2,7 @@ package tn.esprit.pi.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.TypeTerrain;
 
@@ -13,6 +14,7 @@ public interface ITournoiServices {
     Tournoi update(Tournoi tournoi);
     void delete(Long id);
     Tournoi getById(Long id);
+    List<Tournoi> getByEvent(Event event);
     List<Tournoi> getAll();
     Tournoi assignToEvent(Long idevent,Long idtournoi);
     Tournoi assignTerrainToTournoi(Long tournoiId, Long terrainId);
