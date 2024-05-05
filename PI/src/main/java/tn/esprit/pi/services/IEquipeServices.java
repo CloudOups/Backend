@@ -1,5 +1,7 @@
 package tn.esprit.pi.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import tn.esprit.pi.entities.Equipe;
 import tn.esprit.pi.entities.User;
 
@@ -14,4 +16,5 @@ public interface IEquipeServices {
     Equipe demandeAdhesion(Long idequipe, Long iduser);
     Equipe reponseAdhesion(Long idequipe,Long userId,String reponse);
 
+    Page<Equipe> getAllPagination(Pageable pageable);
 }

@@ -1,6 +1,9 @@
 package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Equipe;
 import tn.esprit.pi.entities.MembresEquipe;
@@ -98,7 +101,9 @@ IMembresEquipeRepository membresEquipeRepository;
         }
         return null;
 
+    @Override
+    public Page<Equipe> getAllPagination(Pageable pageable){
+        return  equipeRepository.findAll(pageable);
 
     }
-
 }
