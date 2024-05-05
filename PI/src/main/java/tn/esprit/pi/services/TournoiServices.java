@@ -47,7 +47,7 @@ public class TournoiServices implements ITournoiServices{
         return tournoiRepository.findById(id).orElse(null);
     }
 
-    @Override
+
     public List<Tournoi> getByEvent(Event event) {
         return (List<Tournoi>) tournoiRepository.findByEvent(event);
     }
