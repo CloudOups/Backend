@@ -1,5 +1,9 @@
 package tn.esprit.pi.services;
 
+import tn.esprit.pi.entities.Event;
+
+import java.util.List;
+
 public interface IEventServices {
     Event add(Event event);
     Event update(Event event);

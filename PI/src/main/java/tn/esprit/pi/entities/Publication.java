@@ -1,11 +1,9 @@
 package tn.esprit.pi.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
 @Getter
@@ -19,7 +17,14 @@ public class Publication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numPub;
     String sujet ;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     String contenu;
     LocalDate  dateCreation;
+    String photo;
+    boolean status = false;
+    int likes;
+    @ManyToOne
+    private User user;
     
 }

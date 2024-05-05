@@ -1,6 +1,5 @@
 package tn.esprit.pi.controllers;
 
-public class EventRestController {
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

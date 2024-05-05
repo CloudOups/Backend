@@ -13,16 +13,19 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numevent;
     String nomevent;
+    String categorie;
+    String location;
     LocalDate dateDebut;
     LocalDate dateFin;
     String image;
-    int nbPlace;
+    int nbParticipants;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     Set<Ticket> tickets;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
+    Set<Tournoi> tournois;
 }
