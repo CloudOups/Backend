@@ -1,5 +1,7 @@
 package tn.esprit.pi.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.TypeTerrain;
 
@@ -15,4 +17,6 @@ public interface ITournoiServices {
     Tournoi assignToEvent(Long idevent,Long idtournoi);
     Tournoi assignTerrainToTournoi(Long tournoiId, Long terrainId);
     Tournoi creerTournoiAutomatique(Tournoi tournoi,Long idevent);
+    Page<Tournoi> getAllPagination(Pageable pageable);
+
 }
