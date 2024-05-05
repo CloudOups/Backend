@@ -38,7 +38,6 @@ public class TicketServices implements ITicketServices {
                 ticket.setEvent(event);
                 return ticketRepository.save(ticket);
             } else {
-                // Gérer le cas où l'événement n'est pas trouvé
                 return null;
             }
         }
@@ -58,7 +57,6 @@ public class TicketServices implements ITicketServices {
                 return ticketRepository.save(ticket);
             }
         else {
-            // Gérer le cas où l'événement n'est pas trouvé
             return null;
         }
         }
@@ -85,17 +83,6 @@ public class TicketServices implements ITicketServices {
     }
 
     EventServices eventServices;
-//    @Override
-//    public List<Ticket> getTicketsByEvent(String nomevent) {
-//        Event event = eventServices.findByName(nomevent);
-//        List<Ticket> tickets = new ArrayList<>();
-//        if (event != null) {
-//            for (Ticket t : event.getTickets()) {
-//                tickets.add(t);
-//            }
-//        }
-//        return tickets;
-//    }
 
     @Override
     public List<Ticket> getTicketsByEvent(Long idevent) {
@@ -109,13 +96,5 @@ public class TicketServices implements ITicketServices {
         return tickets;
     }
 
-
-//    @Override
-//    public Ticket assignToEvent(Long idevent, Long idticket) {
-//        Event event = eventRepository.findById(idevent).orElse(null);
-//        Ticket ticket= ticketRepository.findById(idticket).orElse(null);
-//        ticket.setEvent(event);
-//        return ticketRepository.save(ticket);
-//    }
 
 }

@@ -1,6 +1,7 @@
 package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Event;
@@ -19,21 +20,19 @@ import java.util.List;
  public class EventRestController {
         EventServices eventServices;
 
-        public static String uploadDirectory= System.getProperty("user.dir")+"/src/main/webapp/images";
 
-        @PostMapping("/add")
-        public Event addEvent(@ModelAttribute Event event, @RequestParam("img")MultipartFile imgg)throws IOException
+
+        @PostMapping(value= "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+        public Event addEvent(@ModelAttribute Event event, @RequestParam("img")MultipartFile imgg)
         {
-            String filename= imgg.getOriginalFilename();
-            Path fileNameAndPath= Paths.get(uploadDirectory,filename);
-            Files.write(fileNameAndPath,imgg.getBytes());
-            event.setImage(filename);
-            return eventServices.add(event);
+
+            return eventServices.add(event, imgg);
         }
+
 
         @PutMapping("/update")
         public Event updateEvent(@RequestBody Event event){
-            return eventServices.add(event);
+            return eventServices.update(event);
         }
 
         @DeleteMapping("/delete/{idEvent}")

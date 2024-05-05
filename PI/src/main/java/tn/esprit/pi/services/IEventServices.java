@@ -1,11 +1,12 @@
 package tn.esprit.pi.services;
 
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Event;
 
 import java.util.List;
 
 public interface IEventServices {
-    Event add(Event event);
+    Event add(Event event, MultipartFile file);
     Event update(Event event);
     void delete(Long id);
     Event getById(Long id);

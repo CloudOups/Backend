@@ -4,6 +4,8 @@ package tn.esprit.pi.services;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
 import tn.esprit.pi.entities.User;
@@ -12,6 +14,11 @@ import tn.esprit.pi.repositories.ITerrainRepository;
 import tn.esprit.pi.repositories.ITicketRepository;
 import tn.esprit.pi.repositories.IUserRepository;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -26,10 +33,35 @@ public class EventServices implements IEventServices {
     ITicketRepository ticketRepository;
     IUserRepository userRepository;
 
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images";
 
     @Override
-    public Event add(Event event) {
-        return eventRepository.save(event);
+    public Event add(Event event, MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+
+        try {
+            // Construct the file path
+            String originalFilename = file.getOriginalFilename();
+            String fileName = StringUtils.cleanPath(originalFilename);
+
+            // Save the file to the upload directory
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory, fileName);
+            Files.write(path, bytes);
+
+            Files.createDirectories(path.getParent());
+
+            try (OutputStream os = Files.newOutputStream(path)) {
+                os.write(bytes);
+            }
+            // Set the image file name in terrain
+            event.setImage(originalFilename);
+            return eventRepository.save(event);
+        } catch (IOException e) {
+        throw new RuntimeException("Failed to store file " + file.getOriginalFilename(), e);
+    }
     }
 
     @Override
@@ -106,15 +138,14 @@ public class EventServices implements IEventServices {
     @Override
     public List<Event> evenementsAvecPlusParticipations() {
         List<Event> tousEvenements = eventRepository.findAll();
-        // Créer une copie de la liste des événements pour ne pas modifier l'original
 
-        // Trier les événements par le nombre de participations décroissant
+        // Trier event par nb de participations decroi
         List<Event> evenementsTries = tousEvenements.stream()
-                .map(event -> (Event) event) // Cast pour spécifier le type d'objet
+                .map(event -> (Event) event)
                 .sorted(Comparator.comparingInt(event -> ((Event) event).getTickets().size()).reversed())
                 .collect(Collectors.toList());
 
-        // Retourner les premiers n événements avec le plus grand nombre de participations
+        // Retourner les 5 1er event
         return evenementsTries.subList(0, Math.min(5, evenementsTries.size()));
     }
 
@@ -147,7 +178,6 @@ public class EventServices implements IEventServices {
         List<Event> allEvents = eventRepository.findAll();
         LocalDateTime currentDate = LocalDateTime.now();
         for (Event event : allEvents) {
-            // Add null check for getDateDebut()
             if (event.getDateDebut() != null && event.getDateDebut().isBefore(currentDate)) {
                 expiredEvents.add(event);
             }
@@ -161,7 +191,7 @@ public class EventServices implements IEventServices {
         List<Event> allEvents = eventRepository.findAll();
         LocalDateTime currentDate = LocalDateTime.now();
         for (Event event : allEvents) {
-            // Add null check for getDateDebut()
+
             if (event.getDateDebut() != null && event.getDateDebut().isAfter(currentDate)) {
                 upcomingEvents.add(event);
             }

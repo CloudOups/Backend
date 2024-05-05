@@ -1,6 +1,7 @@
 package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class TournoiServices implements ITournoiServices{
 
     @Autowired
@@ -78,19 +80,19 @@ public class TournoiServices implements ITournoiServices{
                 tournoi.getTypeTournoi(),tournoi.getDateDebut(), tournoi.getDateFin());
 
         List<Terrain> terrainsDisponibles = terrainRepository.findTerrainByTypeTerrain(tournoi.getTypeTournoi());
-        System.out.println("Terrains disponibles: " + terrainsDisponibles);
+        log.info("Terrains disponibles: " + terrainsDisponibles);
 
 
         //  terrains disp qui correspondent au type de tournoi
         List<Terrain> terrainsCorrespondants = terrainsDisponibles.stream()
                 .filter(terrain -> terrain.getTypeTerrain().equals(tournoi.getTypeTournoi()) && !reservationExistante)
                 .toList();
-        System.out.println("Terrains correspondants: " + terrainsCorrespondants);
+        log.info("qTerrains correspondants: " + terrainsCorrespondants);
 
 
 
         if (terrainsCorrespondants.isEmpty()) {
-            System.out.println("Aucun terrain disponible pour le type de tournoi sélectionné.");
+            log.info("Aucun terrain disponible pour le type de tournoi sélectionné.");
             return null;
         }
 
@@ -101,7 +103,7 @@ public class TournoiServices implements ITournoiServices{
         for (Terrain terrain : terrainsCorrespondants) {
             boolean hasNoReservationsAfter = terrain.getReservations().stream()
                     .noneMatch(reservation -> reservation.getDateDebut().isAfter(tournoi.getDateFin()));
-            System.out.println("Terrain: " + terrain + ", Aucune réservation après: " + hasNoReservationsAfter);
+            log.info("Terrain: " + terrain + ", Aucune réservation après: " + hasNoReservationsAfter);
             if (hasNoReservationsAfter) {
                 terrainSelectionne = terrain;
                 break;
@@ -112,7 +114,7 @@ public class TournoiServices implements ITournoiServices{
         if (terrainSelectionne == null) {
             for (Terrain terrain : terrainsCorrespondants) {
                 int nbReservations = terrain.getReservations().size();
-                System.out.println("Terrain: " + terrain + ", Nombre de réservations: " + nbReservations);
+                log.info("Terrain: " + terrain + ", Nombre de réservations: " + nbReservations);
                 if (nbReservations < minReservations) {
                     terrainSelectionne = terrain;
                     minReservations = nbReservations;
