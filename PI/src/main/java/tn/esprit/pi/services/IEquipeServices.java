@@ -8,13 +8,15 @@ import tn.esprit.pi.entities.User;
 import java.util.List;
 
 public interface IEquipeServices {
-    Equipe addEquipe(Equipe equipe,Long idUser);
+    boolean isUserAlreadyInTeam(Integer userId);
+    Equipe addEquipe(Equipe equipe,Integer idUser);
     Equipe updateEquipe(Equipe equipe);
     void delete(Long numequipe);
     Equipe getById(Long numequipe);
     List<Equipe> getAll();
-    Equipe demandeAdhesion(Long idequipe, Long iduser);
-    Equipe reponseAdhesion(Long idequipe,Long userId,String reponse);
+    Equipe getByNom(String nomEquipe);
+    Equipe demandeAdhesion(Long idequipe, Integer iduser);
+    Equipe traiterAdhesion(Long idequipe,Integer userId,String reponse);
 
     Page<Equipe> getAllPagination(Pageable pageable);
 }

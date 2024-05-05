@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.*;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
+import tn.esprit.pi.repositories.ITerrainRepository;
+import tn.esprit.pi.repositories.UserRepository;
 
 import java.util.List;
 import java.time.Duration;
@@ -20,8 +22,25 @@ import java.util.*;
 @Service
 public class ReservationTerrServices implements IReservationTerrServices{
     IReservationTerrRepository reservationTerrRepository;
+    ITerrainRepository terrainRepository;
+    UserRepository userRepository;
+
+    /* @Override
+     public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain,Long idUser,Long idTerrain) {
+         Terrain terrain =terrainRepository.findById(idTerrain).orElse(null);
+         User user =userRepository.findById(idUser).orElse(null);
+         if(user== null){
+             log.info("user not found");return null;}
+         else if(terrain== null){
+             log.info("terrain not found");return null;}
+ else {
+             reservationTerrain.setTerrain(terrain);
+             reservationTerrain.setUser(user);
+             return reservationTerrRepository.save(reservationTerrain);
+         }
+     }*/
     @Override
-    public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain, Long idUser, Long idTerrain) {
+    public ReservationTerrain addReservationTerrain(ReservationTerrain reservationTerrain, Integer idUser, Long idTerrain) {
         Terrain terrain = terrainRepository.findById(idTerrain).orElse(null);
         User user = userRepository.findById(idUser).orElse(null);
 
@@ -116,8 +135,8 @@ public class ReservationTerrServices implements IReservationTerrServices{
         }
         return Collections.emptyList();
     }
-    public List<ReservationTerrain> getResByUser(Long userId) {
-        List<ReservationTerrain> reservationsByUser = reservationTerrRepository.findByUser_UserId(userId);
+    public List<ReservationTerrain> getResByUser(Integer userId) {
+        List<ReservationTerrain> reservationsByUser = reservationTerrRepository.findByUser_Id(userId);
         if (reservationsByUser != null) {
             return reservationsByUser;
         }

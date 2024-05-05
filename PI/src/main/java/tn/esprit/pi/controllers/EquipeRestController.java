@@ -20,8 +20,8 @@ public class EquipeRestController {
     private EquipeServices equipeServices;
 
     @PostMapping("/add/{iduser}")
-    public Equipe addEquipe(@RequestBody Equipe equipe, @PathVariable Long iduser) {
-        return equipeServices.addEquipe(equipe,iduser);
+    public Equipe addEquipe(@RequestBody Equipe equipe, @PathVariable Integer iduser) {
+        return iequipeServices.addEquipe(equipe, iduser);
     }
     @PutMapping("/update")
     public Equipe updateEquipe(@RequestBody Equipe equipe) {
@@ -39,13 +39,15 @@ public class EquipeRestController {
     public List<Equipe>  getAll(){
         return equipeServices.getAll();
     }
-    @PutMapping("/demandeAdhesion/{idEquipe}/{idUser}")
-    public  Equipe demandeEquipe(@PathVariable Long idEquipe ,@PathVariable Long idUser){
-        return equipeServices.demandeAdhesion(idEquipe,idUser);
+
+    @PutMapping("/demandeAdhesion/idequipe={idEquipe}/idUser={idUser}")
+    public Equipe demandeEquipe(@PathVariable Long idEquipe, @PathVariable Integer idUser) {
+        return iequipeServices.demandeAdhesion(idEquipe, idUser);
     }
-    @PutMapping("/reponseAdhesion/{idequipe}/{idUser}/{reponse}")
-    public  Equipe reponseEquipe(@PathVariable Long idequipe ,@PathVariable Long idUser, @PathVariable String reponse){
-        return equipeServices.reponseAdhesion(idequipe,idUser,reponse);
+
+    @PutMapping("/reponseAdhesion/idequipe={idequipe}/idUser={idUser}/idreponse={reponse}")
+    public Equipe traiterEquipe(@PathVariable Long idequipe, @PathVariable Integer idUser, @PathVariable String reponse) {
+        return iequipeServices.traiterAdhesion(idequipe, idUser, reponse);
     }
     @GetMapping("/get/allEquipes")
     public Page<Equipe> getItems(@RequestParam(name = "page", defaultValue = "0") int page,
