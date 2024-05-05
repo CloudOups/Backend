@@ -34,7 +34,7 @@ public class EventServices implements IEventServices {
     ITicketRepository ticketRepository;
     UserRepository userRepository;
 
-    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images";
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images/event";
 
     @Override
     public Event add(Event event, MultipartFile file) {
