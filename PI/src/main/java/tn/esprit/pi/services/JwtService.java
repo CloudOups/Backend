@@ -2,6 +2,7 @@ package tn.esprit.pi.services;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
+import tn.esprit.pi.entities.User;
 
 import java.security.Key;
 import java.util.Map;
@@ -16,17 +17,19 @@ public interface JwtService {
 
     public String extractUsername(String token) ;
 
-    public String generateRefreshToken(UserDetails userDetails) ;
+    public String generateRefreshToken(UserDetails userDetails,String role) ;
 
-    public String generateToken(UserDetails userDetails) ;
+    public String generateToken(UserDetails userDetails,String role) ;
 
     public String generateToken(   Map<String, Object> extraClaims,
-                                   UserDetails userDetails) ;
+                                   UserDetails userDetails
+                                    ,String role) ;
+
 
     public String buildToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails,
-            long expiration
+            long expiration,String role
     );
 
     public Claims extractAllClaims(String token) ;

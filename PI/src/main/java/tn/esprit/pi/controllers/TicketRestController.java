@@ -1,6 +1,7 @@
 package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
@@ -9,6 +10,7 @@ import tn.esprit.pi.entities.User;
 import tn.esprit.pi.services.EventServices;
 import tn.esprit.pi.services.TicketServices;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequestMapping("/ticket")
@@ -28,8 +30,11 @@ public class TicketRestController {
 //    }
 
     @PostMapping("/participate/{eventId}")
-    public Ticket participateEvent(@PathVariable Long eventId) {
+    public Ticket participateEvent(Principal connectedUser,@PathVariable Long eventId) {
         Event event = eventService.getById(eventId);
+        User userGotten = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        System.out.println("userGotten : "+userGotten);
+        System.out.println("userGotten : "+userGotten);
         return ticketServices.createTicket(event);
     }
 

@@ -6,8 +6,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import tn.esprit.pi.repositories.UserRepository;
 
 import java.security.Key;
 import java.util.Date;
@@ -16,10 +19,14 @@ import java.util.Map;
 import java.util.function.Function;
 @Service
 public class JwtServiceImp implements JwtService{
+
     @Value("${SIGN_IN_KEY}")
     private String SECRET_KEY ;
-    private long accessExpiration = 1000*60*15 ; // in millis : 15 minute
+    private long accessExpiration = 10000000*60*15 ; // in millis : 15 minute
     private long refreshExpiration = 1000*60*60*24*7 ; // on millis : 7 days
+
+
+
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token) ;
@@ -41,29 +48,41 @@ public class JwtServiceImp implements JwtService{
 
 
     public String generateRefreshToken(
-            UserDetails userDetails
+            UserDetails userDetails,String role
     ) {
-        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
+        return buildToken(new HashMap<>(), userDetails, refreshExpiration,role);
     }
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(),userDetails) ;
+    public String generateToken(UserDetails userDetails,String role) {
+        return generateToken(new HashMap<>(),userDetails,role) ;
     }
 
     public String generateToken(   Map<String, Object> extraClaims,
-                                   UserDetails userDetails)
+                                   UserDetails userDetails,
+                                   String role
+                                   )
     {
-        return buildToken(extraClaims,userDetails,accessExpiration) ;
+        return buildToken(extraClaims,userDetails,accessExpiration,role) ;
     }
 
+
+
+    @Override
     public String buildToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails,
-            long expiration
+            long expiration,
+            String role
     ){
+        var authorities = userDetails.getAuthorities()
+                .stream().
+                map(GrantedAuthority::getAuthority)
+                .toList();
+        String subject = userDetails.getUsername() ;
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(subject)
+                .claim("authorities", authorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration ))
                 .signWith(getSignInkey(), SignatureAlgorithm.HS256)
