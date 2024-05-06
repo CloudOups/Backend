@@ -1,6 +1,7 @@
 package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Event;
@@ -11,50 +12,68 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
- @AllArgsConstructor
- @RestController
- @RequestMapping("/event")
- @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
+@RestController
+@RequestMapping("/event")
+@CrossOrigin(origins = "*")
 
- public class EventRestController {
-        EventServices eventServices;
+public class EventRestController {
+    EventServices eventServices;
 
-        public static String uploadDirectory= System.getProperty("user.dir")+"/src/main/webapp/images";
 
-        @PostMapping("/add")
-        public Event addEvent(@ModelAttribute Event event, @RequestParam("img")MultipartFile imgg)throws IOException
-        {
-            String filename= imgg.getOriginalFilename();
-            Path fileNameAndPath= Paths.get(uploadDirectory,filename);
-            Files.write(fileNameAndPath,imgg.getBytes());
-            event.setImage(filename);
-            return eventServices.add(event);
-        }
 
-        @PutMapping("/update")
-        public Event updateEvent(@RequestBody Event event){
-            return eventServices.add(event);
-        }
+    @PostMapping(value= "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Event addEvent(@ModelAttribute Event event, @RequestParam("img")MultipartFile imgg)
+    {
 
-        @DeleteMapping("/delete/{idEvent}")
-        public void deleteEvent(@PathVariable Long idEvent){
-            eventServices.delete(idEvent);
-        }
+        return eventServices.add(event, imgg);
+    }
 
-        @GetMapping("/get/{idEvent}")
-        public Event getEventById(@PathVariable Long idEvent){
-            return eventServices.getById(idEvent);
-        }
 
-        @GetMapping("/get/all")
-        public List<Event> getAll(){
-            return eventServices.getAll();
-        }
+    @PutMapping("/update")
+    public Event updateEvent(@RequestBody Event event){
+        return eventServices.update(event);
+    }
 
-        @GetMapping("/get/mostparticipation")
-        public List<Event> evenementsAvecPlusParticipations(){
-            return eventServices.evenementsAvecPlusParticipations();
-        }
+    @DeleteMapping("/delete/{idEvent}")
+    public void deleteEvent(@PathVariable Long idEvent){
+        eventServices.delete(idEvent);
+    }
+
+    @GetMapping("/get/{idEvent}")
+    public Event getEventById(@PathVariable Long idEvent){
+        return eventServices.getById(idEvent);
+    }
+
+    @GetMapping("/get/all")
+    public List<Event> getAll(){
+        return eventServices.getAll();
+    }
+
+    @GetMapping("/get/mostparticipation")
+    public List<Event> evenementsAvecPlusParticipations(){
+        return eventServices.evenementsAvecPlusParticipations();
+    }
+
+    @GetMapping("/get/complete")
+    public List<Event> getCompleteEvents() {
+        return eventServices.getCompleteEvents();
+    }
+
+    @GetMapping("/get/incomplete")
+    public List<Event> getIncompleteEvents() {
+        return eventServices.getIncompleteEvents();
+    }
+
+    @GetMapping("/get/expired")
+    public List<Event> getExpiredEvents() {
+        return eventServices.getExpiredEvents();
+    }
+
+    @GetMapping("/get/upcoming")
+    public List<Event> getUpcomingEvents() {
+        return eventServices.getUpcomingEvents();
+    }
 
 
 
