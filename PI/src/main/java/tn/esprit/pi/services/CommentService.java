@@ -90,7 +90,29 @@ public class CommentService implements ICommentService {
 
     @Override
     public String analyzeSentiment(String text) {
-        return null;
+        if (text == null || text.isEmpty()) {
+            return "Neutral";
+        }
+        text = text.toLowerCase();
+        String[] positiveWords = {"bravo", "original", "best", "good", "excellent", "behya",
+                "wonderful", "great", "amazing", "awesome", "fantastic", "superb",
+                "perfect", "nice", "beautiful", "love", "like", "happy",
+                "cool", "well done", "well", "well done","behya"};
+        String[] negativeWords = {"bad", "poor", "terrible", "worst", "disgusting",
+                "dislike", "hate", "disappointed", "disappointing", "disappointment", "disgusted"};
+        for (String word : positiveWords) {
+            if (text.contains(word)) {
+                return "Positive";
+            }
+        }
+        for (String word : negativeWords) {
+            if (text.contains(word)) {
+                return "Negative";
+            }
+        }
+
+        return "Neutral";
+
     }
 
 
@@ -120,28 +142,5 @@ public class CommentService implements ICommentService {
 //        props.setProperty("tokenize.language", "en");
 //        pipeline = new StanfordCoreNLP(props);
 //    }
-//    public String analyzeSentiment(String text) {
-//        if (text == null || text.isEmpty()) {
-//            return "Neutral";
-//        }
-//        text = text.toLowerCase();
-//        String[] positiveWords = {"bravo", "original", "best", "good", "excellent", "behya",
-//                "wonderful", "great", "amazing", "awesome", "fantastic", "superb",
-//                "perfect", "nice", "beautiful", "love", "like", "happy",
-//                "cool", "well done", "well", "well done","behya"};
-//        String[] negativeWords = {"bad", "poor", "terrible", "worst", "disgusting",
-//                "dislike", "hate", "disappointed", "disappointing", "disappointment", "disgusted"};
-//        for (String word : positiveWords) {
-//            if (text.contains(word)) {
-//                return "Positive";
-//            }
-//        }
-//        for (String word : negativeWords) {
-//            if (text.contains(word)) {
-//                return "Negative";
-//            }
-//        }
-//
-//        return "Neutral";
-//    }
+
 }
