@@ -8,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import tn.esprit.pi.entities.*;
 
@@ -35,17 +34,4 @@ public interface IReservationTerrRepository extends JpaRepository<ReservationTer
     boolean existsByDateFinBetween(LocalDateTime dateDebut, LocalDateTime dateFin);
     boolean existsByTerrainTypeTerrainAndDateFinBetween(TypeTerrain typeTerrain, LocalDateTime dateDebut, LocalDateTime dateFin);
 
-    @Query("SELECT r FROM ReservationTerrain r " +
-            "WHERE r.dateDebut <= :endDate AND r.dateFin >= :startDate AND r.terrain.typeTerrain = :typeTerrain")
-    List<ReservationTerrain> findReservationsByDateRangeAndTypeTerrain(
-            @Param("startDate") LocalDateTime startDate,
-            @Param("endDate") LocalDateTime endDate,
-            @Param("typeTerrain") TypeTerrain typeTerrain);
-
-    @Query("SELECT r FROM ReservationTerrain r " +
-            "WHERE r.dateDebut <= :endDate AND r.dateFin >= :startDate AND r.terrain = :terrain")
-    List<ReservationTerrain> findReservationsByDateRangeAndTerrain(
-            @Param("startDate") LocalDateTime startDate,
-            @Param("endDate") LocalDateTime endDate,
-            @Param("terrain") Terrain terrain);
 }

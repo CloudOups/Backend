@@ -63,62 +63,80 @@ public class TournoiServices implements ITournoiServices{
         tournoi.setEvent(event);
         return tournoiRepository.save(tournoi);
     }
-//    @Override
-//    public Tournoi assignTerrainToTournoi(Long idtournoi, Long idterrain) {
-//        Tournoi tournoi = tournoiRepository.findById(idtournoi).orElse(null);
-//        Terrain terrain = terrainRepository.findById(idterrain).orElse(null);
-//        tournoi.setTerrain(terrain);
-//        return tournoiRepository.save(tournoi);
-//    }
+    @Override
+    public Tournoi assignTerrainToTournoi(Long idtournoi, Long idterrain) {
+        Tournoi tournoi = tournoiRepository.findById(idtournoi).orElse(null);
+        Terrain terrain = terrainRepository.findById(idterrain).orElse(null);
+        tournoi.setTerrain(terrain);
+        return tournoiRepository.save(tournoi);
+    }
 
     @Override
-    public Tournoi creerTournoiAutomatique(Tournoi tournoi, Long idevent) {
+    public Tournoi creerTournoiAutomatique(Tournoi tournoi,Long idevent) {
+        Event event = eventRepository.findById(idevent).orElse(null);
+        tournoi.setEvent(event);
+        // reserv pour la meme date et heure
+        boolean reservationExistante = reservationTerrRepository.existsByTerrainTypeTerrainAndDateFinBetween(
+                tournoi.getTypeTournoi(),tournoi.getDateDebut(), tournoi.getDateFin());
 
-
-        // Vérification de la disponibilité du terrain
-        List<ReservationTerrain> reservations = reservationTerrRepository.findReservationsByDateRangeAndTypeTerrain(
-                tournoi.getDateDebut(), tournoi.getDateFin(), tournoi.getTypeTournoi());
-
-        if (!reservations.isEmpty()) {
-            log.info("Terrain non disponible pour le type de tournoi sélectionné.");
-            return null;
-        }
-
-        // Recherche d'un terrain disponible
         List<Terrain> terrainsDisponibles = terrainRepository.findTerrainByTypeTerrain(tournoi.getTypeTournoi());
-        if(terrainsDisponibles.isEmpty()){
-            log.info("pas de terrain disponnible");
+        log.info("Terrains disponibles: " + terrainsDisponibles);
+
+
+        //  terrains disp qui correspondent au type de tournoi
+        List<Terrain> terrainsCorrespondants = terrainsDisponibles.stream()
+                .filter(terrain -> terrain.getTypeTerrain().equals(tournoi.getTypeTournoi()) && !reservationExistante)
+                .toList();
+        log.info("qTerrains correspondants: " + terrainsCorrespondants);
+
+
+
+        if (terrainsCorrespondants.isEmpty()) {
+            log.info("Aucun terrain disponible pour le type de tournoi sélectionné.");
             return null;
         }
+
         Terrain terrainSelectionne = null;
+        int minReservations = Integer.MAX_VALUE;
 
-        for (Terrain terrain : terrainsDisponibles) {
-            List<ReservationTerrain> reservationsTerrain = reservationTerrRepository.findReservationsByDateRangeAndTerrain(
-                    tournoi.getDateDebut(), tournoi.getDateFin(), terrain);
-
-            if (reservationsTerrain.isEmpty()) {
+        // terrain qui n a pas de reserv juste apres tournoi
+        for (Terrain terrain : terrainsCorrespondants) {
+            boolean hasNoReservationsAfter = terrain.getReservations().stream()
+                    .noneMatch(reservation -> reservation.getDateDebut().isAfter(tournoi.getDateFin()));
+            log.info("Terrain: " + terrain + ", Aucune réservation après: " + hasNoReservationsAfter);
+            if (hasNoReservationsAfter) {
                 terrainSelectionne = terrain;
                 break;
             }
         }
 
+        // celui qui a le moins de reser
         if (terrainSelectionne == null) {
-            log.info("Aucun terrain disponible pour le type de tournoi sélectionné.");
-            return null;
+            for (Terrain terrain : terrainsCorrespondants) {
+                int nbReservations = terrain.getReservations().size();
+                log.info("Terrain: " + terrain + ", Nombre de réservations: " + nbReservations);
+                if (nbReservations < minReservations) {
+                    terrainSelectionne = terrain;
+                    minReservations = nbReservations;
+                }
+            }
         }
 
-        // Création de la réservation pour le tournoi
+        if (terrainSelectionne == null) {
+            throw new RuntimeException("Aucun terrain disponible pour le type de tournoi sélectionné.");
+        }
+
         ReservationTerrain reservationTerrain = new ReservationTerrain();
         reservationTerrain.setTerrain(terrainSelectionne);
         reservationTerrain.setDateDebut(tournoi.getDateDebut());
         reservationTerrain.setDateFin(tournoi.getDateFin());
-        reservationTerrain.setPrixReser(0.0);
 
         reservationTerrain = reservationTerrRepository.save(reservationTerrain);
-        Event event = eventRepository.findById(idevent).orElse(null);
-        tournoi.setEvent(event);
+
+        // assign reserv au tournoi
         tournoi.setReservation(reservationTerrain);
         reservationTerrain.setTournoi(tournoi);
+        // assign le terrain selectionne au tournoi
         tournoi.setTerrain(terrainSelectionne);
 
         return tournoiRepository.save(tournoi);

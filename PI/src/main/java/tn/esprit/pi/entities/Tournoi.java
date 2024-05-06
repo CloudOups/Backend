@@ -30,7 +30,7 @@ public class  Tournoi implements Serializable {
     @OneToOne(mappedBy = "tournoi")
     ReservationTerrain reservation;
     @JsonIgnore
-    @ManyToOne()
+    @ManyToOne
     Event event;
     @JsonIgnore
     @ManyToOne

@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.dto.requests.UpdateUserRequest;
-import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.UserRepository;
 
@@ -23,9 +22,6 @@ public class UserServiceImp implements UserService{
     private final AuthenticationService authenticationService ;
 
 
-    public User getById(Integer id) {
-        return userRepository.findById(id).orElse(null);
-    }
     @Override
     public User getCurrentUser(Principal connectedUser) {
         return (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
