@@ -15,7 +15,7 @@ public interface ITournoiServices {
     Tournoi getById(Long id);
     List<Tournoi> getAll();
     Tournoi assignToEvent(Long idevent,Long idtournoi);
-    Tournoi assignTerrainToTournoi(Long tournoiId, Long terrainId);
+   // Tournoi assignTerrainToTournoi(Long tournoiId, Long terrainId);
     Tournoi creerTournoiAutomatique(Tournoi tournoi,Long idevent);
     Page<Tournoi> getAllPagination(Pageable pageable);
 

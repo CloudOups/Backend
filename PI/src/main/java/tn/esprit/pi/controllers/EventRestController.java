@@ -20,12 +20,9 @@ import java.util.List;
 public class EventRestController {
     EventServices eventServices;
 
-
-
     @PostMapping(value= "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Event addEvent(@ModelAttribute Event event, @RequestParam("img")MultipartFile imgg)
     {
-
         return eventServices.add(event, imgg);
     }
 

@@ -17,6 +17,8 @@ public interface UserService {
     public String currentUploadDirectory( Principal connectedUser) ;
     public void addProfileImage(MultipartFile imageFile , Principal connectedUser) throws IOException;
 
+    User getById(Integer id);
+
     public byte[] getProfileImage( Principal connectedUser) throws IOException;
 
     public void updateProfileImage( MultipartFile imageFile , Principal connectedUser) throws IOException;

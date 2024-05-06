@@ -8,7 +8,9 @@ import tn.esprit.pi.entities.Ticket;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IEventRepository;
 import tn.esprit.pi.repositories.ITicketRepository;
+import tn.esprit.pi.repositories.UserRepository;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,8 @@ public class TicketServices implements ITicketServices {
 
     ITicketRepository ticketRepository;
     IEventRepository eventRepository;
+    UserRepository userRepository;
+    UserServiceImp userService;
 
     public boolean isEventFull(Long idEvent){
         Event event= eventRepository.findById(idEvent).orElse(null);
@@ -44,25 +48,31 @@ public class TicketServices implements ITicketServices {
         }
     }
     public Ticket createTicket(Event event) {
+        if (event == null) {
+            // Gérer le cas où l'événement est null
+            log.error("L'événement est null.");
+            return null;
+        }
+
         if (isEventFull(event.getNumevent())) {
             log.info("L'événement est complet, désolé.");
             return null;
         } else {
-            if (event != null) {
-                Ticket ticket = new Ticket();
-                ticket.setEvent(event);
-                ticket.setDateTicket(LocalDate.now());
-                //ticket.setUser(user);
-                // Assign other necessary details to the ticket
-                // Save the ticket to the database
-                return ticketRepository.save(ticket);
-            }
-        else {
-            // Gérer le cas où l'événement n'est pas trouvé
-            return null;
-        }
-        }
+            Ticket ticket = new Ticket();
+            ticket.setEvent(event);
+            ticket.setDateTicket(LocalDate.now());
 
+           /* User user = userService.getCurrentUser(connectedUser);
+            if (user != null) {
+                ticket.setUser(user);
+                return ticketRepository.save(ticket);
+            } else {
+                log.error("Utilisateur non trouvé.");
+                return null;
+            }*/
+            return ticketRepository.save(ticket);
+
+        }
     }
 
     @Override
@@ -85,17 +95,7 @@ public class TicketServices implements ITicketServices {
     }
 
     EventServices eventServices;
-//    @Override
-//    public List<Ticket> getTicketsByEvent(String nomevent) {
-//        Event event = eventServices.findByName(nomevent);
-//        List<Ticket> tickets = new ArrayList<>();
-//        if (event != null) {
-//            for (Ticket t : event.getTickets()) {
-//                tickets.add(t);
-//            }
-//        }
-//        return tickets;
-//    }
+
 
     @Override
     public List<Ticket> getTicketsByEvent(Long idevent) {
