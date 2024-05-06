@@ -18,9 +18,8 @@ public class Ticket implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long numTicket ;
     LocalDate dateTicket;
-    @OneToOne
+    @ManyToOne
     User user;
-    @JsonIgnore
     @ManyToOne
     Event event;
 }

@@ -1,8 +1,6 @@
 package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
@@ -10,6 +8,7 @@ import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.services.EventServices;
 import tn.esprit.pi.services.TicketServices;
+import tn.esprit.pi.services.UserServiceImp;
 
 import java.security.Principal;
 import java.util.List;
@@ -30,18 +29,18 @@ public class TicketRestController {
 //        return ticketService.createTicket(event, user);
 //    }
 
+    UserServiceImp userService;
     @PostMapping("/participate/{eventId}")
-    public Ticket participateEvent(@PathVariable Long eventId) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        Principal principal = (Principal) auth.getPrincipal();
+    public Ticket participateEvent(@PathVariable Long eventId, Principal principal) {
         Event event = eventService.getById(eventId);
-        return ticketServices.createTicket(event);
+        User user = userService.getCurrentUser(principal); // Obtenir l'utilisateur connecté
+        return ticketServices.createTicket(event, user); // Passer l'utilisateur à la méthode de création de ticket
     }
 
-    @PostMapping("/add/{idevent}")
-    public Ticket addTicket(@RequestBody Ticket ticket,@PathVariable Long idevent){
-        return  ticketServices.addTicket(ticket,idevent);
-    }
+//    @PostMapping("/add/{idevent}")
+//    public Ticket addTicket(@RequestBody Ticket ticket,@PathVariable Long idevent){
+//        return  ticketServices.addTicket(ticket,idevent);
+//    }
     @PutMapping("/update")
     public Ticket updateTicket(@RequestBody Ticket ticket){
         return ticketServices.updateTicket(ticket);

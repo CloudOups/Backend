@@ -47,9 +47,9 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<ReservationTerrain> reservationTerrains;
-
-    @OneToOne(mappedBy ="user")
-    private Ticket ticket;
+    @JsonIgnore
+    @OneToMany(mappedBy ="user" , fetch = FetchType.EAGER)
+    private Set<Ticket> tickets;
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy ="user")
     private Set<Commentaire> Commentaires;

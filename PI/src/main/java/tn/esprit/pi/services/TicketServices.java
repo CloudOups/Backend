@@ -14,6 +14,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +25,7 @@ public class TicketServices implements ITicketServices {
     IEventRepository eventRepository;
     UserRepository userRepository;
     UserServiceImp userService;
+    EmailQRcodeService emailServices;
 
     public boolean isEventFull(Long idEvent){
         Event event= eventRepository.findById(idEvent).orElse(null);
@@ -47,9 +49,8 @@ public class TicketServices implements ITicketServices {
             }
         }
     }
-    public Ticket createTicket(Event event) {
+    public Ticket createTicket(Event event, User user) {
         if (event == null) {
-            // Gérer le cas où l'événement est null
             log.error("L'événement est null.");
             return null;
         }
@@ -57,22 +58,50 @@ public class TicketServices implements ITicketServices {
         if (isEventFull(event.getNumevent())) {
             log.info("L'événement est complet, désolé.");
             return null;
-        } else {
-            Ticket ticket = new Ticket();
-            ticket.setEvent(event);
-            ticket.setDateTicket(LocalDate.now());
-
-           /* User user = userService.getCurrentUser(connectedUser);
-            if (user != null) {
-                ticket.setUser(user);
-                return ticketRepository.save(ticket);
-            } else {
-                log.error("Utilisateur non trouvé.");
-                return null;
-            }*/
-            return ticketRepository.save(ticket);
-
         }
+
+        // Vérifier si l'utilisateur a déjà un ticket pour cet événement
+        boolean userHasTicketForEvent = userHasTicketForEvent(user, event);
+        if (userHasTicketForEvent) {
+            log.info("L'utilisateur a déjà un ticket pour cet événement.");
+            return null; // Empêcher la création d'un nouveau ticket
+        }
+
+        Ticket ticket = new Ticket();
+        ticket.setEvent(event);
+        ticket.setDateTicket(LocalDate.now());
+        ticket.setUser(user);
+        sendEmailWithTicketDetails(ticket);
+
+        return ticketRepository.save(ticket);
+    }
+
+    // Méthode pour vérifier si l'utilisateur a déjà un ticket pour un événement
+    private boolean userHasTicketForEvent(User user, Event event) {
+        Set<Ticket> userTickets = user.getTickets();
+        for (Ticket ticket : userTickets) {
+            if (ticket.getEvent().equals(event)) {
+                return true; // L'utilisateur a déjà un ticket pour cet événement
+            }
+        }
+        return false;
+    }
+
+    private void sendEmailWithTicketDetails(Ticket ticket) {
+        String qrCodeDetails = "Nomevent: " + ticket.getEvent().getNomevent() + "\n"
+                +  ticket.getEvent().getImage() + "\n"
+                + "Date debut: " + ticket.getEvent().getDateDebut() + "\n"
+                + "L'emplacement: " + ticket.getEvent().getLocation() + "\n"
+                + "Firstname: " + ticket.getUser().getFirstname() + "\n"
+                + "Lastname: " + ticket.getUser().getLastname();
+
+        // Envoyer l'e-mail avec le QR code contenant les détails de l'événement
+        String subject = "Votre ticket pour l'événement : " + ticket.getEvent().getNomevent();
+        String message = "Bonjour " + ticket.getUser().getFirstname() + ",\n"
+                + "Vous avez réservé un ticket pour l'événement " + ticket.getEvent().getNomevent() + ".\n"
+                + "Veuillez trouver ci-joint votre ticket contenant les détails de l'événement.";
+
+        emailServices.sendEmailWithQRCode(subject, message, ticket.getUser().getEmail(), qrCodeDetails);
     }
 
     @Override
