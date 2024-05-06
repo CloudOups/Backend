@@ -2,7 +2,8 @@ package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.repository.cdi.Eager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Equipe;
 import tn.esprit.pi.entities.User;
@@ -11,15 +12,14 @@ import tn.esprit.pi.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 public class EquipeServices implements IEquipeServices{
-IEquipeRepository equipeRepository;
-UserRepository userRepository;
+    IEquipeRepository equipeRepository;
+    UserRepository userRepository;
     @Override
     public boolean isUserAlreadyInTeam(Integer userId) {
         List<Equipe> allTeams =  (List<Equipe>)equipeRepository.findAll();
@@ -33,7 +33,7 @@ UserRepository userRepository;
 
                 }
             }}
-            return false;}
+        return false;}
 
 
     @Override
@@ -41,18 +41,18 @@ UserRepository userRepository;
         Equipe existingEquipeOptional = equipeRepository.findByNomEquipe(equipe.getNomEquipe());
         if (existingEquipeOptional!=null) {log.warn("nom équipe existe!");return  null; }
         else{
-        if (!isUserAlreadyInTeam(idUser)) {
-            User user = userRepository.findById(idUser).orElse(null);
-            equipe.setChefEquipe(user);
-            Set<User> membresEquipe = new HashSet<>();
-            membresEquipe.add(user);
-            equipe.setMembresEquipe(membresEquipe);
+            if (!isUserAlreadyInTeam(idUser)) {
+                User user = userRepository.findById(idUser).orElse(null);
+                equipe.setChefEquipe(user);
+                Set<User> membresEquipe = new HashSet<>();
+                membresEquipe.add(user);
+                equipe.setMembresEquipe(membresEquipe);
 
-            return equipeRepository.save(equipe);
-        }
-    else log.warn("User already selected ");
-    return null;
-    }}
+                return equipeRepository.save(equipe);
+            }
+            else log.warn("User already selected ");
+            return null;
+        }}
 
     @Override
     public Equipe updateEquipe(Equipe equipe) {
@@ -78,15 +78,15 @@ UserRepository userRepository;
     @Override
     public Equipe demandeAdhesion(Long idequipe, Integer iduser) {
         User user = userRepository.findById(iduser).orElse(null);
-       Equipe equipe= equipeRepository.findById(idequipe).orElse(null);
-            if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
-                if (!isUserAlreadyInTeam(iduser)) {
-                    equipe.getMembresEnAttente().add(user);
-        return equipeRepository.save(equipe);}
+        Equipe equipe= equipeRepository.findById(idequipe).orElse(null);
+        if (equipe.getMembresEquipe().size() < equipe.getNbMemEquipe()) {
+            if (!isUserAlreadyInTeam(iduser)) {
+                equipe.getMembresEnAttente().add(user);
+                return equipeRepository.save(equipe);}
             else{
-                    log.warn("user already in team");
-                }
+                log.warn("user already in team");
             }
+        }
         else  {
             log.warn("L'equipe est complete ");}
 
@@ -116,14 +116,18 @@ UserRepository userRepository;
         }
         return null;
     }
-   @Override
+    @Override
     public Equipe getByNom(String nomEquipe) {
-       Equipe equipe= equipeRepository.findByNomEquipe(nomEquipe);
+        Equipe equipe= equipeRepository.findByNomEquipe(nomEquipe);
         if (equipe == null) {
-           log.warn("Pas d'équipe avec ce nom");
-       }
-       return equipe;
+            log.warn("Pas d'équipe avec ce nom");
         }
+        return equipe;
+    }
 
+    @Override
+    public Page<Equipe> getAllPagination(Pageable pageable){
+        return  equipeRepository.findAll(pageable);
 
+    }
 }

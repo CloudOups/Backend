@@ -3,22 +3,31 @@ package tn.esprit.pi.services;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.*;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
 
-import java.io.File;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,13 +49,18 @@ public class TerrainServices implements ITerrainServices{
         try {
             // Construct the file path
             String originalFilename = file.getOriginalFilename();
-            String filePath = Paths.get(uploadDirectory, originalFilename).toString();
+            String fileName = StringUtils.cleanPath(originalFilename);
 
             // Save the file to the upload directory
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(filePath);
+            Path path = Paths.get(uploadDirectory,fileName);
             Files.write(path, bytes);
 
+            Files.createDirectories(path.getParent());
+
+            try (OutputStream os = Files.newOutputStream(path)) {
+                os.write(bytes);
+            }
             // Set the image file name in terrain
             terrain.setImageTerrain(originalFilename);
 
@@ -59,7 +73,7 @@ public class TerrainServices implements ITerrainServices{
 
 
 
-@Override
+    @Override
     public Terrain updateTerrain(Terrain terrain) {
         return terrainRepository.save(terrain);
     }
@@ -102,16 +116,16 @@ public class TerrainServices implements ITerrainServices{
         for (ReservationTerrain reservation : expiredReservations) {
             // Update reservation state to false
             if (reservation.getEtatReser()){
-            reservation.setEtatReser(false);
-            reservationTerrRepository.save(reservation);
+                reservation.setEtatReser(false);
+                reservationTerrRepository.save(reservation);
 
-            // Free up the associated terrain
-            Terrain terrain = reservation.getTerrain();
-            terrain.setStatusTerrain(StatusTerrain.Libre);
-            terrainRepository.save(terrain);
+                // Free up the associated terrain
+                Terrain terrain = reservation.getTerrain();
+                terrain.setStatusTerrain(StatusTerrain.Libre);
+                terrainRepository.save(terrain);
 
-            log.info("Reservation number "+ reservation.getNumRes() +" is expired " );
-        }
+                log.info("Reservation number "+ reservation.getNumRes() +" is expired " );
+            }
             else
                 log.info("Reservation number "+ reservation.getNumRes() +" is already Expired and treated " );
 
@@ -167,5 +181,19 @@ public class TerrainServices implements ITerrainServices{
 
         return availableTerrainsByType;
     }
+    @Override
+    public Page<Terrain> getAllTerrains(Pageable pageable) {
+        return terrainRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Terrain> testerByTypeTerr(int page, int size) {
+        Sort sort=Sort.by("typeTerrain").ascending();
+        PageRequest pageable = PageRequest.of(page, size,sort); // Page 1 avec 10 éléments par page, ajustez selon vos besoins
+        return terrainRepository.findAll( pageable);    }
+
+
 
 }
+
+

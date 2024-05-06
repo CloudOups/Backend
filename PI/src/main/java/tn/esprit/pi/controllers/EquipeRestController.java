@@ -1,8 +1,12 @@
 package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.Equipe;
+import tn.esprit.pi.entities.Terrain;
 import tn.esprit.pi.services.EquipeServices;
 import tn.esprit.pi.services.IEquipeServices;
 
@@ -56,4 +60,11 @@ public class EquipeRestController {
     public Equipe getEquipeBynomEquipe(@PathVariable String nomEquipe) {
         return iequipeServices.getByNom(nomEquipe);
     }
+    @GetMapping("/get/allEquipes")
+    public Page<Equipe> getItems(@RequestParam(name = "page", defaultValue = "0") int page,
+                                 @RequestParam(name = "size", defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return iequipeServices.getAllPagination(pageable);
+    }
 }
+

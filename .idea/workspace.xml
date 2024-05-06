@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="683cd451-7ec5-4d0c-9347-06ce94b56af4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +17,6 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="com.haulmont.jpb.JpaEntity" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -28,6 +28,18 @@
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
+  <component name="KubernetesApiProvider">{
+  &quot;contexts&quot;: [
+    {
+      &quot;name&quot;: &quot;minikube&quot;,
+      &quot;originalNamespace&quot;: &quot;default&quot;
+    }
+  ],
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="KubernetesSettings">
+    <option name="contextName" value="minikube" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -37,6 +49,9 @@
         <option name="mavenHome" value="Use Maven wrapper" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -58,9 +73,9 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.PiApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;michel&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rania/Documents/GitHub/Backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/achou/Backend&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -94,13 +109,6 @@
       </method>
     </configuration>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -114,30 +122,9 @@
       <workItem from="1711400818729" duration="957000" />
       <workItem from="1711401786315" duration="507000" />
       <workItem from="1711402300459" duration="1782000" />
-      <workItem from="1713778233544" duration="4782000" />
-      <workItem from="1713845363027" duration="10600000" />
-      <workItem from="1713860227300" duration="58000" />
-      <workItem from="1713872959445" duration="1231000" />
-      <workItem from="1713887968082" duration="8787000" />
-      <workItem from="1713929105681" duration="13348000" />
-      <workItem from="1713947099249" duration="2164000" />
-      <workItem from="1713965970082" duration="8148000" />
-      <workItem from="1713991676695" duration="5745000" />
-      <workItem from="1714049266064" duration="424000" />
-      <workItem from="1714058998493" duration="238000" />
-      <workItem from="1714068203901" duration="4755000" />
-      <workItem from="1714151357559" duration="3700000" />
-      <workItem from="1714192859105" duration="2546000" />
-      <workItem from="1714212148674" duration="3412000" />
-      <workItem from="1714224350990" duration="15370000" />
-      <workItem from="1714372301477" duration="456000" />
-      <workItem from="1714412352926" duration="4917000" />
-      <workItem from="1714446453898" duration="2449000" />
-      <workItem from="1714468659117" duration="7239000" />
-      <workItem from="1714577321470" duration="1376000" />
-      <workItem from="1714590344276" duration="4574000" />
-      <workItem from="1714624246903" duration="2704000" />
-      <workItem from="1715031873627" duration="893000" />
+      <workItem from="1714562640226" duration="8539000" />
+      <workItem from="1714778428272" duration="1001000" />
+      <workItem from="1714928810754" duration="17342000" />
     </task>
     <servers />
   </component>

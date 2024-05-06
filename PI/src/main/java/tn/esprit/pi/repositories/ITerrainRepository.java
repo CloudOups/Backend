@@ -1,5 +1,6 @@
 package tn.esprit.pi.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,12 +15,11 @@ import java.util.List;
 
 @Repository
 
-public interface ITerrainRepository extends CrudRepository<Terrain,Long> {
+public interface ITerrainRepository extends JpaRepository<Terrain,Long> {
     List<Terrain> findByStatusTerrain(StatusTerrain statusTerrain);
     List<Terrain> findByTypeTerrain(TypeTerrain typeTerrain);
 
     Terrain findByNomTerrain(String nom);
-
     List<Terrain> findTerrainByTypeTerrain(TypeTerrain typeTerrain);
 
     //  List<Terrain> findDistinctByTypeTerrainAndReservations_DateDebutLessThanEqualAndReservations_DateFinGreaterThanEqual(TypeTerrain typeTerrain, LocalDate dateDebut, LocalDate dateFin);
