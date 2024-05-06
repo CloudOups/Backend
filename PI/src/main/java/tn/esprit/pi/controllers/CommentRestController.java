@@ -19,7 +19,6 @@ public class CommentRestController {
 
     @PostMapping("/addcommentaire/{publicationId}")
     public Commentaire addCommentaire(@PathVariable long publicationId,@RequestBody Commentaire commentaire) {
-
         commentaire.setDatecm(new Date());
         return commentaireService.addCommentaire(commentaire,publicationId);
     }
