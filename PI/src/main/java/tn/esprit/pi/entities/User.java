@@ -59,11 +59,13 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Publication> publications;
 
-    @OneToOne(mappedBy = "user")
-    private Panier panier;
+
+      /* @OneToOne(mappedBy = "user")
+    Panier panier; */
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private  Set<Commande> commandes;
+    Set<Commande> commandes = new HashSet<>();
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name())) ;
@@ -97,12 +99,7 @@ public class User implements UserDetails {
     }
 
 
-  /* @OneToOne(mappedBy = "user")
-    Panier panier; */
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-            @JsonIgnore
-    Set<Commande> commandes = new HashSet<>();
 
     public void addCommande(Commande commande) {
 
