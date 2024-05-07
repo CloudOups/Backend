@@ -11,10 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -48,6 +45,7 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy ="user")
     private Ticket ticket;
+    private String adresse;
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy ="user")
     private Set<Commentaire> Commentaires;
@@ -55,17 +53,29 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Publication> publications;
 
-    @OneToOne(mappedBy = "user")
-    private Panier panier;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private  Set<Commande> commandes;
+    Set<Commande> commandes = new HashSet<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name())) ;
     }
 
 
+    public void addCommande(Commande commande) {
+
+        if (commande != null) {
+
+            if (commandes == null) {
+                commandes = new HashSet<>();
+            }
+
+            commandes.add(commande);
+            commande.setUser(this);
+        }
+    }
 
     @Override
     public String getUsername() {
