@@ -76,7 +76,6 @@ public class TicketServices implements ITicketServices {
         return ticketRepository.save(ticket);
     }
 
-    // Méthode pour vérifier si l'utilisateur a déjà un ticket pour un événement
     private boolean userHasTicketForEvent(User user, Event event) {
         Set<Ticket> userTickets = user.getTickets();
         for (Ticket ticket : userTickets) {

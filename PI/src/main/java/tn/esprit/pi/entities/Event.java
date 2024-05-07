@@ -26,7 +26,7 @@ public class Event {
     String image;
     int nbParticipants;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
     Set<Ticket> tickets;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
