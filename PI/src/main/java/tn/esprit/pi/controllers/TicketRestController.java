@@ -8,7 +8,9 @@ import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.services.EventServices;
 import tn.esprit.pi.services.TicketServices;
+import tn.esprit.pi.services.UserServiceImp;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequestMapping("/ticket")
@@ -27,16 +29,18 @@ public class TicketRestController {
 //        return ticketService.createTicket(event, user);
 //    }
 
+    UserServiceImp userService;
     @PostMapping("/participate/{eventId}")
-    public Ticket participateEvent(@PathVariable Long eventId) {
+    public Ticket participateEvent(@PathVariable Long eventId, Principal principal) {
         Event event = eventService.getById(eventId);
-        return ticketServices.createTicket(event);
+        User user = userService.getCurrentUser(principal); // Obtenir l'utilisateur connecté
+        return ticketServices.createTicket(event, user); // Passer l'utilisateur à la méthode de création de ticket
     }
 
-    @PostMapping("/add/{idevent}")
-    public Ticket addTicket(@RequestBody Ticket ticket,@PathVariable Long idevent){
-        return  ticketServices.addTicket(ticket,idevent);
-    }
+//    @PostMapping("/add/{idevent}")
+//    public Ticket addTicket(@RequestBody Ticket ticket,@PathVariable Long idevent){
+//        return  ticketServices.addTicket(ticket,idevent);
+//    }
     @PutMapping("/update")
     public Ticket updateTicket(@RequestBody Ticket ticket){
         return ticketServices.updateTicket(ticket);

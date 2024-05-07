@@ -2,12 +2,13 @@ package tn.esprit.pi.services;
 
 import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
+import tn.esprit.pi.entities.User;
 
 import java.util.List;
 
 public interface ITicketServices {
     Ticket addTicket(Ticket ticket,Long idevent);
-    Ticket createTicket(Event event);
+    Ticket createTicket(Event event, User user);
     Ticket updateTicket(Ticket ticket);
     void deleteTicket(Long numticket);
     Ticket getById(Long numticket);

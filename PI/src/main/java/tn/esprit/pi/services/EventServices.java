@@ -2,6 +2,7 @@ package tn.esprit.pi.services;
 
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -26,6 +27,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class EventServices implements IEventServices {
 
@@ -34,7 +36,7 @@ public class EventServices implements IEventServices {
     ITicketRepository ticketRepository;
     UserRepository userRepository;
 
-    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images";
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images/event";
 
     @Override
     public Event add(Event event, MultipartFile file) {
@@ -90,6 +92,7 @@ public class EventServices implements IEventServices {
 
     public List<Event> getParticipationHistory(Integer userId) {
         List<Ticket> userTickets = ticketRepository.findByUser(userRepository.findById(userId));
+        log.info(String.valueOf(userTickets.size()));
         List<Event> participationHistory = new ArrayList<>();
         for (Ticket ticket : userTickets) {
             participationHistory.add(ticket.getEvent());

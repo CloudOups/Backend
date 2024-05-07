@@ -25,9 +25,11 @@ public class Event {
     LocalDate dateFin;
     String image;
     int nbParticipants;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
     Set<Ticket> tickets;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
     Set<Tournoi> tournois;
+
 }
