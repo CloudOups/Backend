@@ -130,6 +130,8 @@ public class TournoiServices implements ITournoiServices{
         reservationTerrain.setTerrain(terrainSelectionne);
         reservationTerrain.setDateDebut(tournoi.getDateDebut());
         reservationTerrain.setDateFin(tournoi.getDateFin());
+        reservationTerrain.setTypeRes(TypeReservation.Tournoi);
+        reservationTerrain.setPrixReser(0.0);
 
         reservationTerrain = reservationTerrRepository.save(reservationTerrain);
 
