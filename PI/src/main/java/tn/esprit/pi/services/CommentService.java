@@ -48,7 +48,6 @@ public class CommentService implements ICommentService {
     public Commentaire addCommentaire(Commentaire commentaire, long publicationId) {
         String sentiment = analyzeSentiment(commentaire.getContenucm());
         commentaire.setSentiment(sentiment);
-
         // Fetch the publication from the database using its ID
         Publication publication = publicationRepository.findById(publicationId).orElse(null);
         if (publication != null) {

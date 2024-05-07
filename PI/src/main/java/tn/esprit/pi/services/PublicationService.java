@@ -290,12 +290,12 @@ public class PublicationService implements IPublicationService {
         ));
 
         for (String keyword : sportsKeywords) {
-            if (subject.toLowerCase().contains(keyword.toLowerCase())) {
+            if (subject.toLowerCase().equals(keyword.toLowerCase())) {
                 return "Sports";
             }
         }
         for (String keyword : news) {
-            if (subject.toLowerCase().contains(keyword.toLowerCase())) {
+            if (subject.toLowerCase().equals(keyword.toLowerCase())) {
                 return "News";
             }
         }
