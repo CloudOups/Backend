@@ -10,6 +10,7 @@ import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.services.PublicationService;
 
 
+import java.io.IOException;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/publication")
@@ -21,7 +22,7 @@ public class PublicationRestController {
     private  PublicationService publicationService;
 
     @PostMapping("/add")
-    public Publication addPublication(@RequestBody Publication publication) {
+    public Publication addPublication(@RequestBody Publication publication) throws IOException {
         return publicationService.addPublication(publication);
     }
 

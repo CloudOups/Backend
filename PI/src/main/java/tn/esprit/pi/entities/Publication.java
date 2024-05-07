@@ -26,5 +26,6 @@ public class Publication {
     int likes;
     @ManyToOne
     private User user;
+    String category;
     
 }
