@@ -89,8 +89,8 @@ public class TerrainRestController {
         return ResponseEntity.ok(availableTerrainsByType);
     }
     @GetMapping("/get/allTerrains")
-    public Page<Terrain> getItems(@RequestParam(name = "page", defaultValue = "0") int page,
-                                  @RequestParam(name = "size", defaultValue = "10") int size,
+    public Page<Terrain> getItems(@RequestParam(name = "page") int page,
+                                  @RequestParam(name = "size") int size,
                                   @RequestParam(name = "sortBy", required = false) String sortBy) {
 
         Pageable pageable;

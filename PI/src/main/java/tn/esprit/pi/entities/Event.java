@@ -1,5 +1,6 @@
 package tn.esprit.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -26,6 +27,7 @@ public class Event {
     int nbParticipants;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     Set<Ticket> tickets;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
     Set<Tournoi> tournois;
 }

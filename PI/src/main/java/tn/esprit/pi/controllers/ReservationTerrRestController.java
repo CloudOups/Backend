@@ -8,10 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.pi.entities.EmailRequest;
-import tn.esprit.pi.entities.ReservationTerrain;
-import tn.esprit.pi.entities.Terrain;
-import tn.esprit.pi.entities.TypeTerrain;
+import tn.esprit.pi.entities.*;
 import tn.esprit.pi.repositories.IReservationTerrRepository;
 import tn.esprit.pi.services.ReservationTerrServices;
 import tn.esprit.pi.services.TerrainServices;
@@ -163,5 +160,17 @@ public class ReservationTerrRestController {
                                                              @RequestParam(name = "size") int size){
 
         return reservationTerrServices.testerByStatus(page,size);
+    }
+    @GetMapping("/most-3-reserved-terrains/")
+    public List<Terrain> getMost3ReservedTerrain() {
+        return reservationTerrServices.getMostReservedTerrains();
+    }
+    @GetMapping("/generate-promo-code")
+    public String generatePromoCode(@RequestParam(defaultValue = "8") int length) {
+        return reservationTerrServices.generatePromoCode(length);
+    }
+    @GetMapping("/validatePromoCode/{promoCode}")
+    public boolean validatePromoCode(@PathVariable String promoCode) {
+        return reservationTerrServices.isPromoCodeValidAndActive(promoCode);
     }
 }
