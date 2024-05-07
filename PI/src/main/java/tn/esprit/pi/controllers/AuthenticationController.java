@@ -45,8 +45,6 @@ public class AuthenticationController {
                 .body(new MessageResponse("check your email to verify your account !"));
     }
 
-
-
     @PostMapping("/resendVerification")
     public ResponseEntity<?> resendVerification(@RequestBody String email) {
 

@@ -38,11 +38,6 @@ public class SecurityConfig implements WebMvcConfigurer {
                         req.requestMatchers("/api/v1/auth/**")
                                 .permitAll()
                                 .requestMatchers("/api/v1/admin/**").hasAnyAuthority(Role.Admin.toString())
-                                .requestMatchers("/chatbot/**").permitAll()
-                                .requestMatchers("/api/v1/user/**").permitAll()
-                                .requestMatchers("/publication/**").permitAll()
-                                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
-
                                 .anyRequest()
                                 .authenticated()
                 )
@@ -65,7 +60,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:4200");
-        configuration.addAllowedOrigin("http://localhost:8089");
+        configuration.addAllowedOrigin("http://localhost:8083");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);

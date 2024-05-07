@@ -10,7 +10,6 @@ import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.services.PublicationService;
 
 
-import java.io.IOException;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/publication")
@@ -22,7 +21,7 @@ public class PublicationRestController {
     private  PublicationService publicationService;
 
     @PostMapping("/add")
-    public Publication addPublication(@RequestBody Publication publication) throws IOException {
+    public Publication addPublication(@RequestBody Publication publication) {
         return publicationService.addPublication(publication);
     }
 
@@ -78,17 +77,5 @@ public class PublicationRestController {
 
 
     //upload image
-    @PostMapping("/upload/{id}")
-    public Publication handleFileUpload(@RequestParam("photo") MultipartFile file, @PathVariable("id") long publicationcode) {
 
-        return publicationService.storeFile(file,publicationcode);
-    }
-    //affichage image
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName) {
-        Resource resource = publicationService.loadFileAsResource(fileName);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-    }
 }

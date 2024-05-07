@@ -1,44 +1,38 @@
 package tn.esprit.pi.services;
 
-//import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
-//import edu.stanford.nlp.trees.TreeCoreAnnotations;
-//import edu.stanford.nlp.util.CoreMap;
-import lombok.extern.slf4j.Slf4j;
+import edu.stanford.nlp.trees.TreeCoreAnnotations;
+import edu.stanford.nlp.util.CoreMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import tn.esprit.pi.entities.Commentaire;
 import tn.esprit.pi.entities.Publication;
 import tn.esprit.pi.repositories.ICommentRepository;
-//import edu.stanford.nlp.pipeline.Annotation;
-//import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-//import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
-//import edu.stanford.nlp.ling.CoreAnnotations;
-//import edu.stanford.nlp.trees.Tree;
-//import opennlp.tools.cmdline.PerformanceMonitor;
-//import opennlp.tools.cmdline.postag.POSModelLoader;
-//import opennlp.tools.postag.POSModel;
-//import opennlp.tools.postag.POSSample;
-//import opennlp.tools.postag.POSTaggerME;
-//import opennlp.tools.tokenize.WhitespaceTokenizer;
-//import opennlp.tools.util.ObjectStream;
-//import opennlp.tools.util.PlainTextByLineStream;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.trees.Tree;
+import opennlp.tools.cmdline.PerformanceMonitor;
+import opennlp.tools.cmdline.postag.POSModelLoader;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSSample;
+import opennlp.tools.postag.POSTaggerME;
+import opennlp.tools.tokenize.WhitespaceTokenizer;
+import opennlp.tools.util.ObjectStream;
+import opennlp.tools.util.PlainTextByLineStream;
 
-import java.io.Console;
 import java.util.Properties;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.repositories.IPublicationRepository;
-@Slf4j
 
 @Service
 public class CommentService implements ICommentService {
 
-
      @Autowired
      ICommentRepository commentaireRepository;
-    @Autowired
-    IPublicationRepository publicationRepository;
+     IPublicationRepository publicationRepository;
   //  private final StanfordCoreNLP pipeline;
 
 
@@ -54,7 +48,8 @@ public class CommentService implements ICommentService {
         if (publication != null) {
             commentaire.setPublication(publication);
         } else {
-
+            // Handle case where publication is not found
+            // You can throw an exception, return null, or handle it in another way based on your requirement
         }
 
         return commentaireRepository.save(commentaire);
@@ -90,33 +85,6 @@ public class CommentService implements ICommentService {
 
     @Override
     public String analyzeSentiment(String text) {
-        if (text == null || text.isEmpty()) {
-            return "Neutral";
-        }
-        text = text.toLowerCase();
-        String[] positiveWords = {"bravo", "original", "best", "good", "excellent", "behya",
-                "wonderful", "great", "amazing", "awesome", "fantastic", "superb",
-                "perfect", "nice", "beautiful", "love", "like", "happy",
-                "cool", "well done", "well", "well done","behya"};
-        String[] negativeWords = {"bad", "poor", "terrible", "worst", "disgusting",
-                "dislike", "hate", "disappointed", "disappointing", "disappointment", "disgusted"};
-        for (String word : positiveWords) {
-            if (text.contains(word)) {
-                return "Positive";
-            }
-        }
-        for (String word : negativeWords) {
-            if (text.contains(word)) {
-                return "Negative";
-            }
-        }
-
-        return "Neutral";
-
-    }
-
-
-  /*  public String analyzeSentiment(String text) {
         /*Annotation annotation = new Annotation(text);
         pipeline.annotate(annotation);
         for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
@@ -129,18 +97,8 @@ public class CommentService implements ICommentService {
                 sentiment = "Angry";
             }
             return sentiment;
-        }
+        }*/
         return "Neutral"; // Default to Neutral if sentiment cannot be determined
-    }*/
-
-
-//    private StanfordCoreNLP pipeline;
-//
-//    public void SentimentAnalysisService() {
-//        Properties props = new Properties();
-//        props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
-//        props.setProperty("tokenize.language", "en");
-//        pipeline = new StanfordCoreNLP(props);
-//    }
+    }
 
 }

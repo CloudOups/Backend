@@ -2,10 +2,8 @@ package tn.esprit.pi.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tn.esprit.pi.dto.requests.RegisterRequest;
 import tn.esprit.pi.dto.requests.UpdateUserRequest;
 import tn.esprit.pi.dto.responses.ImageResponse;
 import tn.esprit.pi.dto.responses.MessageResponse;
@@ -22,7 +20,6 @@ public class UserController {
 
     @GetMapping("/current")
     public ResponseEntity<?> getCurrent(Principal connectedUser) {
-        System.out.println("connectedUser.toString() ! "+connectedUser.toString());
         final User responseBody ;
         try {
             responseBody = userService.getCurrentUser(connectedUser);
@@ -30,14 +27,6 @@ public class UserController {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage())) ;
         }
         return ResponseEntity.ok().body(responseBody) ;
-    }
-
-    @GetMapping("/testUser")
-    public ResponseEntity<?> testUser(Principal connectedUser) {
-        System.out.println("connectedUser.toString() ! "+connectedUser.toString());
-        User userGotten = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-        return ResponseEntity.ok()
-                .body(userGotten.getId());
     }
 
     @PutMapping("/update")

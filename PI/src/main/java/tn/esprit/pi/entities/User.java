@@ -2,7 +2,6 @@ package tn.esprit.pi.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class User implements UserDetails,Serializable {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -37,8 +35,6 @@ public class User implements UserDetails,Serializable {
     @Column(unique = true)
     private String email;
     private String password;
-    String adresse;
-
     @Enumerated(EnumType.STRING)
     private Role role;
     private String imageName;
@@ -59,13 +55,11 @@ public class User implements UserDetails,Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Publication> publications;
 
-
-      /* @OneToOne(mappedBy = "user")
-    Panier panier; */
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user")
+    private Panier panier;
     @JsonIgnore
-    Set<Commande> commandes = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private  Set<Commande> commandes;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name())) ;
@@ -99,18 +93,4 @@ public class User implements UserDetails,Serializable {
     }
 
 
-
-
-    public void addCommande(Commande commande) {
-
-        if (commande != null) {
-
-            if (commandes == null) {
-                commandes = new HashSet<>();
-            }
-
-            commandes.add(commande);
-            commande.setUser(this);
-        }
-    }
 }

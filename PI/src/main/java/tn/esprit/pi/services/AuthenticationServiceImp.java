@@ -89,7 +89,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
         if(concernedUser.isEnabled()) throw new RuntimeException("user is already verified, proceed to login !") ;
         String fullName = concernedUser.getFirstname() + " " + concernedUser.getLastname() ;
         String verifyToken = createVerifyAccountToken(concernedUser) ;
-        String link = baseApiUrl + "/pi/api/v1/auth/verifyAccount?token=" + verifyToken ;
+        String link = baseApiUrl + "/api/v1/auth/verifyAccount?token=" + verifyToken ;
         Context context = new Context();
         context.setVariable("fullName",fullName);
         context.setVariable("link",link);
@@ -130,8 +130,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
                 )
         ) ;
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow() ;
-        var jwtToken = jwtService.generateToken(user, String.valueOf(user.getRole())) ;
-        var refreshToken = jwtService.generateRefreshToken(user, String.valueOf(user.getRole())) ;
+        var jwtToken = jwtService.generateToken(user) ;
+        var refreshToken = jwtService.generateRefreshToken(user) ;
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
@@ -145,8 +145,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
             var user = this.userRepository.findByEmail(userEmail)
                     .orElseThrow();
             if (jwtService.isTokenValid(refreshToken, user)) {
-                var newAccessToken = jwtService.generateToken(user, String.valueOf(user.getRole()));
-                var newRefreshToken = jwtService.generateRefreshToken(user, String.valueOf(user.getRole()));
+                var newAccessToken = jwtService.generateToken(user);
+                var newRefreshToken = jwtService.generateRefreshToken(user);
                 return  AuthenticationResponse.builder()
                         .accessToken(newAccessToken)
                         .refreshToken(newRefreshToken)

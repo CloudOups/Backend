@@ -24,7 +24,6 @@ public class UserServiceImp implements UserService{
 
     @Override
     public User getCurrentUser(Principal connectedUser) {
-        System.out.println(connectedUser);
         return (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
     }
 
