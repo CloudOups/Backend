@@ -48,6 +48,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<ReservationTerrain> reservationTerrains;
     @JsonIgnore
+    @OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
+    List<CodePromo> codePromos;
     @OneToMany(mappedBy ="user" , fetch = FetchType.EAGER)
     private Set<Ticket> tickets;
     @JsonIgnore

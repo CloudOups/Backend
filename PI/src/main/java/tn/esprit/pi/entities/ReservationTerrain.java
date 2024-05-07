@@ -26,8 +26,11 @@ public class ReservationTerrain implements Serializable {
     LocalDateTime dateDebut;
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime  dateFin;
+    @Temporal(TemporalType.TIMESTAMP)
+    LocalDateTime dateRes;
     @Enumerated(EnumType.STRING)
     TypeReservation typeRes;
+    String codePromo =null;
     Double PrixReser;
     //@JsonIgnore
     @ManyToOne

@@ -3,9 +3,7 @@ package tn.esprit.pi.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestParam;
-import tn.esprit.pi.entities.ReservationTerrain;
-import tn.esprit.pi.entities.Terrain;
-import tn.esprit.pi.entities.TypeTerrain;
+import tn.esprit.pi.entities.*;
 
 import java.util.List;
 
@@ -32,4 +30,8 @@ public interface IReservationTerrServices {
     Page<ReservationTerrain> testerByNomTerrain(int page, int size) ;
 
     Page<ReservationTerrain> testerByStatus(int page, int size);
+    public List<Terrain> getMostReservedTerrains();
+    String generatePromoCode(int length);
+     CodePromo generatePromoCodeForUserWithReservations(User user);
+    void applyPromoCodeForUser(CodePromo promoCode, User user);
 }
