@@ -1,13 +1,17 @@
 package tn.esprit.pi.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
+import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.services.EventServices;
 import tn.esprit.pi.services.UserServiceImp;
@@ -97,5 +101,21 @@ public class EventRestController {
         return new ResponseEntity<>(participationHistory, HttpStatus.OK);
     }
 
+
+    @GetMapping("/get/withpagination")
+    public Page<Event> getItems(@RequestParam(name = "page") int page,
+                                  @RequestParam(name = "size") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return eventServices.getAllPagination(pageable);
+    }
+
+    @GetMapping("/recommandations")
+    public List<Event> recommanderEvenements(Principal principal) {
+        User user = userService.getCurrentUser(principal);
+        if (eventServices.recommanderEvenements(user.getId()).isEmpty()) {
+            return eventServices.getUpcomingEvents();
+        }
+        return eventServices.recommanderEvenements(user.getId());
+    }
 
 }

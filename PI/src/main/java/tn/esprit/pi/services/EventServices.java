@@ -4,11 +4,14 @@ package tn.esprit.pi.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
+import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IEventRepository;
 import tn.esprit.pi.repositories.ITerrainRepository;
@@ -61,6 +64,7 @@ public class EventServices implements IEventServices {
             }
             // Set the image file name in terrain
             event.setImage(originalFilename);
+            event.setNbParticipants(30);
             return eventRepository.save(event);
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file " + file.getOriginalFilename(), e);
@@ -203,7 +207,10 @@ public class EventServices implements IEventServices {
         return upcomingEvents;
     }
 
-
+    @Override
+    public Page<Event> getAllPagination(Pageable pageable) {
+        return  eventRepository.findAll(pageable);
+    }
 //    @Scheduled(cron = "*/60 * * * * *")
 //
 //    @Override

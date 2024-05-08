@@ -9,6 +9,9 @@ import tn.esprit.pi.entities.User;
 import tn.esprit.pi.services.EventServices;
 import tn.esprit.pi.services.TicketServices;
 import tn.esprit.pi.services.UserServiceImp;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.security.Principal;
 import java.util.List;
@@ -22,25 +25,16 @@ public class TicketRestController {
     private TicketServices ticketServices;
     private EventServices eventService;
 
-//    @PostMapping("/participate/{eventId}/{userId}")
-//    public Ticket participateEvent(@PathVariable Long eventId, @PathVariable Long userId) {
-//        Event event = eventService.getById(eventId);
-//        User user = userService.getById(userId);
-//        return ticketService.createTicket(event, user);
-//    }
+
 
     UserServiceImp userService;
     @PostMapping("/participate/{eventId}")
     public Ticket participateEvent(@PathVariable Long eventId, Principal principal) {
         Event event = eventService.getById(eventId);
-        User user = userService.getCurrentUser(principal); // Obtenir l'utilisateur connecté
-        return ticketServices.createTicket(event, user); // Passer l'utilisateur à la méthode de création de ticket
+        User user = userService.getCurrentUser(principal);
+        return ticketServices.createTicket(event, user);
     }
 
-//    @PostMapping("/add/{idevent}")
-//    public Ticket addTicket(@RequestBody Ticket ticket,@PathVariable Long idevent){
-//        return  ticketServices.addTicket(ticket,idevent);
-//    }
     @PutMapping("/update")
     public Ticket updateTicket(@RequestBody Ticket ticket){
         return ticketServices.updateTicket(ticket);
@@ -64,6 +58,13 @@ public class TicketRestController {
     @GetMapping("/get/all")
     public List<Ticket> getAll(){
         return ticketServices.getAll();
+    }
+
+    @GetMapping("/get/withpagination")
+    public Page<Ticket> getItems(@RequestParam(name = "page") int page,
+                                  @RequestParam(name = "size") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ticketServices.getAllPagination(pageable);
     }
 
 //    @PutMapping("/assign/{idevent}/{idticket}")

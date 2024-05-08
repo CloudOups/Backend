@@ -2,9 +2,12 @@ package tn.esprit.pi.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Event;
 import tn.esprit.pi.entities.Ticket;
+import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IEventRepository;
 import tn.esprit.pi.repositories.ITicketRepository;
@@ -14,6 +17,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -44,11 +48,13 @@ public class TicketServices implements ITicketServices {
                 ticket.setEvent(event);
                 return ticketRepository.save(ticket);
             } else {
-                // Gérer le cas où l'événement n'est pas trouvé
+
                 return null;
             }
         }
     }
+
+    @Override
     public Ticket createTicket(Event event, User user) {
         if (event == null) {
             log.error("L'événement est null.");
@@ -60,11 +66,10 @@ public class TicketServices implements ITicketServices {
             return null;
         }
 
-        // Vérifier si l'utilisateur a déjà un ticket pour cet événement
         boolean userHasTicketForEvent = userHasTicketForEvent(user, event);
         if (userHasTicketForEvent) {
             log.info("L'utilisateur a déjà un ticket pour cet événement.");
-            return null; // Empêcher la création d'un nouveau ticket
+            return null;
         }
 
         Ticket ticket = new Ticket();
@@ -76,15 +81,16 @@ public class TicketServices implements ITicketServices {
         return ticketRepository.save(ticket);
     }
 
-    private boolean userHasTicketForEvent(User user, Event event) {
+    public boolean userHasTicketForEvent(User user, Event event) {
         Set<Ticket> userTickets = user.getTickets();
         for (Ticket ticket : userTickets) {
             if (ticket.getEvent().equals(event)) {
-                return true; // L'utilisateur a déjà un ticket pour cet événement
+                return true;
             }
         }
         return false;
     }
+
 
     private void sendEmailWithTicketDetails(Ticket ticket) {
         String qrCodeDetails = "Nomevent: " + ticket.getEvent().getNomevent() + "\n"
@@ -138,12 +144,8 @@ public class TicketServices implements ITicketServices {
     }
 
 
-//    @Override
-//    public Ticket assignToEvent(Long idevent, Long idticket) {
-//        Event event = eventRepository.findById(idevent).orElse(null);
-//        Ticket ticket= ticketRepository.findById(idticket).orElse(null);
-//        ticket.setEvent(event);
-//        return ticketRepository.save(ticket);
-//    }
-
+    @Override
+    public Page<Ticket> getAllPagination(Pageable pageable) {
+        return  ticketRepository.findAll(pageable);
+    }
 }

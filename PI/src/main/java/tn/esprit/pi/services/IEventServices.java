@@ -1,5 +1,7 @@
 package tn.esprit.pi.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.pi.entities.Event;
 
@@ -19,6 +21,7 @@ public interface IEventServices {
     List<Event> getIncompleteEvents();
     List<Event> getExpiredEvents();
     List<Event> getUpcomingEvents();
+    Page<Event> getAllPagination(Pageable pageable);
 
 
 }
