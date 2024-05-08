@@ -70,15 +70,16 @@ public class ReservationTerrServices implements IReservationTerrServices {
                 return null;
             }
             CodePromo promoCode = codePromoRepository.findValidPromoCodesByUserId(idUser);
-            log.info(promoCode.getCode());
+            //log.info(promoCode.getCode());
             generatePromoCodeForUserWithReservations(user);
-            if( isPromoCodeValidAndActive(promoCode.getCode())){
-                double totalPrice = calculateReservationPrice(reservationTerrain.getDateDebut(), reservationTerrain.getDateFin())*0.9;
-                reservationTerrain.setPrixReser(totalPrice);
-                promoCode.setEtatCodePromo(Boolean.FALSE);
-            } else {
+            if(promoCode==null){
                 double totalPrice = calculateReservationPrice(reservationTerrain.getDateDebut(), reservationTerrain.getDateFin());
                 reservationTerrain.setPrixReser(totalPrice);}
+    else { if( isPromoCodeValidAndActive(promoCode.getCode())){
+            double totalPrice = calculateReservationPrice(reservationTerrain.getDateDebut(), reservationTerrain.getDateFin())*0.9;
+            reservationTerrain.setPrixReser(totalPrice);
+            promoCode.setEtatCodePromo(Boolean.FALSE);
+        }}
             terrain.setStatusTerrain(StatusTerrain.valueOf("Reserve"));
                 reservationTerrain.setTerrain(terrain);
                 reservationTerrain.setUser(user);

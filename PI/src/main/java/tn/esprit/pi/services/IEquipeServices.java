@@ -17,6 +17,6 @@ public interface IEquipeServices {
     Equipe getByNom(String nomEquipe);
     Equipe demandeAdhesion(Long idequipe, Integer iduser);
     Equipe traiterAdhesion(Long idequipe,Integer userId,String reponse);
-
+    List<Equipe> getEquipeByNumTournoi(Long numTournoi);
     Page<Equipe> getAllPagination(Pageable pageable);
 }

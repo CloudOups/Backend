@@ -28,6 +28,7 @@ public class Equipe implements Serializable {
     @ManyToOne
     Tournoi tournoi;
 
+    
     // Relation Many-to-Many avec les membres de l'équipe
     @ManyToMany
     @JoinTable(
@@ -36,7 +37,6 @@ public class Equipe implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
      Set<User> membresEquipe;
-
     // Relation Many-to-Many avec les membres en attente
     @ManyToMany
     @JoinTable(

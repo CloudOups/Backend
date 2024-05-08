@@ -6,8 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tn.esprit.pi.entities.Equipe;
+import tn.esprit.pi.entities.Terrain;
+import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.IEquipeRepository;
+import tn.esprit.pi.repositories.ITournoiRepository;
 import tn.esprit.pi.repositories.UserRepository;
 
 import java.util.HashSet;
@@ -20,6 +23,7 @@ import java.util.Set;
 public class EquipeServices implements IEquipeServices{
     IEquipeRepository equipeRepository;
     UserRepository userRepository;
+    ITournoiRepository iTournoiRepository;
     @Override
     public boolean isUserAlreadyInTeam(Integer userId) {
         List<Equipe> allTeams =  (List<Equipe>)equipeRepository.findAll();
@@ -47,8 +51,9 @@ public class EquipeServices implements IEquipeServices{
                 Set<User> membresEquipe = new HashSet<>();
                 membresEquipe.add(user);
                 equipe.setMembresEquipe(membresEquipe);
-
-                return equipeRepository.save(equipe);
+                Tournoi tournoi = iTournoiRepository.findById(equipe.getTournoi().getNumTournoi()).orElse(null);
+                equipe.setTournoi(tournoi);
+                             return equipeRepository.save(equipe);
             }
             else log.warn("User already selected ");
             return null;
@@ -116,6 +121,13 @@ public class EquipeServices implements IEquipeServices{
         }
         return null;
     }
+
+    @Override
+    public List<Equipe> getEquipeByNumTournoi(Long numTournoi) {
+        Tournoi tournoi= iTournoiRepository.findById(numTournoi).orElse(null);
+       return equipeRepository.findByTournoi(tournoi);
+    }
+
     @Override
     public Equipe getByNom(String nomEquipe) {
         Equipe equipe= equipeRepository.findByNomEquipe(nomEquipe);
