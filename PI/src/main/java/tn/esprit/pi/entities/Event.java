@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,8 +25,8 @@ public class Event {
     String nomevent;
     String categorie;
     String location;
-    LocalDate dateDebut;
-    LocalDate dateFin;
+    LocalDateTime dateDebut;
+    LocalDateTime dateFin;
     String image;
     int nbParticipants;
     @JsonIgnore

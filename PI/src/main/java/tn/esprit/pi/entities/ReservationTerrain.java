@@ -38,6 +38,7 @@ public class ReservationTerrain implements Serializable {
     //@JsonIgnore
     @ManyToOne
     Terrain terrain;
+    @JsonIgnore
     @OneToOne
     Tournoi tournoi;
 
