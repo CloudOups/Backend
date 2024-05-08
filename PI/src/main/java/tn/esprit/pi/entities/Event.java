@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -27,9 +30,24 @@ public class Event {
     int nbParticipants;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Set<Ticket> tickets;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Set<Tournoi> tournois;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(numevent, event.numevent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numevent);
+    }
 
 }

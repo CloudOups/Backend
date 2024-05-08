@@ -50,6 +50,7 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
     List<CodePromo> codePromos;
+    @JsonIgnore
     @OneToMany(mappedBy ="user" , fetch = FetchType.EAGER)
     private Set<Ticket> tickets;
     @JsonIgnore
