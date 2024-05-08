@@ -287,13 +287,12 @@ public class ReservationTerrServices implements IReservationTerrServices {
                     String subject = "CODE PROMO";
                     String message = "Bonjour " + user.getFirstname() + ",\n\n"
                     +"Félicitations ! Vous avez reçu un nouveau code promo.\n"+
-                    "Code Promo: " + newPromoCode.getCode() + "\n"+
+                    "Scannez votre Code et l'utiliser avant la  "+
                      "Date d'expiration: " + newPromoCode.getDateExpCodePromo().toString() + "\n\n"+
                      "Utilisez ce code lors de votre prochaine commande pour bénéficier de la réduction.\n"+
                      "Merci de votre fidélité !\n\n"+
-                    "Cordialement,\nL'équipe de votre entreprise"
-                          +  "We look forward to welcoming you to the stadium. If you have any questions or need further assistance, feel free to contact us.\n\n" +
-                            "Best regards,\n" ;
+                    "Cordialement,\nL'équipe de votre entreprise "
+                            ;
 
                     // Send email
                     EmailRequest2 emailRequest = new EmailRequest2(userEmail, subject, message,newPromoCode.getCode());

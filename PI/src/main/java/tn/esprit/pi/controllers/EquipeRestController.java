@@ -29,9 +29,9 @@ public class EquipeRestController {
     private IEquipeServices iequipeServices;
     private final ITournoiRepository iTournoiRepository;
 
-    @PostMapping("/add/{iduser}")
-    public Equipe addEquipe(@RequestBody Equipe equipe, @PathVariable Integer iduser) {
-        return iequipeServices.addEquipe(equipe, iduser);
+    @PostMapping("/add/{iduser}/tour={idTournoi}")
+    public Equipe addEquipe(@RequestBody Equipe equipe, @PathVariable Integer iduser,@PathVariable Long idTournoi) {
+        return iequipeServices.addEquipe(equipe, iduser, idTournoi);
     }
 
     @PutMapping("/update")

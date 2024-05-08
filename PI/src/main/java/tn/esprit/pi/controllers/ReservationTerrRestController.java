@@ -30,6 +30,11 @@ public class ReservationTerrRestController {
     //    @PostMapping("/add/idUser=/{iduser}/idTerrain=/{idTerrain}")
 //    public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain reservationTerrain,@PathVariable Long iduser,@PathVariable Long idTerrain) {
 //        return reservationTerrServices.addReservationTerrain(reservationTerrain,iduser,idTerrain);
+//    }   @PutMapping("/demandeAdhesion/idequipe={idEquipe}")
+//    public Equipe demandeEquipe(@PathVariable Long idEquipe, Principal principal) {
+//        User user = userService.getCurrentUser(principal);
+//
+//        return iequipeServices.demandeAdhesion(idEquipe,user.getId());
 //    }
     @PostMapping("/add/idUser=/{iduser}/idTerrain=/{idTerrain}")
     public ReservationTerrain addReservationTerrain(@RequestBody ReservationTerrain reservationTerrain,@PathVariable Integer iduser,@PathVariable Long idTerrain) {

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface IEquipeServices {
     boolean isUserAlreadyInTeam(Integer userId);
-    Equipe addEquipe(Equipe equipe,Integer idUser);
+    Equipe addEquipe(Equipe equipe,Integer idUser,Long idTournoi);
     Equipe updateEquipe(Equipe equipe);
     void delete(Long numequipe);
     Equipe getById(Long numequipe);

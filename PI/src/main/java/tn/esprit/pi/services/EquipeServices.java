@@ -41,7 +41,7 @@ public class EquipeServices implements IEquipeServices{
 
 
     @Override
-    public Equipe addEquipe(Equipe equipe,Integer idUser) {
+    public Equipe addEquipe(Equipe equipe,Integer idUser,Long idTournoi) {
         Equipe existingEquipeOptional = equipeRepository.findByNomEquipe(equipe.getNomEquipe());
         if (existingEquipeOptional!=null) {log.warn("nom équipe existe!");return  null; }
         else{
@@ -51,7 +51,7 @@ public class EquipeServices implements IEquipeServices{
                 Set<User> membresEquipe = new HashSet<>();
                 membresEquipe.add(user);
                 equipe.setMembresEquipe(membresEquipe);
-                Tournoi tournoi = iTournoiRepository.findById(equipe.getTournoi().getNumTournoi()).orElse(null);
+                Tournoi tournoi = iTournoiRepository.findById(idTournoi).orElse(null);
                 equipe.setTournoi(tournoi);
                              return equipeRepository.save(equipe);
             }
