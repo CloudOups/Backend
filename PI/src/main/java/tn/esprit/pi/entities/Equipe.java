@@ -28,7 +28,7 @@ public class Equipe implements Serializable {
     @ManyToOne
     Tournoi tournoi;
 
-    
+
     // Relation Many-to-Many avec les membres de l'équipe
     @ManyToMany
     @JoinTable(
