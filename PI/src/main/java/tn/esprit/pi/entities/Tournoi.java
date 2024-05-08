@@ -24,7 +24,7 @@ public class  Tournoi implements Serializable {
     LocalDateTime dateDebut,dateFin;
     TypeTerrain typeTournoi;
     String Recompense;
-    @JsonIgnore
+@JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "tournoi")
     Set<Equipe> equipes;
     @OneToOne(mappedBy = "tournoi")
