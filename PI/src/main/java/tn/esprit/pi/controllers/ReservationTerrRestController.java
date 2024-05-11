@@ -178,4 +178,8 @@ public class ReservationTerrRestController {
     public boolean validatePromoCode(@PathVariable String promoCode) {
         return reservationTerrServices.isPromoCodeValidAndActive(promoCode);
     }
+    @GetMapping("/get/all/codepromo")
+    public List<CodePromo> getAllCode(){
+        return reservationTerrServices.getAllCodePromo();
+    }
 }

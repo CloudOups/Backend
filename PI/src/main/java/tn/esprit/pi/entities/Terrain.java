@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -26,6 +28,8 @@ public class Terrain implements Serializable {
     TypeTerrain typeTerrain;
     @JsonIgnore
     @OneToMany(mappedBy = "terrain", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+
     Set<ReservationTerrain> reservations;
 
 }

@@ -238,6 +238,12 @@ public class ReservationTerrServices implements IReservationTerrServices {
     }
 
     @Override
+    public List<CodePromo> getAllCodePromo() {
+        return (List<CodePromo>) codePromoRepository.findAll();
+
+    }
+
+    @Override
     public String generatePromoCode(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder promoCode = new StringBuilder();

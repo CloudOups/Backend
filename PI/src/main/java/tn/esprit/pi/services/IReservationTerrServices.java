@@ -31,6 +31,7 @@ public interface IReservationTerrServices {
 
     Page<ReservationTerrain> testerByStatus(int page, int size);
     public List<Terrain> getMostReservedTerrains();
+    List<CodePromo> getAllCodePromo();
     String generatePromoCode(int length);
      CodePromo generatePromoCodeForUserWithReservations(User user);
     void applyPromoCodeForUser(CodePromo promoCode, User user);
