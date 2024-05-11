@@ -75,6 +75,7 @@ public class TournoiServices implements ITournoiServices{
     public Tournoi creerTournoiAutomatique(Tournoi tournoi,Long idevent) {
         Event event = eventRepository.findById(idevent).orElse(null);
         tournoi.setEvent(event);
+        event.getTournois().add(tournoi);
         // reserv pour la meme date et heure
         boolean reservationExistante = reservationTerrRepository.existsByTerrainTypeTerrainAndDateFinBetween(
                 tournoi.getTypeTournoi(),tournoi.getDateDebut(), tournoi.getDateFin());
@@ -138,8 +139,9 @@ public class TournoiServices implements ITournoiServices{
         // assign reserv au tournoi
         tournoi.setReservation(reservationTerrain);
         reservationTerrain.setTournoi(tournoi);
+
         // assign le terrain selectionne au tournoi
-        tournoi.setTerrain(terrainSelectionne);
+        tournoi.getReservation().setTerrain(terrainSelectionne);
 
         return tournoiRepository.save(tournoi);
     }

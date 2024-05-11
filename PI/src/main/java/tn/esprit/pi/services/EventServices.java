@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,8 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -186,7 +189,7 @@ public class EventServices implements IEventServices {
         List<Event> allEvents = eventRepository.findAll();
         LocalDateTime currentDate = LocalDateTime.now();
         for (Event event : allEvents) {
-            if (event.getDateDebut() != null && event.getDateDebut().isBefore(ChronoLocalDate.from(currentDate))) {
+            if (event.getDateDebut() != null && event.getDateDebut().isBefore(ChronoLocalDateTime.from(currentDate))) {
                 expiredEvents.add(event);
             }
         }
@@ -200,12 +203,48 @@ public class EventServices implements IEventServices {
         LocalDateTime currentDate = LocalDateTime.now();
         for (Event event : allEvents) {
 
-            if (event.getDateDebut() != null && event.getDateDebut().isAfter(ChronoLocalDate.from(currentDate))) {
+            if (event.getDateDebut() != null && event.getDateDebut().isAfter(ChronoLocalDateTime.from((currentDate)))) {
                 upcomingEvents.add(event);
             }
         }
         return upcomingEvents;
     }
+
+    @Scheduled(cron = "0 0 0 * * *")
+
+    //@Scheduled(cron = "* * * * * *")
+    public void afficherJoursRestantsPourEvenements() {
+        User user = userRepository.findById(1).orElse(null);
+        if (user == null) {
+            log.info("Utilisateur non trouvé.");
+        }
+
+        List<Event> eventsWithUserTickets = getEventsWithUserTickets(user);
+        List<String> remainingDaysList = new ArrayList<>();
+
+        LocalDate today = LocalDate.now();
+
+        for (Event event : eventsWithUserTickets) {
+            long joursRestants = ChronoUnit.DAYS.between(today, event.getDateDebut());
+            log.info("Nombre de jours restants pour l'événement '" + event.getNomevent() + "': " + joursRestants);
+        }
+    }
+
+    public List<Event> getEventsWithUserTickets(User user) {
+        List<Event> eventsWithUserTickets = new ArrayList<>();
+
+        // Récupérer tous les tickets de l'utilisateur
+        Set<Ticket> userTickets = user.getTickets();
+
+        // Parcourir les tickets pour extraire les événements correspondants
+        for (Ticket ticket : userTickets) {
+            Event event = ticket.getEvent();
+            eventsWithUserTickets.add(event);
+        }
+
+        return eventsWithUserTickets;
+    }
+
 
     @Override
     public Page<Event> getAllPagination(Pageable pageable) {

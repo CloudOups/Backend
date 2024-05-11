@@ -118,4 +118,11 @@ public class EventRestController {
         return eventServices.recommanderEvenements(user.getId());
     }
 
+    @GetMapping("/remainingdays")
+    public void afficherJoursRestantsPourEvenements() {
+        eventServices.afficherJoursRestantsPourEvenements();
+    }
+
+
+
 }
