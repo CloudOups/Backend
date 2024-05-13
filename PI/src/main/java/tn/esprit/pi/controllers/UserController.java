@@ -14,6 +14,7 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService ;
@@ -29,25 +30,8 @@ public class UserController {
         return ResponseEntity.ok().body(responseBody) ;
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<?> updateCurrent(Principal connectedUser, @RequestBody UpdateUserRequest updatedUser) {
-        try {
-            userService.updateCurrentUser(connectedUser,updatedUser);
-        }catch(Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage())) ;
-        }
-        return ResponseEntity.ok().body("User updated successfully !") ;
-    }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteCurrent(Principal connectedUser) {
-        try {
-            userService.deleteCurrentUser(connectedUser);
-        }catch(Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage())) ;
-        }
-        return ResponseEntity.ok().body("User deleted successfully !") ;
-    }
+
 
 //    @PostMapping("/current/image")
 //    public ResponseEntity<?> addProfileImage(@RequestBody MultipartFile imageFile, Principal connectedUser)   {

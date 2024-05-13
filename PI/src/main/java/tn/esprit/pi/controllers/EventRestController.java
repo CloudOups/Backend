@@ -14,7 +14,6 @@ import tn.esprit.pi.entities.Ticket;
 import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.services.EventServices;
-import tn.esprit.pi.services.UserServiceImp;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -85,21 +84,14 @@ public class EventRestController {
         return eventServices.getUpcomingEvents();
     }
 
-    UserServiceImp userService;
+
 
 //    @GetMapping("/get/history")
-//    public List<Event> getParticipationHistory(Principal principal){
+//    public ResponseEntity<List<Event>> getParticipationHistory(Principal principal){
 //        User user = userService.getCurrentUser(principal);
-//        return  eventServices.getParticipationHistory(user.getId());
-//
+//        List<Event> participationHistory = eventServices.getParticipationHistory(user.getId()); // Assurez-vous que le nom de votre service est correct
+//        return new ResponseEntity<>(participationHistory, HttpStatus.OK);
 //    }
-
-    @GetMapping("/get/history")
-    public ResponseEntity<List<Event>> getParticipationHistory(Principal principal){
-        User user = userService.getCurrentUser(principal);
-        List<Event> participationHistory = eventServices.getParticipationHistory(user.getId()); // Assurez-vous que le nom de votre service est correct
-        return new ResponseEntity<>(participationHistory, HttpStatus.OK);
-    }
 
 
     @GetMapping("/get/withpagination")
@@ -109,14 +101,14 @@ public class EventRestController {
         return eventServices.getAllPagination(pageable);
     }
 
-    @GetMapping("/recommandations")
-    public List<Event> recommanderEvenements(Principal principal) {
-        User user = userService.getCurrentUser(principal);
-        if (eventServices.recommanderEvenements(user.getId()).isEmpty()) {
-            return eventServices.getUpcomingEvents();
-        }
-        return eventServices.recommanderEvenements(user.getId());
-    }
+//    @GetMapping("/recommandations")
+//    public List<Event> recommanderEvenements(Principal principal) {
+//        User user = userService.getCurrentUser(principal);
+//        if (eventServices.recommanderEvenements(user.getId()).isEmpty()) {
+//            return eventServices.getUpcomingEvents();
+//        }
+//        return eventServices.recommanderEvenements(user.getId());
+//    }
 
     @GetMapping("/remainingdays")
     public void afficherJoursRestantsPourEvenements() {

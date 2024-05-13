@@ -28,7 +28,6 @@ public class TicketServices implements ITicketServices {
     ITicketRepository ticketRepository;
     IEventRepository eventRepository;
     UserRepository userRepository;
-    UserServiceImp userService;
     EmailQRcodeService emailServices;
 
     public boolean isEventFull(Long idEvent){

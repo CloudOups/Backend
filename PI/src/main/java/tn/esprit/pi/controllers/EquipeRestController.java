@@ -12,7 +12,7 @@ import tn.esprit.pi.entities.User;
 import tn.esprit.pi.repositories.ITournoiRepository;
 import tn.esprit.pi.services.EquipeServices;
 import tn.esprit.pi.services.IEquipeServices;
-import tn.esprit.pi.services.UserServiceImp;
+import tn.esprit.pi.services.serServiceImp;
 
 
 import java.security.Principal;
@@ -24,7 +24,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 
 public class EquipeRestController {
-    UserServiceImp userService;
+    serServiceImp userService;
 
     private IEquipeServices iequipeServices;
     private final ITournoiRepository iTournoiRepository;

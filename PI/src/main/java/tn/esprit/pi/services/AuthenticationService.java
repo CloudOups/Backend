@@ -7,26 +7,15 @@ import tn.esprit.pi.dto.requests.RegisterRequest;
 import tn.esprit.pi.dto.responses.AuthenticationResponse;
 import tn.esprit.pi.entities.User;
 
+import javax.naming.AuthenticationException;
 import java.io.IOException;
 
 public interface AuthenticationService {
     public void register(RegisterRequest request) throws MessagingException;
-    public AuthenticationResponse authenticate(AuthenticationRequest request) ;
-    public AuthenticationResponse refreshToken(HttpServletRequest request, String refreshToken) throws IOException;
+    public User login(String email, String password) throws AuthenticationException ;
 
-    public void logout() ;
 
-    public void forgetPassword(String email) throws MessagingException;
 
-    public String createResetPasswordToken(User concernedUser ) ;
 
-    public String createVerifyAccountToken(User concernedUser ) ;
 
-    public Object verifyResetPasswordToken(String token) ;
-
-    public void resetPassword(String newPassword, String token) ;
-
-    public void sendVerifyAccountEmail(String email) throws  MessagingException;
-
-    public void verifyAccount(String token) ;
 }

@@ -8,7 +8,6 @@ import tn.esprit.pi.entities.Tournoi;
 import tn.esprit.pi.entities.User;
 import tn.esprit.pi.services.EventServices;
 import tn.esprit.pi.services.TicketServices;
-import tn.esprit.pi.services.UserServiceImp;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,13 +26,11 @@ public class TicketRestController {
 
 
 
-    UserServiceImp userService;
-    @PostMapping("/participate/{eventId}")
-    public Ticket participateEvent(@PathVariable Long eventId, Principal principal) {
-        Event event = eventService.getById(eventId);
-        User user = userService.getCurrentUser(principal);
-        return ticketServices.createTicket(event, user);
-    }
+//    @PostMapping("/participate/{eventId}")
+//    public Ticket participateEvent(@PathVariable Long eventId, Principal principal) {
+//        Event event = eventService.getById(eventId);
+//        return ticketServices.createTicket(event, user);
+//    }
 
     @PutMapping("/update")
     public Ticket updateTicket(@RequestBody Ticket ticket){
