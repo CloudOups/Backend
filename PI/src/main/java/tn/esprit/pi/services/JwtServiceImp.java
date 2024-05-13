@@ -71,12 +71,16 @@ public class JwtServiceImp implements JwtService{
     }
 
     public Claims extractAllClaims(String token) {
+        if (token == null || token.isEmpty()) {
+            // Handle empty or null token
+            throw new IllegalArgumentException("Token is empty or null");
+        }
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInkey())
                 .build()
                 .parseClaimsJws(token)
-                .getBody() ;
+                .getBody();
     }
 
     public Key getSignInkey() {

@@ -13,7 +13,7 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  app:
+  backend:
     build: .
     depends_on:
       - mysql_db
@@ -36,6 +36,12 @@ services:
       - ./src/main/resources/application.yml:/workdir/server/src/main/resources/application.yml
     stdin_open: true
     tty: true
+
+  frontend:
+    image: achillesxv/frontendpi
+    restart: always
+    ports:
+      - "80:80"
 
 volumes:
   db:

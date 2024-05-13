@@ -3,16 +3,15 @@ package tn.esprit.pi.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tn.esprit.pi.entities.EmailRequest;
 import tn.esprit.pi.entities.EmailRequest2;
 import tn.esprit.pi.services.EmailServices;
 import tn.esprit.pi.services.IQrEmailService;
 
 @RestController
+@CrossOrigin(origins = "*")
+
 public class EmailController {
     private EmailServices emailService;
     private IQrEmailService iQrEmailService;

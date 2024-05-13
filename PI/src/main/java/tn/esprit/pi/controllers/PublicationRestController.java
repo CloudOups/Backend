@@ -11,7 +11,7 @@ import tn.esprit.pi.services.PublicationService;
 
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("/publication")
 @RestController
 public class PublicationRestController {
